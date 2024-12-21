@@ -10,4 +10,9 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="progettoISPW" options="--module-path $USER_HOME$/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml" />
+    </option>
+  </component>
 </project>
