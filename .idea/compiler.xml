@@ -6,12 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="progettoISPW" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="module-info.java" target="19" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="module-info.java" options="--module-path $USER_HOME$/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml" />
       <module name="progettoISPW" options="--module-path $USER_HOME$/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml" />
     </option>
   </component>
