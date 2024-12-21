@@ -67,7 +67,7 @@
                         <arg>--module-path</arg>
                         <arg>${javafx.sdk.path}</arg> <!-- Usa la variabile per il percorso -->
                         <arg>--add-modules</arg>
-                        <arg>javafx.controls,javafx.fxml</arg>
+                        <arg>javafx.controls,javafx.fxml,javafx.base,javafx.graphics</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
