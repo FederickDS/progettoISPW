@@ -1,4 +1,4 @@
-module org.example {
+module progettoISPW {
     requires javafx.controls;
     requires javafx.fxml;
 

@@ -16,6 +16,8 @@
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <sonar.organization>federickds</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <javafx.sdk.path>/home/federico/javafx-sdk-21.0.5/lib</javafx.sdk.path>
+        <path.to.javafx.lib>/home/federico/javafx-sdk-21.0.5/lib</path.to.javafx.lib>
     </properties>
 
     <dependencies>
