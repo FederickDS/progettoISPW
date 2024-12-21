@@ -5,6 +5,7 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build and analyze
@@ -30,8 +31,12 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      # Impostare la variabile d'ambiente per JavaFX
+      - name: Set JAVA_FX_PATH
+        run: echo "JAVA_FX_PATH=/home/federico/javafx-sdk-21.0.5/lib" >> $GITHUB_ENV
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_FX_PATH: ${{ secrets.JAVA_FX_PATH }}  # Usa la variabile di ambiente
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=FederickDS_progettoISPW
