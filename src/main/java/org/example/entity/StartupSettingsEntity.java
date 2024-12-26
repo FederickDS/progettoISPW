@@ -18,15 +18,10 @@ public class StartupSettingsEntity implements Serializable {
     // Metodo pubblico per ottenere l'istanza Singleton
     public static StartupSettingsEntity getInstance() {
         if (instance == null) {
-            synchronized (StartupSettingsEntity.class) {
-                if (instance == null) {
-                    instance = new StartupSettingsEntity();
-                }
+            instance = new StartupSettingsEntity();
             }
-        }
         return instance;
     }
-
     // Getters e Setters
     public String getStorageOption() {
         return storageOption;
