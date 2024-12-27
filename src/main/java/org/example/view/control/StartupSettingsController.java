@@ -1,6 +1,6 @@
-package org.example.control;
+package org.example.view.control;
 
-import org.example.entity.StartupSettingsEntity;
+import org.example.control.StartupSettingsSaving;
 import org.example.view.StartupSettingsView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -9,9 +9,11 @@ import java.util.logging.Logger;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
+    private final Stage stage;
     Logger logger = Logger.getLogger(getClass().getName());
 
     public StartupSettingsController(Stage stage) {
+        this.stage = stage;
         view = new StartupSettingsView();
         view.start(stage);
         initController();
@@ -20,33 +22,39 @@ public class StartupSettingsController {
     private void initController() {
         view.getConfirmButton().setOnAction(e -> handleConfirmButton());
     }
+
     private void handleConfirmButton() {
         String storageOption = null;
         String interfaceOption = null;
-        if (view.getInternalMemoryOption().isSelected()){
+
+        // Verifica della selezione della modalità di memorizzazione
+        if (view.getInternalMemoryOption().isSelected()) {
             storageOption = "stateless";
-        }else if (view.getDatabaseOption().isSelected()) {
+        } else if (view.getDatabaseOption().isSelected()) {
             storageOption = "database";
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona dove salvare i dati.", ButtonType.OK);
             alert.showAndWait();
+            return;
         }
 
-        if (view.getColorInterfaceOption().isSelected()){
+        // Verifica della selezione della modalità dell'interfaccia
+        if (view.getColorInterfaceOption().isSelected()) {
             interfaceOption = "color";
-        }else if (view.getBwInterfaceOption().isSelected()) {
+        } else if (view.getBwInterfaceOption().isSelected()) {
             interfaceOption = "BW";
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona i possibili tipi di interfacce", ButtonType.OK);
             alert.showAndWait();
+            return;
         }
 
-
+        // Salvataggio delle impostazioni nell'entità
         StartupSettingsSaving settingsSaving = new StartupSettingsSaving();
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
-        // Usa l'entità salvata per ulteriori operazioni
-        StartupSettingsEntity savedSettings = settingsSaving.getSettings();
-        logger.info("Dati correttamente salvati ");
+        // Passaggio del controllo a HomePageController
+        HomePageController homePageController = new HomePageController(stage);
+        homePageController.loadHomePage();
     }
 }
