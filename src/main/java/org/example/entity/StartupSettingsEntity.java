@@ -8,19 +8,17 @@ public class StartupSettingsEntity implements Serializable {
     private String storageOption;
     private String interfaceOption;
 
-    // Istanza statica unica
-    private static StartupSettingsEntity instance;
-
     // Costruttore privato per impedire l'instanziazione diretta
     private StartupSettingsEntity() {
+    }
+    //correzione di Sonacloud per corretta gestione di una classe Singleton: istanza statica unica
+    private static class SingletonHelper {
+        private static final StartupSettingsEntity INSTANCE = new StartupSettingsEntity();
     }
 
     // Metodo pubblico per ottenere l'istanza Singleton
     public static StartupSettingsEntity getInstance() {
-        if (instance == null) {
-            instance = new StartupSettingsEntity();
-            }
-        return instance;
+        return SingletonHelper.INSTANCE;
     }
     // Getters e Setters
     public String getStorageOption() {

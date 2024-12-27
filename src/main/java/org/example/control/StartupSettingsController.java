@@ -21,22 +21,32 @@ public class StartupSettingsController {
         view.getConfirmButton().setOnAction(e -> handleConfirmButton());
     }
     private void handleConfirmButton() {
-        String storageOption = view.getInternalMemoryOption().isSelected() ? "Memoria Interna" :
-                view.getDatabaseOption().isSelected() ? "Database" : null;
-
-        String interfaceOption = view.getColorInterfaceOption().isSelected() ? "A colori" :
-                view.getBwInterfaceOption().isSelected() ? "Bianco e Nero" : null;
-
-        if (storageOption == null || interfaceOption == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Per favore seleziona entrambe le opzioni.", ButtonType.OK);
+        String storageOption = null;
+        String interfaceOption = null;
+        if (view.getInternalMemoryOption().isSelected()){
+            storageOption = "stateless";
+        }else if (view.getDatabaseOption().isSelected()) {
+            storageOption = "database";
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona dove salvare i dati.", ButtonType.OK);
             alert.showAndWait();
-        } else {
-            StartupSettingsSaving settingsSaving = new StartupSettingsSaving();
-            settingsSaving.saveSettings(storageOption, interfaceOption);
-
-            // Usa l'entità salvata per ulteriori operazioni
-            StartupSettingsEntity savedSettings = settingsSaving.getSettings();
-            logger.info("Dati salvati: " + savedSettings);
         }
+
+        if (view.getColorInterfaceOption().isSelected()){
+            interfaceOption = "color";
+        }else if (view.getBwInterfaceOption().isSelected()) {
+            interfaceOption = "BW";
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona i possibili tipi di interfacce", ButtonType.OK);
+            alert.showAndWait();
+        }
+
+
+        StartupSettingsSaving settingsSaving = new StartupSettingsSaving();
+        settingsSaving.saveSettings(storageOption, interfaceOption);
+
+        // Usa l'entità salvata per ulteriori operazioni
+        StartupSettingsEntity savedSettings = settingsSaving.getSettings();
+        logger.info("Dati correttamente salvati ");
     }
 }

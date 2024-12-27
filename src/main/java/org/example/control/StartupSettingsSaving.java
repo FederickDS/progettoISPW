@@ -18,8 +18,6 @@ public class StartupSettingsSaving {
         settings.setStorageOption(storageOption);
         settings.setInterfaceOption(interfaceOption);
 
-        // Log delle informazioni salvate
-        //logger.info("Impostazioni salvate con successo: " + settings.toString());
     }
 
     public StartupSettingsEntity getSettings() {
