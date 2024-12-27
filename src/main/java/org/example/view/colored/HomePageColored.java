@@ -14,19 +14,7 @@ public class HomePageColored extends HomePage {
         String buttonStyle = "-fx-background-color: #2E3A8C; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-border-radius: 5;";
         String buttonHoverStyle = "-fx-background-color: #5F8FA6; -fx-text-fill: #FFFFFF;";
 
-        bookRoom.setStyle(buttonStyle);
-        bookActivity.setStyle(buttonStyle);
-        login.setStyle(buttonStyle);
-
-        // Cambia colore al passaggio del mouse
-        bookRoom.setOnMouseEntered(e -> bookRoom.setStyle(buttonHoverStyle));
-        bookRoom.setOnMouseExited(e -> bookRoom.setStyle(buttonStyle));
-
-        bookActivity.setOnMouseEntered(e -> bookActivity.setStyle(buttonHoverStyle));
-        bookActivity.setOnMouseExited(e -> bookActivity.setStyle(buttonStyle));
-
-        login.setOnMouseEntered(e -> login.setStyle(buttonHoverStyle));
-        login.setOnMouseExited(e -> login.setStyle(buttonStyle));
+        setStyleDuplicateCode(bookRoom, bookActivity, login, buttonStyle, buttonHoverStyle);
 
         // Stile del titolo e della descrizione
         title.setStyle("-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-weight: bold;");
