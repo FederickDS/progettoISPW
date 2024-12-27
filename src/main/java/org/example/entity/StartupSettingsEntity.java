@@ -1,6 +1,6 @@
 package org.example.entity;
 
-import org.example.factory.GUIBW;
+import org.example.factory.GUIBw;
 import org.example.factory.GUIColored;
 import org.example.factory.GUIFactory;
 
@@ -51,7 +51,7 @@ public class StartupSettingsEntity implements Serializable {
     // Metodo per determinare il tipo di GUI
     public GUIFactory typeOfGUI() {
         if ("BW".equalsIgnoreCase(getInstance().interfaceOption)) {
-            return new GUIBW();
+            return new GUIBw();
         } else if ("color".equalsIgnoreCase(getInstance().interfaceOption)) {
             return new GUIColored();
         } else {

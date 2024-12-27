@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public abstract class HomePage {
     protected VBox root;
 
-    public HomePage() {
+    protected HomePage() {
         // Inizializzazione layout
         root = new VBox(20);
         root.setPrefSize(600, 400);

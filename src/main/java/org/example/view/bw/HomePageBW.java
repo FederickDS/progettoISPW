@@ -1,4 +1,4 @@
-package org.example.view.BW;
+package org.example.view.bw;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
