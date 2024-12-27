@@ -3,6 +3,7 @@ module org.example {
     requires javafx.fxml;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.logging;
 
     // Consente a JavaFX di accedere al package principale
     opens org.example to javafx.fxml;

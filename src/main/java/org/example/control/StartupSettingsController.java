@@ -5,9 +5,11 @@ import org.example.view.StartupSettingsView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import java.util.logging.Logger;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public StartupSettingsController(Stage stage) {
         view = new StartupSettingsView();
@@ -34,7 +36,7 @@ public class StartupSettingsController {
 
             // Usa l'entità salvata per ulteriori operazioni
             StartupSettingsEntity savedSettings = settingsSaving.getSettings();
-            System.out.println("Dati salvati: " + savedSettings);
+            logger.info("Dati salvati: " + savedSettings);
         }
     }
 }
