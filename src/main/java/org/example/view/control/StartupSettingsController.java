@@ -5,12 +5,10 @@ import org.example.view.StartupSettingsView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import java.util.logging.Logger;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
     private final Stage stage;
-    Logger logger = Logger.getLogger(getClass().getName());
 
     public StartupSettingsController(Stage stage) {
         this.stage = stage;
@@ -24,8 +22,8 @@ public class StartupSettingsController {
     }
 
     private void handleConfirmButton() {
-        String storageOption = null;
-        String interfaceOption = null;
+        String storageOption;
+        String interfaceOption;
 
         // Verifica della selezione della modalità di memorizzazione
         if (view.getInternalMemoryOption().isSelected()) {

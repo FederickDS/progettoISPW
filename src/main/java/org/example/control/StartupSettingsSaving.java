@@ -1,10 +1,8 @@
 package org.example.control;
 
 import org.example.entity.StartupSettingsEntity;
-import java.util.logging.Logger;
 
 public class StartupSettingsSaving {
-    Logger logger = Logger.getLogger(getClass().getName());
 
     public void saveSettings(String storageOption, String interfaceOption) {
         if (storageOption == null || interfaceOption == null) {

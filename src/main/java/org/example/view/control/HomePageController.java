@@ -20,12 +20,7 @@ public class HomePageController {
         String interfaceOption = StartupSettingsEntity.getInstance().getInterfaceOption();
 
         // Seleziona la factory appropriata in base all'opzione salvata
-        GUIFactory factory;
-        if ("BW".equalsIgnoreCase(interfaceOption)) {
-            factory = new GUIBW();
-        } else {
-            factory = new GUIColored();
-        }
+        GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
 
         // Crea l'HomePage tramite la factory
         HomePage homePage = factory.createHomePage();

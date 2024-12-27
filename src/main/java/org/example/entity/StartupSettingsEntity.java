@@ -1,9 +1,12 @@
 package org.example.entity;
 
+import org.example.factory.GUIBW;
+import org.example.factory.GUIColored;
+import org.example.factory.GUIFactory;
+
 import java.io.Serializable;
 
 public class StartupSettingsEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private String storageOption;
     private String interfaceOption;
@@ -43,5 +46,16 @@ public class StartupSettingsEntity implements Serializable {
                 "storageOption='" + storageOption + '\'' +
                 ", interfaceOption='" + interfaceOption + '\'' +
                 '}';
+    }
+
+    // Metodo per determinare il tipo di GUI
+    public GUIFactory typeOfGUI() {
+        if ("BW".equalsIgnoreCase(getInstance().interfaceOption)) {
+            return new GUIBW();
+        } else if ("color".equalsIgnoreCase(getInstance().interfaceOption)) {
+            return new GUIColored();
+        } else {
+            throw new IllegalArgumentException("Tipo di GUI non supportato: " + getInstance().interfaceOption);
+        }
     }
 }
