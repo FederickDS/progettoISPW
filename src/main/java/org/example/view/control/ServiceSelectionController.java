@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final NavigationManager navigationManager;
+    private final Stage stage;
 
-    public ServiceSelectionController(NavigationManager navigationManager) {
-        this.navigationManager = navigationManager;
+    public ServiceSelectionController(Stage stage) {
+        this.stage = stage;
     }
 
     public void loadServiceSelection() {
@@ -22,7 +22,7 @@ public class ServiceSelectionController {
 
         serviceSelection = factory.createServiceSelection();
         // Inizializza la view
-        initController(navigationManager.getStage());
+        initController(this.stage);
     }
 
     private void initController(Stage stage) {
@@ -49,6 +49,7 @@ public class ServiceSelectionController {
 
     private void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
+        NavigationManager navigationManager = new NavigationManager(stage);
         navigationManager.navigateToHomePage();
     }
 }

@@ -14,21 +14,21 @@ public class NavigationManager {
 
     public void navigateToStartupSettings(){
         if(startupSettingsController == null){
-            startupSettingsController = new StartupSettingsController(this);
+            startupSettingsController = new StartupSettingsController(this.stage);
         }
         startupSettingsController.loadStartupSettings();
     }
 
     public void navigateToHomePage() {
         if(homePageController == null){
-            homePageController = new HomePageController(this);
+            homePageController = new HomePageController(this.stage);
         }
         homePageController.loadHomePage();
     }
 
     public void navigateToServiceSelection() {
         if(serviceSelectionController == null){
-            serviceSelectionController = new ServiceSelectionController(this);
+            serviceSelectionController = new ServiceSelectionController(this.stage);
         }
         serviceSelectionController.loadServiceSelection();
     }

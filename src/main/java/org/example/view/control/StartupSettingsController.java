@@ -8,15 +8,15 @@ import javafx.stage.Stage;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
-    private final NavigationManager navigationManager;
+    private final Stage stage;
 
-    public StartupSettingsController(NavigationManager navigationManager) {
-        this.navigationManager = navigationManager;
+    public StartupSettingsController(Stage stage) {
+        this.stage = stage;
         view = new StartupSettingsView();
     }
 
     protected void loadStartupSettings(){
-        view.start(navigationManager.getStage());
+        view.start(stage);
         initController();
     }
 
@@ -55,6 +55,7 @@ public class StartupSettingsController {
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
         // Passaggio del controllo a HomePageController
+        NavigationManager navigationManager = new NavigationManager(stage);
         navigationManager.navigateToHomePage();
     }
 }
