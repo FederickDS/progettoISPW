@@ -1,13 +1,9 @@
 package org.example.view.control;
 
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 public class NavigationManager implements NavigationService{
     private final Stage stage;
-    private StartupSettingsController startupSettingsController;
-    private HomePageController homePageController;
-    private ServiceSelectionController serviceSelectionController;
 
     public NavigationManager(Stage stage) {
         this.stage = stage;
