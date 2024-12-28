@@ -17,7 +17,7 @@ public class ServiceSelectionColored extends ServiceSelection {
 
         // Stile dei bottoni
         String buttonStyle = "-fx-background-color: #2E3A8C; -fx-text-fill: #FFFFFF; -fx-font-weight: bold;";
-        String buttonHoverStyle = "-fx-background-color: #5F8FA6; -fx-text-fill: #FFFFFF;";
+        String buttonHoverStyle = "-fx-background-color: #5F8FA6; -fx-text-fill: #FFFFFF; -fx-font-weight: bold;";
 
         setStyleDuplicate(buttonStyle, buttonHoverStyle, confirmButton, cancelButton);
     }

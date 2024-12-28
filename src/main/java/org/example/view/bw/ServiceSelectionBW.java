@@ -9,15 +9,15 @@ public class ServiceSelectionBW extends ServiceSelection {
     @Override
     protected void setStyle(Label serviceLabel, Label activityLabel, Button confirmButton, Button cancelButton) {
         // Sfondo nero
-        root.setStyle("-fx-background-color: #000000; -fx-padding: 20; -fx-alignment: center;");
+        root.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-alignment: center;");
 
         // Stile dei titoli
-        serviceLabel.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 16px; -fx-font-weight: bold;");
-        activityLabel.setStyle("-fx-text-fill: #FFFFFF; -fx-font-size: 16px; -fx-font-weight: bold;");
+        serviceLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold;");
+        activityLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold;");
 
         // Stile dei bottoni
         String buttonStyle = "-fx-background-color: #333333; -fx-text-fill: #FFFFFF; -fx-font-weight: bold;";
-        String buttonHoverStyle = "-fx-background-color: #555555; -fx-text-fill: #FFFFFF;";
+        String buttonHoverStyle = "-fx-background-color: #555555; -fx-text-fill: #FFFFFF; -fx-font-weight: bold;";
 
         setStyleDuplicate(buttonStyle, buttonHoverStyle, confirmButton, cancelButton);
     }

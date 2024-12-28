@@ -12,7 +12,7 @@ public class HomePageColored extends HomePage {
 
         // Stile dei bottoni
         String buttonStyle = "-fx-background-color: #2E3A8C; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-border-radius: 5;";
-        String buttonHoverStyle = "-fx-background-color: #5F8FA6; -fx-text-fill: #FFFFFF;";
+        String buttonHoverStyle = "-fx-background-color: #5F8FA6; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-border-radius: 5;";
 
         setStyleDuplicateCode(bookRoom, bookActivity, login, buttonStyle, buttonHoverStyle);
 
