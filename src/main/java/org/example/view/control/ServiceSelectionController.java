@@ -1,5 +1,6 @@
 package org.example.view.control;
 
+import org.example.control.BookRoom;
 import org.example.entity.StartupSettingsEntity;
 import org.example.factory.GUIFactory;
 import org.example.view.ServiceSelection;
@@ -45,8 +46,11 @@ public class ServiceSelectionController {
 
     private void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
-        // Aggiungi logica per salvare le scelte o passare alla prossima view
-        // Per ora, stampa le informazioni di debug
+        // Aggiungi logica per salvare le scelte
+        BookRoom bookRoom = new BookRoom();
+        //metodo per registrare attivita da salvare
+        bookRoom.setServicesToReservation();
+        //pagina successiva
     }
 
     private void handleCancel() {
