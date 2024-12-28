@@ -8,14 +8,12 @@ import javafx.stage.Stage;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
-    private final Stage stage;
     private final NavigationManager navigationManager;
 
-    public StartupSettingsController(Stage stage, NavigationManager navigationManager) {
-        this.stage = stage;
+    public StartupSettingsController(NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
         view = new StartupSettingsView();
-        view.start(stage);
+        view.start(navigationManager.getStage());
         initController();
     }
 

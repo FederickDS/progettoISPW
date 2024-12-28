@@ -10,16 +10,20 @@ public class NavigationManager {
     }
 
     public void navigateToStartupSettings(){
-        StartupSettingsController startupSettingsController = new StartupSettingsController(stage, this);
+        StartupSettingsController startupSettingsController = new StartupSettingsController(this);
     }
 
     public void navigateToHomePage() {
-        HomePageController homePageController = new HomePageController(stage, this);
+        HomePageController homePageController = new HomePageController(this);
         homePageController.loadHomePage();
     }
 
     public void navigateToServiceSelection() {
-        ServiceSelectionController serviceSelectionController = new ServiceSelectionController(stage, this);
+        ServiceSelectionController serviceSelectionController = new ServiceSelectionController(this);
         serviceSelectionController.loadServiceSelection();
+    }
+
+    protected Stage getStage() {
+        return this.stage;
     }
 }

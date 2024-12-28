@@ -7,11 +7,9 @@ import javafx.stage.Stage;
 
 public class HomePageController {
 
-    private final Stage stage;
     private final NavigationManager navigationManager;
 
-    public HomePageController(Stage stage, NavigationManager navigationManager) {
-        this.stage = stage;
+    public HomePageController(NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
     }
 
@@ -26,7 +24,7 @@ public class HomePageController {
         homePage.getBookRoomButton().setOnAction(e -> navigationManager.navigateToServiceSelection());
 
         // Mostra l'HomePage
-        homePage.display(stage);
+        homePage.display(navigationManager.getStage());
     }
     private void loadServiceSelectionPage() {
         // Passa il controllo al ServiceSelectionController

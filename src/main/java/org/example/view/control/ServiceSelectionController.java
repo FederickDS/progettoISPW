@@ -10,11 +10,9 @@ import java.util.logging.Logger;
 public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final Stage stage;
     private final NavigationManager navigationManager;
 
-    public ServiceSelectionController(Stage stage, NavigationManager navigationManager) {
-        this.stage = stage;
+    public ServiceSelectionController(NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
     }
 
@@ -24,7 +22,7 @@ public class ServiceSelectionController {
 
         serviceSelection = factory.createServiceSelection();
         // Inizializza la view
-        initController(stage);
+        initController(navigationManager.getStage());
     }
 
     private void initController(Stage stage) {
