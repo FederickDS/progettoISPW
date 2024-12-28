@@ -4,4 +4,5 @@ public interface NavigationService {
     void navigateToHomePage();
     void navigateToServiceSelection();
     void navigateToStartupSettings();
+    void navigateToBookingRoom();
 }

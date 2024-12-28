@@ -24,6 +24,10 @@ public class NavigationManager implements NavigationService{
         new ServiceSelectionController(this.stage, this).loadServiceSelection();
     }
 
+    public void navigateToBookingRoom(){
+        new BookingRoomController(this.stage, this).loadBookingView();
+    }
+
     protected Stage getStage() {
         return this.stage;
     }

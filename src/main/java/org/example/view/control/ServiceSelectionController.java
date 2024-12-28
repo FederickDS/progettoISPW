@@ -51,6 +51,7 @@ public class ServiceSelectionController {
         //metodo per registrare attivita da salvare
         bookRoom.setServicesToReservation();
         //pagina successiva
+        navigationService.navigateToBookingRoom();
     }
 
     private void handleCancel() {
