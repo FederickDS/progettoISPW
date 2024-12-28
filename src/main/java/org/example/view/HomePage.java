@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 public abstract class HomePage {
     protected VBox root;
+    private final Button bookRoomButton;
+    private final Button bookActivityButton;
+    private final Button loginButton;
+
 
     protected HomePage() {
         // Inizializzazione layout
@@ -16,9 +20,9 @@ public abstract class HomePage {
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Bottoni per i casi d'uso
-        Button bookRoomButton = new Button("Prenota Stanza");
-        Button bookActivityButton = new Button("Prenota Attività");
-        Button loginButton = new Button("Accedi");
+        bookRoomButton = new Button("Prenota Stanza");
+        bookActivityButton = new Button("Prenota Attività");
+        loginButton = new Button("Accedi");
 
         // Aggiungi i bottoni alla root
         root.getChildren().addAll(bookRoomButton, bookActivityButton, loginButton);
@@ -32,6 +36,16 @@ public abstract class HomePage {
 
         // Modifica i colori tramite il metodo astratto
         setStyle(bookRoomButton, bookActivityButton, loginButton, title, description);
+    }
+
+    public Button getBookRoomButton() {
+        return bookRoomButton;
+    }
+    public Button getbookActivityButton() {
+        return bookActivityButton;
+    }
+    public Button getloginButton() {
+        return loginButton;
     }
 
     // Metodo astratto per impostare lo stile specifico

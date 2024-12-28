@@ -20,7 +20,17 @@ public class HomePageController {
         // Crea l'HomePage tramite la factory
         HomePage homePage = factory.createHomePage();
 
+        // Aggiungi il gestore per il pulsante "Prenota Stanza"
+        homePage.getBookRoomButton().setOnAction(e -> loadServiceSelectionPage());
+
         // Mostra l'HomePage
         homePage.display(stage);
+    }
+
+    private void loadServiceSelectionPage() {
+        // Passa il controllo al ServiceSelectionController
+        ServiceSelectionController serviceSelectionController = new ServiceSelectionController(stage);
+        serviceSelectionController.loadServiceSelection();
+        // La logica di visualizzazione è gestita nel costruttore del ServiceSelectionController
     }
 }
