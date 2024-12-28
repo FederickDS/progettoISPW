@@ -1,8 +1,9 @@
 package org.example.view.control;
 
+import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
-public class NavigationManager {
+public class NavigationManager implements NavigationService{
     private final Stage stage;
     private StartupSettingsController startupSettingsController;
     private HomePageController homePageController;
@@ -12,25 +13,19 @@ public class NavigationManager {
         this.stage = stage;
     }
 
+    @Override
     public void navigateToStartupSettings(){
-        if(startupSettingsController == null){
-            startupSettingsController = new StartupSettingsController(this.stage);
-        }
-        startupSettingsController.loadStartupSettings();
+        new StartupSettingsController(this.stage, this).loadStartupSettings();
     }
 
+    @Override
     public void navigateToHomePage() {
-        if(homePageController == null){
-            homePageController = new HomePageController(this.stage);
-        }
-        homePageController.loadHomePage();
+        new HomePageController(this.stage, this).loadHomePage();
     }
 
+    @Override
     public void navigateToServiceSelection() {
-        if(serviceSelectionController == null){
-            serviceSelectionController = new ServiceSelectionController(this.stage);
-        }
-        serviceSelectionController.loadServiceSelection();
+        new ServiceSelectionController(this.stage, this).loadServiceSelection();
     }
 
     protected Stage getStage() {

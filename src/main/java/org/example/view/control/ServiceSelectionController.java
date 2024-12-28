@@ -11,9 +11,11 @@ public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
     private final Logger logger = Logger.getLogger(getClass().getName());
     private final Stage stage;
+    private final NavigationService navigationService;
 
-    public ServiceSelectionController(Stage stage) {
+    public ServiceSelectionController(Stage stage, NavigationService navigationService) {
         this.stage = stage;
+        this.navigationService = navigationService;
     }
 
     public void loadServiceSelection() {
@@ -49,7 +51,6 @@ public class ServiceSelectionController {
 
     private void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
-        NavigationManager navigationManager = new NavigationManager(stage);
-        navigationManager.navigateToHomePage();
+        navigationService.navigateToHomePage();
     }
 }
