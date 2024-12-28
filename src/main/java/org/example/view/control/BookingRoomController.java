@@ -1,5 +1,6 @@
 package org.example.view.control;
 
+import org.example.control.BookRoom;
 import org.example.entity.StartupSettingsEntity;
 import org.example.factory.GUIFactory;
 import org.example.view.BookingRoom;
@@ -12,10 +13,12 @@ public class BookingRoomController {
     private final Logger logger = Logger.getLogger(getClass().getName());
     private final Stage stage;
     private final NavigationService navigationService;
+    private BookRoom bookRoom;
 
-    public BookingRoomController(Stage stage, NavigationService navigationService) {
+    public BookingRoomController(Stage stage, NavigationService navigationService, BookRoom bookRoom) {
         this.stage = stage;
         this.navigationService = navigationService;
+        this.bookRoom = bookRoom;
     }
 
     public void loadBookingView() {
@@ -46,7 +49,7 @@ public class BookingRoomController {
     private void handleConfirm() {
         logger.info("Prenotazione confermata.");
 
-        // Recupera le date selezionate
+        // Recupera le date selezionate (fare in bookRoom)
         var checkInDate = bookingRoom.getCheckInDate();
         var checkOutDate = bookingRoom.getCheckOutDate();
 
@@ -57,11 +60,11 @@ public class BookingRoomController {
 
         if (checkInDate.isAfter(checkOutDate)) {
             logger.warning("La data di check-in deve precedere la data di check-out.");
-            return;
         }
-
         // Salva la prenotazione (con bookRoom)
-
+        if(!this.bookRoom.checkHoursAndSave(checkInDate,checkOutDate)){
+            logger.warning("L'intervallo selezionato non è disponibile. Selezioni un nuovo intervallo");
+        }
         // Passa alla pagina successiva
     }
 

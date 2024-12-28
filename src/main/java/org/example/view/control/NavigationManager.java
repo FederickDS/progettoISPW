@@ -1,6 +1,7 @@
 package org.example.view.control;
 
 import javafx.stage.Stage;
+import org.example.control.BookRoom;
 
 public class NavigationManager implements NavigationService{
     private final Stage stage;
@@ -24,8 +25,8 @@ public class NavigationManager implements NavigationService{
         new ServiceSelectionController(this.stage, this).loadServiceSelection();
     }
 
-    public void navigateToBookingRoom(){
-        new BookingRoomController(this.stage, this).loadBookingView();
+    public void navigateToBookingRoom(BookRoom bookRoom) {
+        new BookingRoomController(this.stage, this, bookRoom).loadBookingView();
     }
 
     protected Stage getStage() {

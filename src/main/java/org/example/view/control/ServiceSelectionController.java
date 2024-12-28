@@ -13,6 +13,7 @@ public class ServiceSelectionController {
     private final Logger logger = Logger.getLogger(getClass().getName());
     private final Stage stage;
     private final NavigationService navigationService;
+    private BookRoom bookRoom;
 
     public ServiceSelectionController(Stage stage, NavigationService navigationService) {
         this.stage = stage;
@@ -47,11 +48,11 @@ public class ServiceSelectionController {
     private void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
         // Aggiungi logica per salvare le scelte
-        BookRoom bookRoom = new BookRoom();
+        this.bookRoom = new BookRoom();
         //metodo per registrare attivita da salvare
-        bookRoom.setServicesToReservation();
+        this.bookRoom.setServicesToReservation();
         //pagina successiva
-        navigationService.navigateToBookingRoom();
+        navigationService.navigateToBookingRoom(this.bookRoom);
     }
 
     private void handleCancel() {
