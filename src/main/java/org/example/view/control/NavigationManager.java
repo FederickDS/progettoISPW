@@ -4,22 +4,32 @@ import javafx.stage.Stage;
 
 public class NavigationManager {
     private final Stage stage;
+    private StartupSettingsController startupSettingsController;
+    private HomePageController homePageController;
+    private ServiceSelectionController serviceSelectionController;
 
     public NavigationManager(Stage stage) {
         this.stage = stage;
     }
 
     public void navigateToStartupSettings(){
-        StartupSettingsController startupSettingsController = new StartupSettingsController(this);
+        if(startupSettingsController == null){
+            startupSettingsController = new StartupSettingsController(this);
+        }
+        startupSettingsController.loadStartupSettings();
     }
 
     public void navigateToHomePage() {
-        HomePageController homePageController = new HomePageController(this);
+        if(homePageController == null){
+            homePageController = new HomePageController(this);
+        }
         homePageController.loadHomePage();
     }
 
     public void navigateToServiceSelection() {
-        ServiceSelectionController serviceSelectionController = new ServiceSelectionController(this);
+        if(serviceSelectionController == null){
+            serviceSelectionController = new ServiceSelectionController(this);
+        }
         serviceSelectionController.loadServiceSelection();
     }
 

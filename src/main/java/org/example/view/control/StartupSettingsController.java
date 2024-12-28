@@ -13,6 +13,9 @@ public class StartupSettingsController {
     public StartupSettingsController(NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
         view = new StartupSettingsView();
+    }
+
+    protected void loadStartupSettings(){
         view.start(navigationManager.getStage());
         initController();
     }
