@@ -9,9 +9,11 @@ import javafx.stage.Stage;
 public class StartupSettingsController {
     private final StartupSettingsView view;
     private final Stage stage;
+    private final NavigationManager navigationManager;
 
-    public StartupSettingsController(Stage stage) {
+    public StartupSettingsController(Stage stage, NavigationManager navigationManager) {
         this.stage = stage;
+        this.navigationManager = navigationManager;
         view = new StartupSettingsView();
         view.start(stage);
         initController();
@@ -52,7 +54,6 @@ public class StartupSettingsController {
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
         // Passaggio del controllo a HomePageController
-        HomePageController homePageController = new HomePageController(stage);
-        homePageController.loadHomePage();
+        navigationManager.navigateToHomePage();
     }
 }

@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 public class HomePageController {
 
     private final Stage stage;
+    private final NavigationManager navigationManager;
 
-    public HomePageController(Stage stage) {
+    public HomePageController(Stage stage, NavigationManager navigationManager) {
         this.stage = stage;
+        this.navigationManager = navigationManager;
     }
 
     public void loadHomePage() {
@@ -21,16 +23,13 @@ public class HomePageController {
         HomePage homePage = factory.createHomePage();
 
         // Aggiungi il gestore per il pulsante "Prenota Stanza"
-        homePage.getBookRoomButton().setOnAction(e -> loadServiceSelectionPage());
+        homePage.getBookRoomButton().setOnAction(e -> navigationManager.navigateToServiceSelection());
 
         // Mostra l'HomePage
         homePage.display(stage);
     }
-
     private void loadServiceSelectionPage() {
         // Passa il controllo al ServiceSelectionController
-        ServiceSelectionController serviceSelectionController = new ServiceSelectionController(stage);
-        serviceSelectionController.loadServiceSelection();
-        // La logica di visualizzazione è gestita nel costruttore del ServiceSelectionController
+        navigationManager.navigateToServiceSelection();
     }
 }

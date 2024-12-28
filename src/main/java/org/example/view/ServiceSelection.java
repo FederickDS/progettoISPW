@@ -12,7 +12,7 @@ public abstract class ServiceSelection {
     private Button confirmButton;
     private Button cancelButton;
 
-    public ServiceSelection() {
+    protected ServiceSelection() {
         root = new VBox(20);
         root.setPrefSize(600, 500);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");

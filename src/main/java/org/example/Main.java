@@ -1,13 +1,16 @@
 package org.example;
 
+import org.example.view.control.NavigationManager;
 import org.example.view.control.StartupSettingsController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    NavigationManager navigationManager;
     @Override
     public void start(Stage stage) {
-        new StartupSettingsController(stage);
+        navigationManager = new NavigationManager(stage);
+        navigationManager.navigateToStartupSettings();
     }
 
     public static void main(String[] args) {

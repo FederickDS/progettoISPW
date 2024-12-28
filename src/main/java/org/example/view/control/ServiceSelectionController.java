@@ -11,9 +11,11 @@ public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
     private final Logger logger = Logger.getLogger(getClass().getName());
     private final Stage stage;
+    private final NavigationManager navigationManager;
 
-    public ServiceSelectionController(Stage stage) {
+    public ServiceSelectionController(Stage stage, NavigationManager navigationManager) {
         this.stage = stage;
+        this.navigationManager = navigationManager;
     }
 
     public void loadServiceSelection() {
@@ -49,8 +51,6 @@ public class ServiceSelectionController {
 
     private void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
-        // Implementa logica per tornare alla Home Page
-        HomePageController homePageController = new HomePageController(stage);
-        homePageController.loadHomePage();
+        navigationManager.navigateToHomePage();
     }
 }
