@@ -21,6 +21,6 @@ public class HomePageController {
         homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection());
 
         // Mostra l'HomePage
-        homePage.display(stage);
+        homePage.display(stage,this.navigationService);
     }
 }

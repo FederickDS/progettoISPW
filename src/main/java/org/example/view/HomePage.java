@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entity.StartupSettingsEntity;
+import org.example.view.control.NavigationService;
 
 import java.util.logging.Logger;
 
@@ -50,18 +51,7 @@ public class HomePage {
     }
 
     // Metodo per mostrare la pagina
-    public void display(Stage stage) {
-        try {
-            Scene scene = new Scene(root);
-            //modifica colori
-            scene.getStylesheets().clear();
-            String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
-            scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
-            stage.setScene(scene);
-            stage.setTitle("Home Page");
-            stage.show();
-        }catch (Exception e){
-            logger.warning("Date non valide. Selezionare entrambe le date.");
-        }
+    public void display(Stage stage, NavigationService navigationService) {
+        navigationService.display(stage, root,"Home Page");
     }
 }

@@ -21,13 +21,8 @@ public class BookingRoomController {
 
     public void loadBookingRoom() {
         bookingRoom = new BookingRoom();
-        // Inizializza la view
-        initController(this.stage);
-    }
-
-    private void initController(Stage stage) {
         // Mostra la view
-        bookingRoom.display(stage);
+        bookingRoom.display(stage, this.navigationService);
 
         // Aggiungi gestione eventi per i bottoni
         addEventHandlers();
