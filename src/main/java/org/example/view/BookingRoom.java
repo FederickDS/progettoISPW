@@ -6,16 +6,18 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.entity.StartupSettingsEntity;
+
 import java.time.LocalDate;
 
-public abstract class BookingRoom {
+public class BookingRoom {
     protected VBox root;
     private final DatePicker checkInPicker;
     private final DatePicker checkOutPicker;
     private final Button confirmButton;
     private final Button cancelButton;
 
-    protected BookingRoom() {
+    public BookingRoom() {
         // Layout di base
         root = new VBox(15);
         root.setPrefSize(600, 400);
@@ -36,9 +38,6 @@ public abstract class BookingRoom {
 
         // Aggiungi gli elementi alla root
         root.getChildren().addAll(title, checkInLabel, checkInPicker, checkOutLabel, checkOutPicker, confirmButton, cancelButton);
-
-        // Applica lo stile tramite metodo astratto
-        setStyle(title, checkInLabel, checkOutLabel, confirmButton, cancelButton);
     }
 
     // Metodi di accesso
@@ -58,24 +57,19 @@ public abstract class BookingRoom {
         return cancelButton;
     }
 
-    // Metodo astratto per applicare lo stile
-    protected abstract void setStyle(Label title, Label checkInLabel, Label checkOutLabel, Button confirmButton, Button cancelButton);
-
-    protected void setStyleDuplicateCode(Button confirmButton, Button cancelButton, String buttonStyle, String buttonHoverStyle) {
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setOnMouseEntered(e -> confirmButton.setStyle(buttonHoverStyle));
-        confirmButton.setOnMouseExited(e -> confirmButton.setStyle(buttonStyle));
-
-        cancelButton.setStyle(buttonStyle);
-        cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(buttonHoverStyle));
-        cancelButton.setOnMouseExited(e -> cancelButton.setStyle(buttonStyle));
-    }
-
     // Metodo per mostrare la pagina
     public void display(Stage stage) {
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Booking");
-        stage.show();
+        try {
+            Scene scene = new Scene(root);
+            //modifica colori
+            scene.getStylesheets().clear();
+            String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
+            scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("Booking");
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

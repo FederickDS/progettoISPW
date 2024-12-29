@@ -2,7 +2,6 @@ package org.example.view.control;
 
 import org.example.control.BookRoom;
 import org.example.entity.StartupSettingsEntity;
-import org.example.factory.GUIFactory;
 import org.example.view.ServiceSelection;
 import javafx.stage.Stage;
 
@@ -21,8 +20,6 @@ public class ServiceSelectionController {
 
     public void loadServiceSelection() {
         // Determina quale view caricare in base alle impostazioni
-        GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
-
         serviceSelection = new ServiceSelection();
         // Inizializza la view
         initController(this.stage);

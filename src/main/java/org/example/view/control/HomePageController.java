@@ -1,6 +1,5 @@
 package org.example.view.control;
 
-import org.example.factory.GUIFactory;
 import org.example.view.HomePage;
 import org.example.entity.StartupSettingsEntity;
 import javafx.stage.Stage;
@@ -16,9 +15,6 @@ public class HomePageController {
     }
 
     public void loadHomePage() {
-        // Seleziona la factory appropriata in base all'opzione salvata
-        GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
-
         // Crea l'HomePage tramite la factory
         HomePage homePage = new HomePage();
 

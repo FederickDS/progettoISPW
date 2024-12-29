@@ -2,7 +2,6 @@ package org.example.view.control;
 
 import org.example.control.BookRoom;
 import org.example.entity.StartupSettingsEntity;
-import org.example.factory.GUIFactory;
 import org.example.view.BookingRoom;
 import javafx.stage.Stage;
 
@@ -22,10 +21,7 @@ public class BookingRoomController {
     }
 
     public void loadBookingRoom() {
-        // Determina quale view caricare in base alle impostazioni
-        GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
-
-        bookingRoom = factory.createBookingView();
+        bookingRoom = new BookingRoom();
         // Inizializza la view
         initController(this.stage);
     }

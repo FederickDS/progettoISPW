@@ -1,18 +1,20 @@
 package org.example.view;
 
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class StartupSettingsView {
+public class StartupSettingsView extends Application {
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
     private RadioButton colorInterfaceOption;
     private RadioButton bwInterfaceOption;
     private Button confirmButton;
 
+    @Override
     public void start(Stage stage) {
         // Layout principale
         BorderPane root = new BorderPane();
@@ -59,7 +61,7 @@ public class StartupSettingsView {
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
         stage.setTitle("Impostazioni Iniziali");
-        stage.centerOnScreen();
+        stage.setFullScreen(true);
         stage.show();
     }
 
