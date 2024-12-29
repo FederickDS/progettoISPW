@@ -5,15 +5,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.entity.StartupSettingsEntity;
 
-public abstract class HomePage {
+import java.util.Objects;
+
+public class HomePage {
     protected VBox root;
     private final Button bookRoomButton;
     private final Button bookActivityButton;
     private final Button loginButton;
 
 
-    protected HomePage() {
+    public HomePage() {
         // Inizializzazione layout
         root = new VBox(20);
         root.setPrefSize(600, 400);
@@ -33,9 +36,6 @@ public abstract class HomePage {
 
         // Aggiungi titolo e descrizione alla root
         root.getChildren().addAll(title, description);
-
-        // Modifica i colori tramite il metodo astratto
-        setStyle(bookRoomButton, bookActivityButton, loginButton, title, description);
     }
 
     public Button getBookRoomButton() {
@@ -48,30 +48,20 @@ public abstract class HomePage {
         return loginButton;
     }
 
-    // Metodo astratto per impostare lo stile specifico
-    protected abstract void setStyle(Button bookRoom, Button bookActivity, Button login, Label title, Label description);
-
-    protected void setStyleDuplicateCode(Button bookRoom, Button bookActivity, Button login, String buttonStyle, String buttonHoverStyle){
-        bookRoom.setStyle(buttonStyle);
-        bookActivity.setStyle(buttonStyle);
-        login.setStyle(buttonStyle);
-
-        // Cambia colore al passaggio del mouse
-        bookRoom.setOnMouseEntered(e -> bookRoom.setStyle(buttonHoverStyle));
-        bookRoom.setOnMouseExited(e -> bookRoom.setStyle(buttonStyle));
-
-        bookActivity.setOnMouseEntered(e -> bookActivity.setStyle(buttonHoverStyle));
-        bookActivity.setOnMouseExited(e -> bookActivity.setStyle(buttonStyle));
-
-        login.setOnMouseEntered(e -> login.setStyle(buttonHoverStyle));
-        login.setOnMouseExited(e -> login.setStyle(buttonStyle));
-
-    }
     // Metodo per mostrare la pagina
     public void display(Stage stage) {
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Home Page");
-        stage.show();
+        try {
+            Scene scene = new Scene(root);
+            //modifica colori
+            scene.getStylesheets().clear();
+            String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
+            System.out.println(styleCSS);
+            scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("Home Page");
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

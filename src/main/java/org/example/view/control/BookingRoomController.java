@@ -21,7 +21,7 @@ public class BookingRoomController {
         this.bookRoom = bookRoom;
     }
 
-    public void loadBookingView() {
+    public void loadBookingRoom() {
         // Determina quale view caricare in base alle impostazioni
         GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
 

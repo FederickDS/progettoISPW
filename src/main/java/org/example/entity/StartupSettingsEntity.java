@@ -58,4 +58,13 @@ public class StartupSettingsEntity implements Serializable {
             throw new IllegalArgumentException("Tipo di GUI non supportato: " + getInstance().interfaceOption);
         }
     }
+    public String getCSSStyle(){
+        String cssFile;
+        if(getInstance().interfaceOption.equals("color")){
+            cssFile = "/style/color-mode.css";
+        }else{
+            cssFile = "/style/bw-mode.css";
+        }
+        return cssFile;
+    }
 }

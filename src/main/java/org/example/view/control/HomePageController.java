@@ -20,7 +20,7 @@ public class HomePageController {
         GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
 
         // Crea l'HomePage tramite la factory
-        HomePage homePage = factory.createHomePage();
+        HomePage homePage = new HomePage();
 
         // Aggiungi il gestore per il pulsante "Prenota Stanza"
         homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection());
