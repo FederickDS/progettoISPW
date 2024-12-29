@@ -1,7 +1,6 @@
 package org.example.view.control;
 
 import org.example.control.BookRoom;
-import org.example.entity.StartupSettingsEntity;
 import org.example.view.BookingRoom;
 import javafx.stage.Stage;
 

@@ -1,7 +1,6 @@
 package org.example.view.control;
 
 import org.example.view.HomePage;
-import org.example.entity.StartupSettingsEntity;
 import javafx.stage.Stage;
 
 public class HomePageController {

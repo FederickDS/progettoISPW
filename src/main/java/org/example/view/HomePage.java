@@ -7,13 +7,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entity.StartupSettingsEntity;
 
-import java.util.Objects;
+import java.util.logging.Logger;
 
 public class HomePage {
     protected VBox root;
     private final Button bookRoomButton;
     private final Button bookActivityButton;
     private final Button loginButton;
+    private Logger logger;
 
 
     public HomePage() {
@@ -60,7 +61,7 @@ public class HomePage {
             stage.setTitle("Home Page");
             stage.show();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.warning("Date non valide. Selezionare entrambe le date.");
         }
     }
 }

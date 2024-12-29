@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.example.entity.StartupSettingsEntity;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 public class BookingRoom {
     protected VBox root;
@@ -16,6 +17,7 @@ public class BookingRoom {
     private final DatePicker checkOutPicker;
     private final Button confirmButton;
     private final Button cancelButton;
+    private Logger logger;
 
     public BookingRoom() {
         // Layout di base
@@ -69,7 +71,7 @@ public class BookingRoom {
             stage.setTitle("Booking");
             stage.show();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.warning("Date non valide. Selezionare entrambe le date.");
         }
     }
 }

@@ -8,10 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entity.StartupSettingsEntity;
 
+import java.util.logging.Logger;
+
 public class ServiceSelection {
     protected VBox root;
-    private Button confirmButton;
-    private Button cancelButton;
+    private final Button confirmButton;
+    private final Button cancelButton;
+    private Logger logger;
 
     public ServiceSelection() {
         root = new VBox(20);
@@ -70,7 +73,7 @@ public class ServiceSelection {
             stage.setTitle("Selezione Servizi e Attività");
             stage.show();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.warning("Date non valide. Selezionare entrambe le date.");
         }
     }
 }
