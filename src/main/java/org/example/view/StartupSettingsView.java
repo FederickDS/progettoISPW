@@ -59,6 +59,7 @@ public class StartupSettingsView {
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
         stage.setTitle("Impostazioni Iniziali");
+        stage.centerOnScreen();
         stage.show();
     }
 

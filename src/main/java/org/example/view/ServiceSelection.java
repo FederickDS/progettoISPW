@@ -6,13 +6,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.entity.StartupSettingsEntity;
 
-public abstract class ServiceSelection {
+public class ServiceSelection {
     protected VBox root;
     private Button confirmButton;
     private Button cancelButton;
 
-    protected ServiceSelection() {
+    public ServiceSelection() {
         root = new VBox(20);
         root.setPrefSize(600, 500);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
@@ -46,22 +47,6 @@ public abstract class ServiceSelection {
 
         // Aggiungi sezioni al layout principale
         root.getChildren().addAll(serviceSection, activitySection, buttonSection);
-
-        // Imposta gli stili specifici
-        setStyle(serviceLabel, activityLabel, confirmButton, cancelButton);
-    }
-
-    // Metodo astratto per impostare lo stile specifico
-    protected abstract void setStyle(Label serviceLabel, Label activityLabel, Button confirmButton, Button cancelButton);
-
-    protected void setStyleDuplicate(String buttonStyle, String buttonHoverStyle, Button confirmButton, Button cancelButton) {
-        confirmButton.setStyle(buttonStyle);
-        confirmButton.setOnMouseEntered(e -> confirmButton.setStyle(buttonHoverStyle));
-        confirmButton.setOnMouseExited(e -> confirmButton.setStyle(buttonStyle));
-
-        cancelButton.setStyle(buttonStyle);
-        cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(buttonHoverStyle));
-        cancelButton.setOnMouseExited(e -> cancelButton.setStyle(buttonStyle));
     }
 
     // Getter per i bottoni
@@ -75,9 +60,17 @@ public abstract class ServiceSelection {
 
     // Metodo per mostrare la pagina
     public void display(Stage stage) {
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Selezione Servizi e Attività");
-        stage.show();
+        try {
+            Scene scene = new Scene(root);
+            //modifica colori
+            scene.getStylesheets().clear();
+            String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
+            scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("Selezione Servizi e Attività");
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

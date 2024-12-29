@@ -23,7 +23,7 @@ public class ServiceSelectionController {
         // Determina quale view caricare in base alle impostazioni
         GUIFactory factory = StartupSettingsEntity.getInstance().typeOfGUI();
 
-        serviceSelection = factory.createServiceSelection();
+        serviceSelection = new ServiceSelection();
         // Inizializza la view
         initController(this.stage);
     }

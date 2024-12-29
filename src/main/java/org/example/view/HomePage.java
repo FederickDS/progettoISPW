@@ -55,7 +55,6 @@ public class HomePage {
             //modifica colori
             scene.getStylesheets().clear();
             String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
-            System.out.println(styleCSS);
             scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Home Page");
