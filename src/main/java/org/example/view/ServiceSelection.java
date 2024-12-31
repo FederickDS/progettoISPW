@@ -19,7 +19,7 @@ public class ServiceSelection {
 
     public ServiceSelection() {
         root = new VBox(20);
-        root.setPrefSize(600, 500);
+        root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Sezione per i servizi

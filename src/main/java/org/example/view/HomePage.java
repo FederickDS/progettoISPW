@@ -21,7 +21,7 @@ public class HomePage {
     public HomePage() {
         // Inizializzazione layout
         root = new VBox(20);
-        root.setPrefSize(600, 400);
+        root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Bottoni per i casi d'uso

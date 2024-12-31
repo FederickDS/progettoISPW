@@ -18,7 +18,7 @@ public class StartupSettingsController {
     }
 
     protected void loadStartupSettings(){
-        view.start(stage);
+        view.start(this.stage);
         initController();
     }
 

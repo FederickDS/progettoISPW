@@ -2,12 +2,15 @@ package org.example.view;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import org.example.entity.StartupSettingsEntity;
 
 public class StartupSettingsView extends Application {
+
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
     private RadioButton colorInterfaceOption;
@@ -16,15 +19,10 @@ public class StartupSettingsView extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Layout principale
-        BorderPane root = new BorderPane();
-        root.setStyle("-fx-background-color: #F4F1E1;");
-
-        // Form centrale
-        VBox form = new VBox(15);
-        form.setPadding(new Insets(20));
-        form.setStyle("-fx-background-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10;");
-        form.setMaxWidth(300);
+        // Layout principale centrato
+        VBox root = new VBox(15);
+        root.setAlignment(Pos.CENTER); // Allinea tutto al centro
+        root.setPadding(new Insets(20));
 
         // Opzioni di memorizzazione
         Label storageLabel = new Label("Seleziona la modalità di memorizzazione:");
@@ -44,23 +42,17 @@ public class StartupSettingsView extends Application {
 
         // Bottone di conferma
         confirmButton = new Button("Conferma");
-        confirmButton.setStyle(
-                "-fx-background-color: #2E3A8C; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;");
-        confirmButton.setOnMouseEntered(e -> confirmButton.setStyle(
-                "-fx-background-color: #5F8FA6; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;"));
-        confirmButton.setOnMouseExited(e -> confirmButton.setStyle(
-                "-fx-background-color: #2E3A8C; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;"));
 
-        // Aggiunta degli elementi al form
-        form.getChildren().addAll(storageLabel, internalMemoryOption, databaseOption, interfaceLabel, colorInterfaceOption, bwInterfaceOption, confirmButton);
-
-        // Aggiunta del form al centro
-        root.setCenter(form);
+        // Aggiunta degli elementi al layout principale
+        root.getChildren().addAll(storageLabel, internalMemoryOption, databaseOption, interfaceLabel, colorInterfaceOption, bwInterfaceOption, confirmButton);
 
         // Scena e stage
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 1280, 720);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/style/color-mode.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Impostazioni Iniziali");
+        stage.centerOnScreen();
         stage.setFullScreen(true);
         stage.show();
     }

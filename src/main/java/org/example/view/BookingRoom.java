@@ -24,7 +24,7 @@ public class BookingRoom {
     public BookingRoom() {
         // Layout di base
         root = new VBox(15);
-        root.setPrefSize(600, 400);
+        root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Elementi della view
