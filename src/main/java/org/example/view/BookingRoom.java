@@ -6,9 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.view.control.NavigationService;
-
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 public class BookingRoom {
     protected VBox root;

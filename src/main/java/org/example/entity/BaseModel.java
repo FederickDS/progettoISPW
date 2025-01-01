@@ -1,7 +1,5 @@
 package org.example.entity;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.io.Serializable;
 
 // Classe base per rappresentare un modello con descrizione e numero massimo di partecipanti
@@ -10,10 +8,10 @@ abstract class BaseModel implements Serializable {
     private String description;
     private int maxParticipants;
 
-    public BaseModel() {
+    protected BaseModel() {
     }
 
-    public BaseModel(String description, int maxParticipants) {
+    protected BaseModel(String description, int maxParticipants) {
         this.description = description;
         this.maxParticipants = maxParticipants;
     }

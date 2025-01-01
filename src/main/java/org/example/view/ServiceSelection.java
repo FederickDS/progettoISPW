@@ -7,8 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.view.control.NavigationService;
 
-import java.util.logging.Logger;
-
 public class ServiceSelection {
     protected VBox root;
     private final Button confirmButton;
