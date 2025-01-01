@@ -36,8 +36,7 @@ public class StartupSettingsController {
         } else if (view.getDatabaseOption().isSelected()) {
             storageOption = "database";
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona dove salvare i dati.", ButtonType.OK);
-            alert.showAndWait();
+            view.showOptionUnselected();
             return;
         }
 
@@ -47,8 +46,7 @@ public class StartupSettingsController {
         } else if (view.getBwInterfaceOption().isSelected()) {
             interfaceOption = "BW";
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Seleziona i possibili tipi di interfacce", ButtonType.OK);
-            alert.showAndWait();
+            view.showInterfaceUnselected();
             return;
         }
 
