@@ -1,11 +1,9 @@
 package org.example.view;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.entity.StartupSettingsEntity;
 import org.example.view.control.NavigationService;
 
 import java.util.logging.Logger;

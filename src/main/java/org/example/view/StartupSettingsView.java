@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
-import org.example.entity.StartupSettingsEntity;
 
 public class StartupSettingsView extends Application {
 
@@ -29,16 +28,15 @@ public class StartupSettingsView extends Application {
 
         // Opzioni di memorizzazione
         Label storageLabel = new Label("Seleziona la modalità di memorizzazione:");
-        internalMemoryOption = new RadioButton("Memoria Interna");
-        databaseOption = new RadioButton("Database");
+        this.internalMemoryOption = new RadioButton("Memoria Interna");
+        this.databaseOption = new RadioButton("Database");
         ToggleGroup storageGroup = new ToggleGroup();
-        internalMemoryOption.setToggleGroup(storageGroup);
-        databaseOption.setToggleGroup(storageGroup);
+        this.internalMemoryOption.setToggleGroup(storageGroup);
+        this.databaseOption.setToggleGroup(storageGroup);
 
-        Text optionUnselected = new Text("Seleziona dove salvare i dati");
-        optionUnselected.setVisible(false); // Non visibile inizialmente
-        optionUnselected.setManaged(false); // Non occupa spazio nel layout
-        this.optionUnselected = optionUnselected;
+        this.optionUnselected = new Text("Seleziona dove salvare i dati");
+        this.optionUnselected.setVisible(false); // Non visibile inizialmente
+        this.optionUnselected.setManaged(false); // Non occupa spazio nel layout
 
         // Opzioni dell'interfaccia grafica
         Label interfaceLabel = new Label("Seleziona la modalità dell'interfaccia grafica:");
@@ -48,16 +46,15 @@ public class StartupSettingsView extends Application {
         colorInterfaceOption.setToggleGroup(interfaceGroup);
         bwInterfaceOption.setToggleGroup(interfaceGroup);
 
-        Text interfaceUnselected = new Text("Seleziona il tipo di interfaccia");
-        interfaceUnselected.setVisible(false); // Non visibile inizialmente
-        interfaceUnselected.setManaged(false); // Non occupa spazio nel layout
-        this.interfaceUnselected = interfaceUnselected;
+        this.interfaceUnselected = new Text("Seleziona il tipo di interfaccia");
+        this.interfaceUnselected.setVisible(false); // Non visibile inizialmente
+        this.interfaceUnselected.setManaged(false); // Non occupa spazio nel layout
 
         // Bottone di conferma
         confirmButton = new Button("Conferma");
 
         // Aggiunta degli elementi al layout principale
-        root.getChildren().addAll(storageLabel, internalMemoryOption, databaseOption, optionUnselected, interfaceLabel, colorInterfaceOption, bwInterfaceOption, interfaceUnselected, confirmButton);
+        root.getChildren().addAll(storageLabel, this.internalMemoryOption, this.databaseOption, this.optionUnselected, interfaceLabel, this.colorInterfaceOption, this.bwInterfaceOption, this.interfaceUnselected, this.confirmButton);
 
         // Scena e stage
         Scene scene = new Scene(root, 1280, 720);

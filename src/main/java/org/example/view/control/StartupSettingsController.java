@@ -2,8 +2,6 @@ package org.example.view.control;
 
 import org.example.control.StartupSettingsSaving;
 import org.example.view.StartupSettingsView;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 public class StartupSettingsController {
