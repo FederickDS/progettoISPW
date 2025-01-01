@@ -13,7 +13,6 @@ public class HomePage {
     private final Button bookRoomButton;
     private final Button bookActivityButton;
     private final Button loginButton;
-    private Logger logger;
 
 
     public HomePage() {

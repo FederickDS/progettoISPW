@@ -1,9 +1,10 @@
 package org.example.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 // Classe che rappresenta un intervallo di tempo
-class TimeInterval {
+class TimeInterval implements Serializable {
     private LocalDateTime start;
     private LocalDateTime end;
 

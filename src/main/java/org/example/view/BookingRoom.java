@@ -1,13 +1,10 @@
 package org.example.view;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.entity.StartupSettingsEntity;
-import org.example.view.control.NavigationManager;
 import org.example.view.control.NavigationService;
 
 import java.time.LocalDate;
@@ -19,7 +16,6 @@ public class BookingRoom {
     private final DatePicker checkOutPicker;
     private final Button confirmButton;
     private final Button cancelButton;
-    private Logger logger;
 
     public BookingRoom() {
         // Layout di base

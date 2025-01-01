@@ -13,7 +13,6 @@ public class ServiceSelection {
     protected VBox root;
     private final Button confirmButton;
     private final Button cancelButton;
-    private Logger logger;
 
     public ServiceSelection() {
         root = new VBox(20);
