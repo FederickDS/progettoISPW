@@ -19,7 +19,7 @@ public class ServiceSelectionController {
 
     public void loadServiceSelection() {
         // Determina quale view caricare in base alle impostazioni
-        serviceSelection = new ServiceSelection();
+        serviceSelection = new ServiceSelection(this);
         // Inizializza la view
         initController(this.stage);
     }
@@ -29,7 +29,7 @@ public class ServiceSelectionController {
         serviceSelection.display(stage,this.navigationService);
 
         // Aggiungi gestione eventi per i bottoni
-        addEventHandlers();
+        // addEventHandlers();
     }
 
     private void addEventHandlers() {
@@ -40,7 +40,7 @@ public class ServiceSelectionController {
         serviceSelection.getCancelButton().setOnAction(e -> handleCancel());
     }
 
-    private void handleConfirm() {
+    public void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
         // Aggiungi logica per salvare le scelte
         BookRoom bookRoom = new BookRoom();
@@ -50,7 +50,7 @@ public class ServiceSelectionController {
         navigationService.navigateToBookingRoom(bookRoom);
     }
 
-    private void handleCancel() {
+    public void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
         navigationService.navigateToHomePage();
     }
