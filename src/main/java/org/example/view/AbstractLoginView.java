@@ -44,6 +44,7 @@ public abstract class AbstractLoginView {
     }
 
     protected abstract String getTitleText();
+    protected abstract String getType();
 
     // Metodo per mostrare la pagina
     public void display(Stage stage, NavigationService navigationService) {

@@ -12,4 +12,8 @@ public class CustomerLoginView extends AbstractLoginView {
     protected String getTitleText() {
         return "Login come Cliente";
     }
+    @Override
+    protected String getType(){
+        return "client";
+    }
 }

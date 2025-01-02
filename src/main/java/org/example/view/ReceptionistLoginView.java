@@ -12,4 +12,8 @@ public class ReceptionistLoginView extends AbstractLoginView {
     protected String getTitleText() {
         return "Login come Receptionist";
     }
+    @Override
+    protected String getType(){
+        return "receptionist";
+    }
 }

@@ -55,8 +55,5 @@ public class BookingRoom {
         return cancelButton;
     }
 
-    // Metodo per mostrare la pagina
-    public void display(Stage stage, NavigationService navigationService) {
-        navigationService.display(stage, root,"Seleziona date e persone");
-    }
+    public VBox getVBox(){return root;}
 }

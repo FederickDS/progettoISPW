@@ -44,10 +44,5 @@ public class HomePage {
     public Button getloginButton() {
         return loginButton;
     }
-    public VBox getRoot() {return root;}
-
-    // Metodo per mostrare la pagina
-    public void display(Stage stage, NavigationService navigationService) {
-        navigationService.display(stage, root,"Home Page");
-    }
+    public VBox getVBox() {return root;}
 }

@@ -26,8 +26,7 @@ public class ServiceSelectionController {
 
     private void initController(Stage stage) {
         // Mostra la view
-        serviceSelection.display(stage,this.navigationService);
-
+        navigationService.display(stage, serviceSelection.getVBox(),"Selezione Servizi e Attività");
         // Aggiungi gestione eventi per i bottoni
         addEventHandlers();
     }

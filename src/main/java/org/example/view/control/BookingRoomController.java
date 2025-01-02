@@ -22,7 +22,7 @@ public class BookingRoomController {
     public void loadBookingRoom() {
         bookingRoom = new BookingRoom();
         // Mostra la view
-        bookingRoom.display(stage, this.navigationService);
+        navigationService.display(stage, bookingRoom.getVBox(),"Seleziona date e persone");
 
         // Aggiungi gestione eventi per i bottoni
         addEventHandlers();
