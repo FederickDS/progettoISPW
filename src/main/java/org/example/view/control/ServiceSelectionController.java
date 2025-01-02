@@ -19,7 +19,7 @@ public class ServiceSelectionController {
 
     public void loadServiceSelection() {
         // Determina quale view caricare in base alle impostazioni
-        serviceSelection = new ServiceSelection(this);
+        serviceSelection = new ServiceSelection();
         // Inizializza la view
         initController(this.stage);
     }
@@ -29,7 +29,7 @@ public class ServiceSelectionController {
         serviceSelection.display(stage,this.navigationService);
 
         // Aggiungi gestione eventi per i bottoni
-        // addEventHandlers();
+        addEventHandlers();
     }
 
     private void addEventHandlers() {

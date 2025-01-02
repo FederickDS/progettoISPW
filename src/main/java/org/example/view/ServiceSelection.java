@@ -13,7 +13,7 @@ public class ServiceSelection {
     private final Button confirmButton;
     private final Button cancelButton;
 
-    public ServiceSelection(ServiceSelectionController controller) {
+    public ServiceSelection() {
         root = new VBox(20);
         root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
@@ -41,9 +41,7 @@ public class ServiceSelection {
 
         // Bottoni di azione
         confirmButton = new Button("Conferma");
-        confirmButton.setOnAction(e -> controller.handleConfirm());
         cancelButton = new Button("Annulla");
-        cancelButton.setOnAction(e -> controller.handleCancel());
         VBox buttonSection = new VBox(10, confirmButton, cancelButton);
         buttonSection.setStyle("-fx-alignment: center;");
 
