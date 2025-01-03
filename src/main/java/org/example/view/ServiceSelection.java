@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.view.control.NavigationService;
-import org.example.view.control.ServiceSelectionController;
 
 public class ServiceSelection {
     protected VBox root;

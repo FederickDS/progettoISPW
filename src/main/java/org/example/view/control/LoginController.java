@@ -2,7 +2,6 @@ package org.example.view.control;
 
 import javafx.stage.Stage;
 import org.example.control.ValidateLogin;
-import org.example.entity.User;
 import org.example.view.AbstractLoginView;
 import org.example.view.CustomerLoginView;
 import org.example.view.ReceptionistLoginView;

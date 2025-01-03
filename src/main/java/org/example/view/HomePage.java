@@ -3,8 +3,6 @@ package org.example.view;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import org.example.view.control.NavigationService;
 
 public class HomePage {
     protected VBox root;

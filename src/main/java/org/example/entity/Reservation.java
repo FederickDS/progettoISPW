@@ -1,7 +1,6 @@
 package org.example.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 // Classe che rappresenta una prenotazione

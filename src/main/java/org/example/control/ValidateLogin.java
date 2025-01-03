@@ -4,7 +4,6 @@ import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 public class ValidateLogin {

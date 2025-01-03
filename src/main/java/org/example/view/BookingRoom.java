@@ -4,8 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import org.example.view.control.NavigationService;
 import java.time.LocalDate;
 
 public class BookingRoom {
