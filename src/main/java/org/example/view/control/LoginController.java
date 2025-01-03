@@ -67,9 +67,10 @@ public class LoginController {
     }
 
     private void navigateToNextPage() {
-        switch (nextPage) {
-            case "homePage" -> navigationService.navigateToHomePage();
-            case "serviceSelection" -> navigationService.navigateToServiceSelection();
+        if(nextPage.equalsIgnoreCase("homepage")){
+            navigationService.navigateToHomePage();
+        }else if(nextPage.equalsIgnoreCase("serviceSelection")){
+            navigationService.navigateToServiceSelection();
         }
     }
 
@@ -80,10 +81,12 @@ public class LoginController {
         }
 
         // Utilizza il NavigationService direttamente per navigare indietro
-        switch (previousPage) {
-            case "startupSettings" -> navigationService.navigateToStartupSettings();
-            case "homePage" -> navigationService.navigateToHomePage();
-            case "serviceSelection" -> navigationService.navigateToServiceSelection();
+        if(previousPage.equalsIgnoreCase("homepage")){
+            navigationService.navigateToHomePage();
+        }else if(previousPage.equalsIgnoreCase("serviceSelection")){
+            navigationService.navigateToServiceSelection();
+        }else if(previousPage.equalsIgnoreCase("startupSettings")){
+            navigationService.navigateToStartupSettings();
         }
     }
 }
