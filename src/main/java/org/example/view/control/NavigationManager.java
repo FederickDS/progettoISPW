@@ -36,6 +36,11 @@ public class NavigationManager implements NavigationService{
         new BookingRoomController(this.stage, this, bookRoom).loadBookingRoom();
     }
 
+    public void navigateToLogin(String previousPage, String nextPage, String type){
+        new LoginController(this.stage,this,previousPage,nextPage).loadLoginView(type);
+    }
+
+
     public void display(Stage stage, VBox root, String title) {
         try {
             Scene scene = new Scene(root);

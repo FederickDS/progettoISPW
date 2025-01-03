@@ -9,5 +9,6 @@ public interface NavigationService {
     void navigateToServiceSelection();
     void navigateToStartupSettings();
     void navigateToBookingRoom(BookRoom bookRoom);
+    void navigateToLogin(String previousPage, String nextPage, String type);
     void display(Stage stage, VBox root, String title);
 }
