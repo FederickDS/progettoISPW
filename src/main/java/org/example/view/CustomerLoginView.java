@@ -13,7 +13,7 @@ public class CustomerLoginView extends AbstractLoginView {
         return "Login come Cliente";
     }
     @Override
-    protected String getType(){
+    public String getType(){
         return "client";
     }
 }

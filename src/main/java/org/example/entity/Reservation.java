@@ -13,17 +13,6 @@ class Reservation implements Serializable {
     private List<Client> clients;
 
     public Reservation() {
-        this.freeServices = new ArrayList<>();
-        this.freeActivities = new ArrayList<>();
-        this.clients = new ArrayList<>();
-    }
-
-    public Reservation(TimeInterval timetable, List<Service> freeServices, List<Activity> freeActivities, Room room, List<Client> clients) {
-        this.timetable = timetable;
-        this.freeServices = freeServices;
-        this.freeActivities = freeActivities;
-        this.room = room;
-        this.clients = clients;
     }
 
     public TimeInterval getTimetable() {

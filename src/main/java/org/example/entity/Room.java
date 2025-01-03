@@ -11,12 +11,6 @@ class Room implements Serializable {
     public Room() {
     }
 
-    public Room(int roomNumber, int maxPeople, int floor) {
-        this.roomNumber = roomNumber;
-        this.maxPeople = maxPeople;
-        this.floor = floor;
-    }
-
     public int getRoomNumber() {
         return roomNumber;
     }

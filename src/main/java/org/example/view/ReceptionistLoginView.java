@@ -13,7 +13,7 @@ public class ReceptionistLoginView extends AbstractLoginView {
         return "Login come Receptionist";
     }
     @Override
-    protected String getType(){
+    public String getType(){
         return "receptionist";
     }
 }

@@ -1,6 +1,8 @@
 package org.example.view.control;
 
 import javafx.stage.Stage;
+import org.example.control.ValidateLogin;
+import org.example.entity.User;
 import org.example.view.AbstractLoginView;
 import org.example.view.CustomerLoginView;
 import org.example.view.ReceptionistLoginView;
@@ -53,19 +55,15 @@ public class LoginController {
             // Mostra un messaggio di errore nella view (aggiungibile nella tua classe `AbstractLoginView`).
             return;
         }
+        ValidateLogin validateLogin = new ValidateLogin(this.loginView.getType());
 
-        if (validateLogin(username, password)) {
+        if () {
             logger.info("Login riuscito!");
             navigateToNextPage();
         } else {
             logger.warning("Login fallito. Credenziali non valide.");
             // Mostra un messaggio di errore nella view.
         }
-    }
-
-    private boolean validateLogin(String username, String password) {
-        // Logica di validazione (da implementare in base ai requisiti).
-        return "admin".equals(username) && "password".equals(password); // Esempio semplice
     }
 
     private void navigateToNextPage() {
