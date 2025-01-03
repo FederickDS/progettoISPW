@@ -1,23 +1,38 @@
 package org.example.control;
 
-import org.example.dao.UserDAO;
+import org.example.entity.Client;
+import org.example.entity.Receptionist;
 import org.example.entity.User;
-import org.example.view.CustomerLoginView;
-import org.example.view.ReceptionistLoginView;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
 public class ValidateLogin {
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private User user;
+    private final User user;
 
     public ValidateLogin(String typeOfLogin) {
         if(typeOfLogin.equalsIgnoreCase("client")){
-            //validateClient();
+            user = new Client();
         }else{
-            //validateUser();
+            user = new Receptionist();
         }
+    }
+
+    public boolean validate(String username, String password) {
+        if(user.getUserType().equals("client")){
+            return validateClient(username, password);
+        }else{
+            return validateReceptionist(username, password);
+        }
+    }
+
+    public boolean validateClient(String username, String password) {
+        return false;
+    }
+
+    public boolean validateReceptionist(String username, String password) {
+        return false;
     }
 }
 

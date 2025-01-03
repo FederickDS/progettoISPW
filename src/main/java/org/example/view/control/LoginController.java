@@ -57,7 +57,7 @@ public class LoginController {
         }
         ValidateLogin validateLogin = new ValidateLogin(this.loginView.getType());
 
-        if () {
+        if (validateLogin.validate(username,password)) {
             logger.info("Login riuscito!");
             navigateToNextPage();
         } else {
