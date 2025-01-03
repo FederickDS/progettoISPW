@@ -11,8 +11,7 @@ class Reservation implements Serializable {
     private Room room;
     private List<Client> clients;
 
-    public Reservation() {
-    }
+    public Reservation() {/*classe bean*/}
 
     public TimeInterval getTimetable() {
         return timetable;

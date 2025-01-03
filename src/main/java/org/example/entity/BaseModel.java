@@ -8,8 +8,7 @@ abstract class BaseModel implements Serializable {
     private String description;
     private int maxParticipants;
 
-    protected BaseModel() {
-    }
+    protected BaseModel() {/*classe bean*/}
 
     protected BaseModel(String description, int maxParticipants) {
         this.description = description;

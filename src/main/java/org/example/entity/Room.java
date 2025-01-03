@@ -9,6 +9,7 @@ class Room implements Serializable {
     private int floor;
 
     public Room() {
+        /*classe bean*/
     }
 
     public int getRoomNumber() {

@@ -4,10 +4,7 @@ import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 
-import java.util.logging.Logger;
-
 public class ValidateLogin {
-    private final Logger logger = Logger.getLogger(getClass().getName());
     private final User user;
 
     public ValidateLogin(String typeOfLogin) {

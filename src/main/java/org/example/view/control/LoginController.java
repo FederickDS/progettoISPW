@@ -50,7 +50,8 @@ public class LoginController {
         String password = loginView.getPasswordField().getText();
 
         if (username.isBlank() || password.isBlank()) {
-            logger.warning("Username o password mancanti.");
+            loginView.getErrorMessage().setVisible(true);
+            loginView.getErrorMessage().setManaged(true);
             // Mostra un messaggio di errore nella view (aggiungibile nella tua classe `AbstractLoginView`).
             return;
         }
@@ -69,7 +70,6 @@ public class LoginController {
         switch (nextPage) {
             case "homePage" -> navigationService.navigateToHomePage();
             case "serviceSelection" -> navigationService.navigateToServiceSelection();
-            default -> logger.warning("Pagina successiva non definita: " + nextPage);
         }
     }
 
@@ -84,7 +84,6 @@ public class LoginController {
             case "startupSettings" -> navigationService.navigateToStartupSettings();
             case "homePage" -> navigationService.navigateToHomePage();
             case "serviceSelection" -> navigationService.navigateToServiceSelection();
-            default -> logger.warning("Pagina precedente sconosciuta: " + previousPage);
         }
     }
 }

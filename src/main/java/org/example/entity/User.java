@@ -8,7 +8,8 @@ public abstract class User implements Serializable {
     private String email;
     private String password;
 
-    public User() {
+    protected User() {
+        //classe bean
     }
 
     public String getFirstName() {

@@ -7,8 +7,7 @@ public class Client extends User {
     private String taxCode;
     private String phoneNumber;
 
-    public Client() {
-    }
+    public Client() {/*classe bean*/}
 
     public LocalDateTime getBirthDate() {
         return birthDate;

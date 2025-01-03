@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.view.control.NavigationService;
 
@@ -18,8 +19,9 @@ public abstract class AbstractLoginView {
     private PasswordField passwordField;
     private Button loginButton;
     private Button cancelButton;
+    private Text errorMessage;
 
-    public AbstractLoginView(Stage stage) {
+    protected AbstractLoginView(Stage stage) {
         this.stage = stage;
         root = new VBox(10);
         root.getStyleClass().add("root");
@@ -33,10 +35,15 @@ public abstract class AbstractLoginView {
         passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
+        this.errorMessage = new Text("Username o password non corrispondono a un account");
+        this.errorMessage.setVisible(false); // Non visibile inizialmente
+        this.errorMessage.setManaged(false); // Non occupa spazio nel layout
+
+
         loginButton = new Button("Conferma");
         loginButton.getStyleClass().add("button");
 
-        cancelButton = new Button("Conferma");
+        cancelButton = new Button("Annulla");
         cancelButton.getStyleClass().add("button");
 
         root.getChildren().addAll(titleLabel, usernameField, passwordField, loginButton, cancelButton);
@@ -76,4 +83,6 @@ public abstract class AbstractLoginView {
     }
 
     public VBox getVBox(){return root;}
+
+    public Text getErrorMessage() {return errorMessage;}
 }
