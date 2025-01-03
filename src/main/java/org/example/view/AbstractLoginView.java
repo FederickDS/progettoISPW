@@ -74,4 +74,6 @@ public abstract class AbstractLoginView {
     public Button getCancelButton() {
         return cancelButton;
     }
+
+    public VBox getVBox(){return root;}
 }
