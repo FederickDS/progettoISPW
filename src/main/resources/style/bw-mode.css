@@ -33,6 +33,8 @@
     -fx-border-radius: 5;
     -fx-padding: 5;
     -fx-font-size: 14px;
+    -fx-pref-width: 250; /* Larghezza preferita */
+    -fx-max-width: 300; /* Larghezza massima */
 }
 
 .text-field:focused, .password-field:focused {

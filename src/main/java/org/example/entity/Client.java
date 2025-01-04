@@ -35,6 +35,6 @@ public class Client extends User {
 
     @Override
     public String getUserType() {
-        return "Client";
+        return "client";
     }
 }

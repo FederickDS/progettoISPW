@@ -16,6 +16,6 @@ public class Receptionist extends User {
 
     @Override
     public String getUserType() {
-        return "Receptionist";
+        return "receptionist";
     }
 }

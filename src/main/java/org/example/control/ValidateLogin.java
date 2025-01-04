@@ -24,7 +24,7 @@ public class ValidateLogin {
     }
 
     public boolean validateClient(String username, String password) {
-        return false;
+        return true;
     }
 
     public boolean validateReceptionist(String username, String password) {
