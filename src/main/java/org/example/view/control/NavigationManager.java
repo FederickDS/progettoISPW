@@ -11,10 +11,11 @@ import javafx.scene.layout.VBox;
 
 public class NavigationManager implements NavigationService{
     private final Stage stage;
-    private Logger logger;
+    private final Logger logger;
 
     public NavigationManager(Stage stage) {
         this.stage = stage;
+        this.logger = Logger.getLogger(NavigationManager.class.getName());
     }
 
     @Override

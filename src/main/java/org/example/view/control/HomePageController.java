@@ -7,6 +7,7 @@ public class HomePageController {
 
     private final Stage stage;
     private final NavigationService navigationService;
+    private HomePage homePage;
 
     public HomePageController(Stage stage, NavigationService navigationService) {
         this.stage = stage;
@@ -15,12 +16,16 @@ public class HomePageController {
 
     public void loadHomePage() {
         // Crea l'HomePage tramite la factory
-        HomePage homePage = new HomePage();
+        this.homePage = new HomePage();
 
-        // Aggiungi il gestore per il pulsante "Prenota Stanza"
-        homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection());
+        addEventHandlers();
 
         // Mostra l'HomePage
         navigationService.display(stage,homePage.getVBox(),"Home page");
+    }
+
+    private void addEventHandlers() {
+        // Aggiungi il gestore per il pulsante "Prenota Stanza"
+        homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToLogin("HomePage","ServiceSelection","client"));
     }
 }

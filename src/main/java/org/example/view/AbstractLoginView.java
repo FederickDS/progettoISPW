@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 import org.example.view.control.NavigationService;
 
 public abstract class AbstractLoginView {
-    private Stage stage;
-    private Scene scene;
     private VBox root;
     private Label titleLabel;
     private TextField usernameField;
@@ -22,8 +20,9 @@ public abstract class AbstractLoginView {
     private Text errorMessage;
 
     protected AbstractLoginView(Stage stage) {
-        this.stage = stage;
-        root = new VBox(10);
+        root = new VBox(15);
+        root.setPrefSize(1280, 720);
+        root.setStyle("-fx-padding: 20; -fx-alignment: center;");
         root.getStyleClass().add("root");
 
         titleLabel = new Label(getTitleText());
@@ -46,8 +45,7 @@ public abstract class AbstractLoginView {
         cancelButton = new Button("Annulla");
         cancelButton.getStyleClass().add("button");
 
-        root.getChildren().addAll(titleLabel, usernameField, passwordField, loginButton, cancelButton);
-        scene = new Scene(root, 1280, 720);
+        root.getChildren().addAll(titleLabel, usernameField, passwordField, errorMessage, loginButton, cancelButton);
     }
 
     protected abstract String getTitleText();

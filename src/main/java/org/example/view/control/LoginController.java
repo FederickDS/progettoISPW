@@ -81,11 +81,11 @@ public class LoginController {
         }
 
         // Utilizza il NavigationService direttamente per navigare indietro
-        if(previousPage.equalsIgnoreCase("homepage")){
+        if(previousPage.equalsIgnoreCase("HomePage")){
             navigationService.navigateToHomePage();
-        }else if(previousPage.equalsIgnoreCase("serviceSelection")){
+        }else if(previousPage.equalsIgnoreCase("ServiceSelection")){
             navigationService.navigateToServiceSelection();
-        }else if(previousPage.equalsIgnoreCase("startupSettings")){
+        }else if(previousPage.equalsIgnoreCase("StartupSettings")){
             navigationService.navigateToStartupSettings();
         }
     }
