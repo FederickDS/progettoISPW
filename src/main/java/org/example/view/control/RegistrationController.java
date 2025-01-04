@@ -63,8 +63,10 @@ public class RegistrationController {
         User newUser = createUserFromInput(firstName,lastName,email,password);
 
         // Salva l'utente nel sistema (puoi aggiungere la logica di salvataggio qui)
-        logger.info("Registrazione riuscita per: " + newUser.getEmail());
-        navigateToNextPage();
+        if(newUser!=null){
+            logger.info("Registrazione riuscita per: " + newUser.getEmail());
+            navigateToNextPage();
+        }
     }
 
     private User createUserFromInput(String firstName, String lastName, String email, String password) {
