@@ -2,9 +2,9 @@ package org.example.view;
 
 import javafx.stage.Stage;
 
-public class CustomerLoginView extends AbstractLoginView {
+public class ClientLoginView extends AbstractLoginView {
 
-    public CustomerLoginView(Stage stage) {
+    public ClientLoginView(Stage stage) {
         super(stage);
     }
 

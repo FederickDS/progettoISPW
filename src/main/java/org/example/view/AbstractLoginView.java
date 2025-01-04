@@ -18,6 +18,8 @@ public abstract class AbstractLoginView {
     private Button loginButton;
     private Button cancelButton;
     private Text errorMessage;
+    private Text registrationPrompt;
+    private Button registerButton;
 
     protected AbstractLoginView(Stage stage) {
         root = new VBox(15);
@@ -38,14 +40,21 @@ public abstract class AbstractLoginView {
         this.errorMessage.setVisible(false); // Non visibile inizialmente
         this.errorMessage.setManaged(false); // Non occupa spazio nel layout
 
-
         loginButton = new Button("Conferma");
         loginButton.getStyleClass().add("button");
 
         cancelButton = new Button("Annulla");
         cancelButton.getStyleClass().add("button");
 
-        root.getChildren().addAll(titleLabel, usernameField, passwordField, errorMessage, loginButton, cancelButton);
+        // Aggiunta del prompt per la registrazione
+        registrationPrompt = new Text("Se non ti sei mai prenotato, puoi registrarti.");
+        registrationPrompt.getStyleClass().add("registration-prompt");
+
+        // Aggiunta del pulsante di registrazione
+        registerButton = new Button("Registrati");
+        registerButton.getStyleClass().add("button");
+
+        root.getChildren().addAll(titleLabel, usernameField, passwordField, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
     }
 
     protected abstract String getTitleText();
@@ -53,7 +62,7 @@ public abstract class AbstractLoginView {
 
     // Metodo per mostrare la pagina
     public void display(Stage stage, NavigationService navigationService) {
-        navigationService.display(stage, root,"Seleziona date e persone");
+        navigationService.display(stage, root, "Login");
     }
 
     public TextField getUsernameField() {
@@ -80,7 +89,19 @@ public abstract class AbstractLoginView {
         return cancelButton;
     }
 
-    public VBox getVBox(){return root;}
+    public VBox getVBox() {
+        return root;
+    }
 
-    public Text getErrorMessage() {return errorMessage;}
+    public Text getErrorMessage() {
+        return errorMessage;
+    }
+
+    public Text getRegistrationPrompt() {
+        return registrationPrompt;
+    }
+
+    public Button getRegisterButton() {
+        return registerButton;
+    }
 }

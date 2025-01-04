@@ -41,6 +41,10 @@ public class NavigationManager implements NavigationService{
         new LoginController(this.stage,this,previousPage,nextPage).loadLoginView(type);
     }
 
+    public void navigateToRegistration(String previousPage, String nextPage, String userType){
+        new RegistrationController(this.stage,this,previousPage,nextPage).loadRegistrationView(userType);
+    }
+
 
     public void display(Stage stage, VBox root, String title) {
         try {

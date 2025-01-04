@@ -3,7 +3,7 @@ package org.example.view.control;
 import javafx.stage.Stage;
 import org.example.control.ValidateLogin;
 import org.example.view.AbstractLoginView;
-import org.example.view.CustomerLoginView;
+import org.example.view.ClientLoginView;
 import org.example.view.ReceptionistLoginView;
 
 import java.util.logging.Logger;
@@ -25,7 +25,7 @@ public class LoginController {
 
     public void loadLoginView(String typeOfLogin) {
         if(typeOfLogin.equalsIgnoreCase("client")){
-            this.loginView = new CustomerLoginView(this.stage);
+            this.loginView = new ClientLoginView(this.stage);
         }else{
             this.loginView = new ReceptionistLoginView(this.stage);
         }
@@ -43,6 +43,8 @@ public class LoginController {
 
         // Gestione navigazione indietro
         loginView.getCancelButton().setOnAction(e -> navigateBack());
+
+        loginView.getRegisterButton().setOnAction(e -> goToRegistration());
     }
 
     private void handleLogin() {
@@ -88,5 +90,9 @@ public class LoginController {
         }else if(previousPage.equalsIgnoreCase("StartupSettings")){
             navigationService.navigateToStartupSettings();
         }
+    }
+
+    private void goToRegistration() {
+        navigationService.navigateToRegistration(previousPage,nextPage,loginView.getType());
     }
 }

@@ -17,20 +17,17 @@ public class HomePage {
         root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
+        // Titolo e descrizione
+        Label title = new Label("Benvenuti al nostro Hotel di Mare!");
+        Label description = new Label("Effettuate la vostra prenotazione e godetevi il soggiorno.");
+
         // Bottoni per i casi d'uso
         bookRoomButton = new Button("Prenota Stanza");
         bookActivityButton = new Button("Prenota Attività");
         loginButton = new Button("Accedi");
 
-        // Aggiungi i bottoni alla root
-        root.getChildren().addAll(bookRoomButton, bookActivityButton, loginButton);
-
-        // Titolo e descrizione
-        Label title = new Label("Benvenuti al nostro Hotel di Mare!");
-        Label description = new Label("Effettuate la vostra prenotazione e godetevi il soggiorno.");
-
-        // Aggiungi titolo e descrizione alla root
-        root.getChildren().addAll(title, description);
+        // Aggiungi alla root
+        root.getChildren().addAll(title, description, bookRoomButton, bookActivityButton, loginButton);
     }
 
     public Button getBookRoomButton() {
