@@ -23,6 +23,8 @@ public abstract class AbstractRegistrationView {
         root = new VBox(15);
         root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        //risolve code smell
+        String bottone ="button";
 
         // Campi comuni
         titleLabel = new Label(getTitleText());
@@ -44,10 +46,10 @@ public abstract class AbstractRegistrationView {
         repeatPasswordField.setPromptText("Repeat Password");
 
         registerButton = new Button("Registrati");
-        registerButton.getStyleClass().add("button");
+        registerButton.getStyleClass().add(bottone);
 
         cancelButton = new Button("Annulla");
-        cancelButton.getStyleClass().add("button");
+        cancelButton.getStyleClass().add(bottone);
 
 
         // Aggiungi campi alla root
@@ -65,7 +67,7 @@ public abstract class AbstractRegistrationView {
 
         // Aggiunta del pulsante per il login
         loginButton = new Button("Accedi");
-        loginButton.getStyleClass().add("button");
+        loginButton.getStyleClass().add(bottone);
         root.getChildren().add(loginButton);
     }
 
