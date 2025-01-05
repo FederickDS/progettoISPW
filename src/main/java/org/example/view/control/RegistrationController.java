@@ -46,6 +46,8 @@ public class RegistrationController {
 
         // Gestione navigazione indietro
         registrationView.getCancelButton().setOnAction(e -> navigateBack());
+
+        registrationView.getLoginButton().setOnAction(e -> goToLogin());
     }
 
     private void handleRegistration() {
@@ -94,8 +96,8 @@ public class RegistrationController {
 
     private void navigateToNextPage() {
         switch (nextPage) {
-            case "homePage" -> navigationService.navigateToHomePage();
-            case "serviceSelection" -> navigationService.navigateToServiceSelection();
+            case "HomePage" -> navigationService.navigateToHomePage();
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
             default -> logger.warning("Pagina successiva non definita: " + nextPage);
         }
     }
@@ -107,10 +109,14 @@ public class RegistrationController {
         }
 
         switch (previousPage) {
-            case "startupSettings" -> navigationService.navigateToStartupSettings();
-            case "homePage" -> navigationService.navigateToHomePage();
-            case "serviceSelection" -> navigationService.navigateToServiceSelection();
+            case "StartupSettings" -> navigationService.navigateToStartupSettings();
+            case "HomePage" -> navigationService.navigateToHomePage();
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
             default -> logger.warning("Pagina precedente sconosciuta: " + previousPage);
         }
+    }
+
+    private void goToLogin() {
+        navigationService.navigateToLogin(previousPage,nextPage,registrationView.getType());
     }
 }

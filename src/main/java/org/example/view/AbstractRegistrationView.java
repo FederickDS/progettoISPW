@@ -104,6 +104,10 @@ public abstract class AbstractRegistrationView {
         return cancelButton;
     }
 
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
     public VBox getVBox() {
         return root;
     }
