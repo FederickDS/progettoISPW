@@ -1,11 +1,9 @@
 package org.example.view;
 
-import javafx.stage.Stage;
-
 public class ClientLoginView extends AbstractLoginView {
 
-    public ClientLoginView(Stage stage) {
-        super(stage);
+    public ClientLoginView() {
+        //non serve, titolo grazie a metodo getTitleText
     }
 
     @Override

@@ -25,9 +25,9 @@ public class LoginController {
 
     public void loadLoginView(String typeOfLogin) {
         if(typeOfLogin.equalsIgnoreCase("client")){
-            this.loginView = new ClientLoginView(this.stage);
+            this.loginView = new ClientLoginView();
         }else{
-            this.loginView = new ReceptionistLoginView(this.stage);
+            this.loginView = new ReceptionistLoginView();
         }
 
         // Mostra la view

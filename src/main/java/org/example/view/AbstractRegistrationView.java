@@ -18,7 +18,7 @@ public abstract class AbstractRegistrationView {
     protected Text loginPrompt;
     protected Button loginButton;
 
-    public AbstractRegistrationView() {
+    protected AbstractRegistrationView() {
         // Layout di base
         root = new VBox(15);
         root.setPrefSize(1280, 720);

@@ -17,6 +17,8 @@
     -fx-background-color: #333333;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 15px;
 }
 
 .button:hover {
@@ -48,4 +50,11 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
+}
+
+.login-prompt {
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+    -fx-padding: 10px 0;
+    -fx-text-fill: #333;
 }

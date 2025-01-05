@@ -98,7 +98,7 @@ public class RegistrationController {
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage();
             case "ServiceSelection" -> navigationService.navigateToServiceSelection();
-            default -> logger.warning("Pagina successiva non definita: " + nextPage);
+            default -> logger.warning("Pagina successiva non definita");
         }
     }
 
@@ -112,7 +112,7 @@ public class RegistrationController {
             case "StartupSettings" -> navigationService.navigateToStartupSettings();
             case "HomePage" -> navigationService.navigateToHomePage();
             case "ServiceSelection" -> navigationService.navigateToServiceSelection();
-            default -> logger.warning("Pagina precedente sconosciuta: " + previousPage);
+            default -> logger.warning("Pagina precedente sconosciuta");
         }
     }
 

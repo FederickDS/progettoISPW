@@ -1,7 +1,6 @@
 package org.example.view;
 
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class ClientRegistrationView extends AbstractRegistrationView {
     private TextField birthDateField;

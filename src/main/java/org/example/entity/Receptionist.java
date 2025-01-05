@@ -4,6 +4,7 @@ public class Receptionist extends User {
     private String employeeId;
 
     public Receptionist() {
+        //costruttore vuoto in classe bean
     }
 
     public String getEmployeeId() {

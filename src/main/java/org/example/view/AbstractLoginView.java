@@ -1,6 +1,5 @@
 package org.example.view;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -21,11 +20,13 @@ public abstract class AbstractLoginView {
     private Text registrationPrompt;
     private Button registerButton;
 
-    protected AbstractLoginView(Stage stage) {
+    protected AbstractLoginView() {
         root = new VBox(15);
         root.setPrefSize(1280, 720);
-        root.setStyle("-fx-padding: 20; -fx-alignment: center;");
         root.getStyleClass().add("root");
+        //risolve code smell
+        String button ="button";
+
 
         titleLabel = new Label(getTitleText());
         titleLabel.getStyleClass().add("label");
@@ -41,10 +42,10 @@ public abstract class AbstractLoginView {
         this.errorMessage.setManaged(false); // Non occupa spazio nel layout
 
         loginButton = new Button("Conferma");
-        loginButton.getStyleClass().add("button");
+        loginButton.getStyleClass().add(button);
 
         cancelButton = new Button("Annulla");
-        cancelButton.getStyleClass().add("button");
+        cancelButton.getStyleClass().add(button);
 
         // Aggiunta del prompt per la registrazione
         registrationPrompt = new Text("Se non ti sei mai prenotato, puoi registrarti.");
@@ -52,7 +53,7 @@ public abstract class AbstractLoginView {
 
         // Aggiunta del pulsante di registrazione
         registerButton = new Button("Registrati");
-        registerButton.getStyleClass().add("button");
+        registerButton.getStyleClass().add(button);
 
         root.getChildren().addAll(titleLabel, usernameField, passwordField, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
     }
