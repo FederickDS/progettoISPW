@@ -1,7 +1,7 @@
-package org.example.applicationController;
+package org.example.graphicController;
 
 import javafx.stage.Stage;
-import org.example.graphicController.ValidateLogin;
+import org.example.appController.ValidateLogin;
 import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
 import org.example.view.ReceptionistLoginView;

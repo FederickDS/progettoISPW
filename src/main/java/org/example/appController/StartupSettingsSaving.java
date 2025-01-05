@@ -1,4 +1,4 @@
-package org.example.graphicController;
+package org.example.appController;
 
 import org.example.entity.StartupSettingsEntity;
 

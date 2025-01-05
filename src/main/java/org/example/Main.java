@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.applicationController.NavigationManager;
+import org.example.graphicController.NavigationManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
