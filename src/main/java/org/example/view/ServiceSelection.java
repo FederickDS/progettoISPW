@@ -58,8 +58,4 @@ public class ServiceSelection {
     }
 
     public VBox getVBox(){return root;}
-    // Metodo per mostrare la pagina
-    public void display(Stage stage, NavigationService navigationService) {
-        navigationService.display(stage, root,"Selezione Servizi e Attività");
-    }
 }

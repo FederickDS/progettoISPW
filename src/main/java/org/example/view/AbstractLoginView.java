@@ -61,11 +61,6 @@ public abstract class AbstractLoginView {
     protected abstract String getTitleText();
     public abstract String getType();
 
-    // Metodo per mostrare la pagina
-    public void display(Stage stage, NavigationService navigationService) {
-        navigationService.display(stage, root, "Login");
-    }
-
     public TextField getUsernameField() {
         return usernameField;
     }
