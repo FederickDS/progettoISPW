@@ -1,4 +1,4 @@
-package org.example.view.control;
+package org.example.applicationController;
 
 import org.example.view.HomePage;
 import javafx.stage.Stage;

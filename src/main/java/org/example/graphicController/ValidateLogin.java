@@ -1,4 +1,4 @@
-package org.example.control;
+package org.example.graphicController;
 
 import org.example.entity.Client;
 import org.example.entity.Receptionist;

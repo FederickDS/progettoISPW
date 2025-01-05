@@ -6,8 +6,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import org.example.view.control.NavigationService;
 
 public abstract class AbstractLoginView {
     private VBox root;

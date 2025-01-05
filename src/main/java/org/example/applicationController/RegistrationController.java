@@ -1,4 +1,4 @@
-package org.example.view.control;
+package org.example.applicationController;
 
 import javafx.stage.Stage;
 import org.example.entity.User;

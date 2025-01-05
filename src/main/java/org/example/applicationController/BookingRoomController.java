@@ -1,6 +1,6 @@
-package org.example.view.control;
+package org.example.applicationController;
 
-import org.example.control.BookRoom;
+import org.example.graphicController.BookRoom;
 import org.example.view.BookingRoom;
 import javafx.stage.Stage;
 

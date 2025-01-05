@@ -1,9 +1,9 @@
-package org.example.view.control;
+package org.example.applicationController;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.logging.Logger;
-import org.example.control.BookRoom;
+import org.example.graphicController.BookRoom;
 import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
