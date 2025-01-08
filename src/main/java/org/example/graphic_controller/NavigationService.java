@@ -1,8 +1,8 @@
-package org.example.graphicController;
+package org.example.graphic_controller;
 
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
-import org.example.appController.BookRoom;
+import org.example.app_controller.BookRoom;
 
 public interface NavigationService {
     void navigateToHomePage();

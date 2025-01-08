@@ -2,22 +2,26 @@ package org.example.view;
 
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
+
 public class ReceptionistRegistrationView extends AbstractRegistrationView {
-    private TextField employeeIdField;
 
     public ReceptionistRegistrationView() {
         super();
     }
 
-    @Override
-    protected void addSpecificFields() {
-        // Campo specifico per i receptionist
-        employeeIdField = new TextField();
-        employeeIdField.setPromptText("ID Dipendente");
-
-        // Aggiungi campo specifico al layout
-        root.getChildren().add(employeeIdField);
+    private boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date); // Verifica se il formato è "yyyy-MM-dd"
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
+
+
+    @Override
+    protected void addSpecificFields() {}
 
     @Override
     protected String getTitleText() {
@@ -28,7 +32,4 @@ public class ReceptionistRegistrationView extends AbstractRegistrationView {
         return "receptionist";
     }
 
-    public TextField getEmployeeIdField() {
-        return employeeIdField;
-    }
 }

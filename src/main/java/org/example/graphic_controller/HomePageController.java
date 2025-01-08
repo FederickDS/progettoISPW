@@ -1,4 +1,4 @@
-package org.example.graphicController;
+package org.example.graphic_controller;
 
 import org.example.view.HomePage;
 import javafx.stage.Stage;

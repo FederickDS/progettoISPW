@@ -1,4 +1,4 @@
-package org.example.appController;
+package org.example.app_controller;
 
 import org.example.entity.StartupSettingsEntity;
 

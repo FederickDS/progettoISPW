@@ -1,20 +1,11 @@
 package org.example.entity;
 
 public class Receptionist extends User {
-    private String employeeId;
 
-    public Receptionist() {
-        //costruttore vuoto in classe bean
+    public Receptionist() {}
+    public Receptionist(String firstName, String lastName, String email, String phoneNumber, String password) {
+        super(firstName, lastName, email, phoneNumber, password);
     }
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
     @Override
     public String getUserType() {
         return "receptionist";

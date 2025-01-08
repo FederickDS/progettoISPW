@@ -1,4 +1,4 @@
-package org.example.graphicController;
+package org.example.graphic_controller;
 
 import javafx.stage.Stage;
 import org.example.entity.User;
@@ -8,6 +8,7 @@ import org.example.view.ReceptionistRegistrationView;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
@@ -78,7 +79,17 @@ public class RegistrationController {
             newClient.setLastName(lastName);
             newClient.setEmail(email);
             newClient.setPassword(password);
-            newClient.setBirthDate(LocalDateTime.parse(clientView.getBirthDateField().getText()));
+
+            // Conversione della data di nascita
+            String birthDateText = clientView.getBirthDateField().getText();
+            try {
+                LocalDate birthDate = LocalDate.parse(birthDateText); // Analizza la stringa nel formato "yyyy-MM-dd"
+                newClient.setBirthDate(birthDate);
+            } catch (Exception e) {
+                logger.warning("Formato data di nascita non valido: " + birthDateText);
+                return null; // Fallisce la registrazione in caso di formato errato
+            }
+
             newClient.setTaxCode(clientView.getTaxCodeField().getText());
             newClient.setPhoneNumber(clientView.getPhoneNumberField().getText());
             return newClient;
@@ -88,11 +99,11 @@ public class RegistrationController {
             newReceptionist.setLastName(lastName);
             newReceptionist.setEmail(email);
             newReceptionist.setPassword(password);
-            newReceptionist.setEmployeeId(receptionistView.getEmployeeIdField().getText());
             return newReceptionist;
         }
         return null;
     }
+
 
     private void navigateToNextPage() {
         switch (nextPage) {

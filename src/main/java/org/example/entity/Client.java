@@ -1,19 +1,25 @@
 package org.example.entity;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Client extends User {
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private String taxCode;
-    private String phoneNumber;
 
     public Client() {/*classe bean*/}
 
-    public LocalDateTime getBirthDate() {
+    public Client(String firstName, String lastName, String email, String phoneNumber, String password, LocalDate birthDate, String taxCode) {
+        super(firstName, lastName, email, phoneNumber, password);
+        this.birthDate = birthDate;
+        this.taxCode = taxCode;
+    }
+
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -23,14 +29,6 @@ public class Client extends User {
 
     public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     @Override
