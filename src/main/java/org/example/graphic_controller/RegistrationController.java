@@ -73,9 +73,14 @@ public class RegistrationController {
         // Salva l'utente nel sistema
         if(newUser!=null){
             UserRegistrationController appController = new UserRegistrationController();
-            boolean success = appController.registerUser(newUser);
-            logger.info("Registrazione riuscita per: " + newUser.getEmail());
-            navigateToNextPage();
+            String result = appController.registerUser(newUser);
+
+            switch (result) {
+                case "success" -> navigateToNextPage();
+                case "error:phone_exists" -> registrationView.showPhoneErrorMessage("Il numero di telefono è già registrato.");
+                case "error:database_error" -> registrationView.showPhoneErrorMessage("Errore durante la registrazione. Riprova più tardi.");
+                default -> registrationView.showPhoneErrorMessage("Errore sconosciuto.");
+            }
         }
     }
 

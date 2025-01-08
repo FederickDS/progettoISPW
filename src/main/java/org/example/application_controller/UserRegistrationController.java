@@ -24,23 +24,29 @@ public class UserRegistrationController {
         this.receptionistDao = new ReceptionistDaoDB(connection);
     }
 
-    public boolean registerUser(User user) {
+    public String registerUser(User user) {
         try {
             if (user instanceof Client client) {
                 clientDao.create(client);
                 logger.info("Client registrato con successo: " + client.getEmail());
-                return true;
+                return "success";
             } else if (user instanceof Receptionist receptionist) {
                 receptionistDao.create(receptionist);
                 logger.info("Receptionist registrato con successo: " + receptionist.getEmail());
-                return true;
+                return "success";
             } else {
                 logger.warning("Tipo di utente non riconosciuto: " + user.getClass().getName());
-                return false;
+                return "error:unknown_user_type";
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + user.getEmail(), e);
-            return false;
+            if (e.getMessage().contains("Il numero di telefono è già registrato")) {
+                logger.warning("Registrazione fallita: " + e.getMessage());
+                return "error:phone_exists";
+            } else {
+                logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + user.getEmail(), e);
+                return "error:database_error";
+            }
         }
     }
+
 }

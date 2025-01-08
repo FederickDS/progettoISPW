@@ -111,4 +111,8 @@ public abstract class AbstractRegistrationView {
     public VBox getVBox() {
         return root;
     }
+
+    public void showPhoneErrorMessage(String message) {
+        // Default vuoto, da sovrascrivere nelle sottoclassi se necessario
+    }
 }

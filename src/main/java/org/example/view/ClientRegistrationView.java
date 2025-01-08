@@ -1,11 +1,13 @@
 package org.example.view;
 
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class ClientRegistrationView extends AbstractRegistrationView {
     private TextField birthDateField;
     private TextField taxCodeField;
     private TextField phoneNumberField;
+    protected Text phoneErrorMessage;
 
     public ClientRegistrationView() {
         super();
@@ -23,8 +25,11 @@ public class ClientRegistrationView extends AbstractRegistrationView {
         phoneNumberField = new TextField();
         phoneNumberField.setPromptText("Numero di telefono");
 
+        phoneErrorMessage = new Text("Il numero di telefono inserito e'stato utilizzato per un altro utente.");
+        phoneErrorMessage.getStyleClass().add("error-message");
+        phoneErrorMessage.setVisible(false);
         // Aggiungi campi specifici al layout
-        root.getChildren().addAll(birthDateField, taxCodeField, phoneNumberField);
+        root.getChildren().addAll(birthDateField, taxCodeField, phoneNumberField, phoneErrorMessage);
     }
 
     @Override
@@ -48,4 +53,13 @@ public class ClientRegistrationView extends AbstractRegistrationView {
     public TextField getPhoneNumberField() {
         return phoneNumberField;
     }
+
+    public Text getPhoneErrorMessage() {return phoneErrorMessage;}
+
+    @Override
+    public void showPhoneErrorMessage(String message) {
+        phoneErrorMessage.setText(message);
+        phoneErrorMessage.setVisible(true);
+    }
+
 }

@@ -4,6 +4,7 @@ import java.sql.*;
 
 import org.example.dao.GenericDao;
 import org.example.entity.Client;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -17,7 +18,11 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public void create(Client client) throws SQLException {
-        Date date;
+        // Controlla se il numero di telefono esiste già
+        if (phoneNumberExists(client.getPhoneNumber())) {
+            throw new SQLException("Il numero di telefono è già registrato");
+        }
+
         String sql = "INSERT INTO Client (first_name, last_name, email, phone_number, password, birth_date, tax_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, client.getFirstName());
@@ -30,6 +35,18 @@ public class ClientDaoDB implements GenericDao<Client> {
             ps.executeUpdate();
         }
     }
+
+    // Metodo per verificare se un numero di telefono è già presente
+    private boolean phoneNumberExists(String phoneNumber) throws SQLException {
+        String sql = "SELECT 1 FROM Client WHERE phone_number = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, phoneNumber);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next(); // Restituisce true se esiste almeno una riga
+            }
+        }
+    }
+
 
     @Override
     public Client read(String email) throws SQLException {
