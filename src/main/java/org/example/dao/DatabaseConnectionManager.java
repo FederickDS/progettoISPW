@@ -1,22 +1,40 @@
-package org.example.service;
+package org.example.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class DatabaseConnectionManager {
     private static final Logger logger = Logger.getLogger(DatabaseConnectionManager.class.getName());
     private static Connection connection;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/Hotel";
-    private static final String USER = "root";
-    private static final String PASSWORD = "federico123";
+    private static String url;
+    private static String user;
+    private static String password;
+
+    static {
+        // Carica i dati di configurazione
+        try (FileInputStream fis = new FileInputStream("config/dbconfig.properties")) {
+            Properties properties = new Properties();
+            properties.load(fis);
+
+            url = properties.getProperty("db.url");
+            user = properties.getProperty("db.user");
+            password = properties.getProperty("db.password");
+        } catch (IOException e) {
+            logger.severe("Errore durante il caricamento della configurazione del database: " + e.getMessage());
+            throw new RuntimeException("Impossibile caricare la configurazione del database", e);
+        }
+    }
 
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                connection = DriverManager.getConnection(url, user, password);
                 logger.info("Connessione al database stabilita.");
             } catch (SQLException e) {
                 logger.severe("Errore nella connessione al database: " + e.getMessage());

@@ -6,7 +6,7 @@ import org.example.dao.GenericDao;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
-import org.example.service.DatabaseConnectionManager;
+import org.example.dao.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
