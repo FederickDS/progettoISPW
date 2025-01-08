@@ -8,6 +8,8 @@ import org.example.view.ReceptionistRegistrationView;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.application_controller.UserRegistrationController;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,12 +59,14 @@ public class RegistrationController {
         String lastName = registrationView.getLastNameField().getText();
         String email = registrationView.getEmailField().getText();
         String password = registrationView.getPasswordField().getText();
-
+        //controlli ai campi
         if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {
             logger.warning("Uno o più campi obbligatori sono mancanti.");
             // Mostra un messaggio di errore nella view (nella classe `AbstractRegistrationView`).
             return;
         }
+        //conversione sha password
+        password = hashWithSHA256(password);
 
         User newUser = createUserFromInput(firstName,lastName,email,password);
 
@@ -105,6 +109,29 @@ public class RegistrationController {
             return newReceptionist;
         }
         return null;
+    }
+
+    public static String hashWithSHA256(String input) {
+        try {
+            // Crea un'istanza di MessageDigest per SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Calcola l'hash della stringa
+            byte[] encodedHash = digest.digest(input.getBytes());
+
+            // Converti i byte dell'hash in una stringa esadecimale
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Errore: Algoritmo SHA-256 non disponibile", e);
+        }
     }
 
 
