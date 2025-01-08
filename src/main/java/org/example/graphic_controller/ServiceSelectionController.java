@@ -1,6 +1,6 @@
 package org.example.graphic_controller;
 
-import org.example.app_controller.BookRoom;
+import org.example.application_controller.BookRoom;
 import org.example.view.ServiceSelection;
 import javafx.stage.Stage;
 

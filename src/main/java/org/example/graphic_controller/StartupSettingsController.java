@@ -1,6 +1,6 @@
 package org.example.graphic_controller;
 
-import org.example.app_controller.StartupSettingsSaving;
+import org.example.application_controller.StartupSettingsSaving;
 import org.example.view.StartupSettingsView;
 import javafx.stage.Stage;
 

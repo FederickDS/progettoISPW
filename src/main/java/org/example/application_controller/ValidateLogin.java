@@ -1,4 +1,4 @@
-package org.example.app_controller;
+package org.example.application_controller;
 
 import org.example.entity.Client;
 import org.example.entity.Receptionist;

@@ -18,7 +18,7 @@ public class ClientDaoDB implements GenericDao<Client> {
     @Override
     public void create(Client client) throws SQLException {
         Date date;
-        String sql = "INSERT INTO client (first_name, last_name, email, phone_number, password, birth_date, tax_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Client (first_name, last_name, email, phone_number, password, birth_date, tax_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, client.getFirstName());
             ps.setString(2, client.getLastName());
@@ -33,7 +33,7 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public Client read(String email) throws SQLException {
-        String sql = "SELECT * FROM client WHERE email = ?";
+        String sql = "SELECT * FROM Client WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
@@ -55,7 +55,7 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public void update(Client client) throws SQLException {
-        String sql = "UPDATE client SET first_name = ?, last_name = ?, phone_number = ?, password = ?, birth_date = ?, tax_code = ? WHERE email = ?";
+        String sql = "UPDATE Client SET first_name = ?, last_name = ?, phone_number = ?, password = ?, birth_date = ?, tax_code = ? WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, client.getFirstName());
             ps.setString(2, client.getLastName());
@@ -70,7 +70,7 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public void delete(String email) throws SQLException {
-        String sql = "DELETE FROM client WHERE email = ?";
+        String sql = "DELETE FROM Client WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.executeUpdate();

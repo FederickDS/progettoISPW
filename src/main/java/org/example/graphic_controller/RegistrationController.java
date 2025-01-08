@@ -7,6 +7,7 @@ import org.example.view.ClientRegistrationView;
 import org.example.view.ReceptionistRegistrationView;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
+import org.example.application_controller.UserRegistrationController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -59,14 +60,16 @@ public class RegistrationController {
 
         if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {
             logger.warning("Uno o più campi obbligatori sono mancanti.");
-            // Mostra un messaggio di errore nella view (aggiungibile nella tua classe `AbstractRegistrationView`).
+            // Mostra un messaggio di errore nella view (nella classe `AbstractRegistrationView`).
             return;
         }
 
         User newUser = createUserFromInput(firstName,lastName,email,password);
 
-        // Salva l'utente nel sistema (puoi aggiungere la logica di salvataggio qui)
+        // Salva l'utente nel sistema
         if(newUser!=null){
+            UserRegistrationController appController = new UserRegistrationController();
+            boolean success = appController.registerUser(newUser);
             logger.info("Registrazione riuscita per: " + newUser.getEmail());
             navigateToNextPage();
         }
