@@ -2,6 +2,9 @@ package org.example.graphic_controller;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 import org.example.application_controller.BookRoom;
 import org.example.entity.StartupSettingsEntity;
@@ -60,6 +63,30 @@ public class NavigationManager implements NavigationService{
             this.logger.warning("Date non valide. Selezionare entrambe le date.");
         }
     }
+
+    public String hashWithSHA256(String input) {
+        try {
+            // Crea un'istanza di MessageDigest per SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Calcola l'hash della stringa
+            byte[] encodedHash = digest.digest(input.getBytes());
+
+            // Converti i byte dell'hash in una stringa esadecimale
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Errore: Algoritmo SHA-256 non disponibile", e);
+        }
+    }
+
 
     protected Stage getStage() {
         return this.stage;

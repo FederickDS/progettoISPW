@@ -12,4 +12,5 @@ public interface NavigationService {
     void navigateToLogin(String previousPage, String nextPage, String type);
     void navigateToRegistration(String previousPage, String nextPage, String userType);
     void display(Stage stage, VBox root, String title);
-}
+    String hashWithSHA256(String input);
+    }

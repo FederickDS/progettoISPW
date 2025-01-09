@@ -62,7 +62,7 @@ public class LoginController {
 
         ValidateLogin validateLogin = new ValidateLogin();
         String typeOfLogin = loginView.getType();
-        User user = validateLogin.validate(email, hashWithSHA256(password), typeOfLogin);
+        User user = validateLogin.validate(email, navigationService.hashWithSHA256(password), typeOfLogin);
 
         if (user != null) {
             logger.info("Login riuscito!");
@@ -73,30 +73,6 @@ public class LoginController {
             loginView.getErrorMessage().setManaged(true);
         }
     }
-
-    public static String hashWithSHA256(String input) {
-        try {
-            // Crea un'istanza di MessageDigest per SHA-256
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // Calcola l'hash della stringa
-            byte[] encodedHash = digest.digest(input.getBytes());
-
-            // Converti i byte dell'hash in una stringa esadecimale
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : encodedHash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Errore: Algoritmo SHA-256 non disponibile", e);
-        }
-    }
-
 
     private void navigateToNextPage(User user) {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
