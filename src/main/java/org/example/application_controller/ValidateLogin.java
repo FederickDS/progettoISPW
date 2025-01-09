@@ -1,34 +1,34 @@
 package org.example.application_controller;
 
+import org.example.dao.ClientDaoDB;
+import org.example.dao.ReceptionistDaoDB;
+import org.example.dao.DatabaseConnectionManager;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class ValidateLogin {
-    private final User user;
-
-    public ValidateLogin(String typeOfLogin) {
-        if(typeOfLogin.equalsIgnoreCase("client")){
-            user = new Client();
-        }else{
-            user = new Receptionist();
+    public User validate(String email, String password, String userType) {
+        try (Connection connection = DatabaseConnectionManager.getConnection()) {
+            if (userType.equalsIgnoreCase("client")) {
+                ClientDaoDB clientDao = new ClientDaoDB(connection);
+                Client client = clientDao.read(email);
+                if (client != null && client.getPassword().equals(password)) {
+                    return client;
+                }
+            } else if (userType.equalsIgnoreCase("receptionist")) {
+                ReceptionistDaoDB receptionistDao = new ReceptionistDaoDB(connection);
+                Receptionist receptionist = receptionistDao.read(email);
+                if (receptionist != null && receptionist.getPassword().equals(password)) {
+                    return receptionist;
+                }
+            }
+        } catch (SQLException e) {
+            return null;//Anche cosi il login ha fallito
         }
-    }
-
-    public boolean validate(String username, String password) {
-        if(user.getUserType().equals("client")){
-            return validateClient(username, password);
-        }else{
-            return validateReceptionist(username, password);
-        }
-    }
-
-    public boolean validateClient(String username, String password) {
-        return true;
-    }
-
-    public boolean validateReceptionist(String username, String password) {
-        return false;
+        return null; // Login fallito
     }
 }
-

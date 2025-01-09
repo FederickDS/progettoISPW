@@ -2,10 +2,13 @@ package org.example.graphic_controller;
 
 import javafx.stage.Stage;
 import org.example.application_controller.ValidateLogin;
+import org.example.entity.User;
 import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
 import org.example.view.ReceptionistLoginView;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 public class LoginController {
@@ -48,33 +51,62 @@ public class LoginController {
     }
 
     private void handleLogin() {
-        String username = loginView.getUsernameField().getText();
+        String email = loginView.getEmailField().getText();
         String password = loginView.getPasswordField().getText();
 
-        if (username.isBlank() || password.isBlank()) {
+        if (email.isBlank() || password.isBlank()) {
             loginView.getErrorMessage().setVisible(true);
             loginView.getErrorMessage().setManaged(true);
-            // Mostra un messaggio di errore nella view (aggiungibile nella tua classe `AbstractLoginView`).
             return;
         }
-        ValidateLogin validateLogin = new ValidateLogin(this.loginView.getType());
 
-        if (validateLogin.validate(username,password)) {
+        ValidateLogin validateLogin = new ValidateLogin();
+        String typeOfLogin = loginView.getType();
+        User user = validateLogin.validate(email, hashWithSHA256(password), typeOfLogin);
+
+        if (user != null) {
             logger.info("Login riuscito!");
-            navigateToNextPage();
+            navigateToNextPage(user);
         } else {
             logger.warning("Login fallito. Credenziali non valide.");
-            // Mostra un messaggio di errore nella view.
+            loginView.getErrorMessage().setVisible(true);
+            loginView.getErrorMessage().setManaged(true);
         }
     }
 
-    private void navigateToNextPage() {
-        if(nextPage.equalsIgnoreCase("homepage")){
+    public static String hashWithSHA256(String input) {
+        try {
+            // Crea un'istanza di MessageDigest per SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Calcola l'hash della stringa
+            byte[] encodedHash = digest.digest(input.getBytes());
+
+            // Converti i byte dell'hash in una stringa esadecimale
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Errore: Algoritmo SHA-256 non disponibile", e);
+        }
+    }
+
+
+    private void navigateToNextPage(User user) {
+        // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
+        if (nextPage.equalsIgnoreCase("homepage")) {
             navigationService.navigateToHomePage();
-        }else if(nextPage.equalsIgnoreCase("serviceSelection")){
+        } else if (nextPage.equalsIgnoreCase("serviceSelection")) {
             navigationService.navigateToServiceSelection();
         }
     }
+
 
     private void navigateBack() {
         if (previousPage == null || previousPage.isBlank()) {

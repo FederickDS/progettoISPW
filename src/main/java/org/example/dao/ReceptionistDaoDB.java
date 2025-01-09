@@ -1,7 +1,11 @@
 package org.example.dao;
 
 import org.example.entity.Receptionist;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ReceptionistDaoDB implements GenericDao<Receptionist> {
     private final Connection connection;
@@ -12,7 +16,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
 
     @Override
     public void create(Receptionist receptionist) throws SQLException {
-        String sql = "INSERT INTO receptionist (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Receptionist (first_name, last_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, receptionist.getFirstName());
             ps.setString(2, receptionist.getLastName());
@@ -25,7 +29,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
 
     @Override
     public Receptionist read(String email) throws SQLException {
-        String sql = "SELECT * FROM receptionist WHERE email = ?";
+        String sql = "SELECT * FROM Receptionist WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
@@ -40,12 +44,12 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
                 }
             }
         }
-        return null; // Nessun receptionist trovato
+        return null;
     }
 
     @Override
     public void update(Receptionist receptionist) throws SQLException {
-        String sql = "UPDATE receptionist SET first_name = ?, last_name = ?, phone_number = ?, password = ? WHERE email = ?";
+        String sql = "UPDATE Receptionist SET first_name = ?, last_name = ?, phone_number = ?, password = ? WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, receptionist.getFirstName());
             ps.setString(2, receptionist.getLastName());
@@ -58,7 +62,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
 
     @Override
     public void delete(String email) throws SQLException {
-        String sql = "DELETE FROM receptionist WHERE email = ?";
+        String sql = "DELETE FROM Receptionist WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.executeUpdate();

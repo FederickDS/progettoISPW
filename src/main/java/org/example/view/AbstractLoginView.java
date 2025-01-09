@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 public abstract class AbstractLoginView {
     private VBox root;
     private Label titleLabel;
-    private TextField usernameField;
+    private TextField emailField;
     private PasswordField passwordField;
     private Button loginButton;
     private Button cancelButton;
@@ -29,13 +29,13 @@ public abstract class AbstractLoginView {
         titleLabel = new Label(getTitleText());
         titleLabel.getStyleClass().add("label");
 
-        usernameField = new TextField();
-        usernameField.setPromptText("Username");
+        emailField = new TextField();
+        emailField.setPromptText("Email");
 
         passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
-        this.errorMessage = new Text("Username o password non corrispondono a un account");
+        this.errorMessage = new Text("Email o password non corrispondono a un account");
         this.errorMessage.setVisible(false); // Non visibile inizialmente
         this.errorMessage.setManaged(false); // Non occupa spazio nel layout
 
@@ -53,18 +53,18 @@ public abstract class AbstractLoginView {
         registerButton = new Button("Registrati");
         registerButton.getStyleClass().add(button);
 
-        root.getChildren().addAll(titleLabel, usernameField, passwordField, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
+        root.getChildren().addAll(titleLabel, emailField, passwordField, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
     }
 
     protected abstract String getTitleText();
     public abstract String getType();
 
-    public TextField getUsernameField() {
-        return usernameField;
+    public TextField getEmailField() {
+        return emailField;
     }
 
-    public void setUsernameField(TextField usernameField) {
-        this.usernameField = usernameField;
+    public void setEmailField(TextField emailField) {
+        this.emailField = emailField;
     }
 
     public PasswordField getPasswordField() {
