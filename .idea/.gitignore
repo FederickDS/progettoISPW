@@ -7,4 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 #DATABASE
-config/dbconfig.properties
+/config/
+/dbconfig.properties
