@@ -7,8 +7,6 @@ import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
 import org.example.view.ReceptionistLoginView;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 public class LoginController {

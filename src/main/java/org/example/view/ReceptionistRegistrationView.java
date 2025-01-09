@@ -1,7 +1,5 @@
 package org.example.view;
 
-import javafx.scene.control.TextField;
-
 import java.time.LocalDate;
 
 public class ReceptionistRegistrationView extends AbstractRegistrationView {

@@ -8,11 +8,8 @@ import org.example.view.ReceptionistRegistrationView;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.application_controller.UserRegistrationController;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 public class RegistrationController {

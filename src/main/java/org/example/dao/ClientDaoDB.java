@@ -2,12 +2,7 @@ package org.example.dao;
 
 import java.sql.*;
 
-import org.example.dao.GenericDao;
 import org.example.entity.Client;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 
 public class ClientDaoDB implements GenericDao<Client> {
     private final Connection connection;
