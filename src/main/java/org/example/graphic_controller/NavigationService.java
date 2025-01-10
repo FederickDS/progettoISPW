@@ -1,6 +1,5 @@
 package org.example.graphic_controller;
 
-import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 

@@ -1,7 +1,6 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.example.application_controller.ValidateLogin;
 import org.example.entity.User;
 import org.example.view.AbstractLoginView;

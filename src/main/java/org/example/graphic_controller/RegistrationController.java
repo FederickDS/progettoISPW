@@ -1,7 +1,6 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.example.entity.User;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.ClientRegistrationView;
@@ -93,7 +92,7 @@ public class RegistrationController {
             newClient.setTaxCode(clientView.getTaxCodeField().getText());
             newClient.setPhoneNumber(clientView.getPhoneNumberField().getText());
             return newClient;
-        } else if (registrationView instanceof ReceptionistRegistrationView receptionistView) {
+        } else if (registrationView instanceof ReceptionistRegistrationView) {
             Receptionist newReceptionist = new Receptionist();
             newReceptionist.setFirstName(firstName);
             newReceptionist.setLastName(lastName);

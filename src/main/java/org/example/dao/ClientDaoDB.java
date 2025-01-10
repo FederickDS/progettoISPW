@@ -45,7 +45,7 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public Client read(String email) throws SQLException {
-        String sql = "SELECT * FROM Client WHERE email = ?";
+        String sql = "SELECT first_name, last_name, email, phone_number, password, birth_date, tax_code FROM Client WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {

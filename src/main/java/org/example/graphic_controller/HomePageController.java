@@ -2,8 +2,6 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.view.HomePage;
-import org.example.graphic_controller.NavigationService;
-import javafx.stage.Stage;
 
 public class HomePageController {
     private final HomePage homePage;

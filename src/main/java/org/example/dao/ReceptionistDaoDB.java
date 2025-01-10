@@ -29,7 +29,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
 
     @Override
     public Receptionist read(String email) throws SQLException {
-        String sql = "SELECT * FROM Receptionist WHERE email = ?";
+        String sql = "SELECT first_name, last_name, email, phone_number, password FROM Receptionist WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {

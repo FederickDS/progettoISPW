@@ -19,7 +19,7 @@ public class ReceptionistRegistrationView extends AbstractRegistrationView {
 
 
     @Override
-    protected void addSpecificFields() {}
+    protected void addSpecificFields() {/*non implementato, solo da client, receptionist non ha altri campi*/}
 
     @Override
     protected String getTitleText() {

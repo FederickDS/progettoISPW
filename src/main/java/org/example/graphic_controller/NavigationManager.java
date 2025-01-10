@@ -14,9 +14,10 @@ import javafx.scene.layout.VBox;
 public class NavigationManager implements NavigationService {
     private static NavigationManager instance;
     private Stage stage;
-    private final Logger logger = Logger.getLogger(NavigationManager.class.getName());;
+    private final Logger logger = Logger.getLogger(NavigationManager.class.getName());
 
     public NavigationManager() {
+        //classe singleton
     }
 
     public static NavigationManager getInstance() {
