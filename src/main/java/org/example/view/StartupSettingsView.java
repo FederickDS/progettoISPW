@@ -6,10 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class StartupSettingsView extends Application {
+public class StartupSettingsView{
 
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
@@ -18,13 +18,14 @@ public class StartupSettingsView extends Application {
     private Button confirmButton;
     private Text optionUnselected;
     private Text interfaceUnselected;
+    private VBox root;
 
-    @Override
-    public void start(Stage stage) {
+    public StartupSettingsView() {
         // Layout principale centrato
-        VBox root = new VBox(15);
-        root.setAlignment(Pos.CENTER); // Allinea tutto al centro
-        root.setPadding(new Insets(20));
+        this.root = new VBox(15);
+        root.setPrefSize(1280, 720);
+        root.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        this.root.setAlignment(Pos.CENTER);
 
         // Opzioni di memorizzazione
         Label storageLabel = new Label("Seleziona la modalità di memorizzazione:");
@@ -35,8 +36,8 @@ public class StartupSettingsView extends Application {
         this.databaseOption.setToggleGroup(storageGroup);
 
         this.optionUnselected = new Text("Seleziona dove salvare i dati");
-        this.optionUnselected.setVisible(false); // Non visibile inizialmente
-        this.optionUnselected.setManaged(false); // Non occupa spazio nel layout
+        this.optionUnselected.setVisible(false);
+        this.optionUnselected.setManaged(false);
 
         // Opzioni dell'interfaccia grafica
         Label interfaceLabel = new Label("Seleziona la modalità dell'interfaccia grafica:");
@@ -47,24 +48,24 @@ public class StartupSettingsView extends Application {
         bwInterfaceOption.setToggleGroup(interfaceGroup);
 
         this.interfaceUnselected = new Text("Seleziona il tipo di interfaccia");
-        this.interfaceUnselected.setVisible(false); // Non visibile inizialmente
-        this.interfaceUnselected.setManaged(false); // Non occupa spazio nel layout
+        this.interfaceUnselected.setVisible(false);
+        this.interfaceUnselected.setManaged(false);
 
         // Bottone di conferma
         confirmButton = new Button("Conferma");
 
         // Aggiunta degli elementi al layout principale
-        root.getChildren().addAll(storageLabel, this.internalMemoryOption, this.databaseOption, this.optionUnselected, interfaceLabel, this.colorInterfaceOption, this.bwInterfaceOption, this.interfaceUnselected, this.confirmButton);
-
-        // Scena e stage
-        Scene scene = new Scene(root, 1280, 720);
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource("/style/color-mode.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setTitle("Impostazioni Iniziali");
-        stage.centerOnScreen();
-        stage.setFullScreen(true);
-        stage.show();
+        this.root.getChildren().addAll(
+                storageLabel,
+                this.internalMemoryOption,
+                this.databaseOption,
+                this.optionUnselected,
+                interfaceLabel,
+                this.colorInterfaceOption,
+                this.bwInterfaceOption,
+                this.interfaceUnselected,
+                this.confirmButton
+        );
     }
 
     public RadioButton getInternalMemoryOption() {
@@ -97,4 +98,5 @@ public class StartupSettingsView extends Application {
         this.interfaceUnselected.setManaged(true);
     }
 
+    public VBox getRoot() {return root;}
 }

@@ -108,7 +108,7 @@ public abstract class AbstractRegistrationView {
         return loginButton;
     }
 
-    public VBox getVBox() {
+    public VBox getRoot() {
         return root;
     }
 

@@ -11,56 +11,65 @@ import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
 
+public class NavigationManager implements NavigationService {
+    private static NavigationManager instance;
+    private Stage stage;
+    private final Logger logger = Logger.getLogger(NavigationManager.class.getName());;
 
-public class NavigationManager implements NavigationService{
-    private final Stage stage;
-    private final Logger logger;
+    public NavigationManager() {
+    }
 
-    public NavigationManager(Stage stage) {
-        this.stage = stage;
-        this.logger = Logger.getLogger(NavigationManager.class.getName());
+    public static NavigationManager getInstance() {
+        if (instance == null) {
+            instance = new NavigationManager();
+        }
+        return instance;
     }
 
     @Override
-    public void navigateToStartupSettings(){
-        new StartupSettingsController(this.stage, this).loadStartupSettings();
+    public void navigateToStartupSettings() {
+        StartupSettingsController controller = new StartupSettingsController();
+        this.display(controller.getView(), "Impostazioni Iniziali");
     }
 
     @Override
     public void navigateToHomePage() {
-        new HomePageController(this.stage, this).loadHomePage();
+        HomePageController controller = new HomePageController();
+        this.display(controller.getView(), "Home Page");
     }
 
     @Override
     public void navigateToServiceSelection() {
-        new ServiceSelectionController(this.stage, this).loadServiceSelection();
+        ServiceSelectionController controller = new ServiceSelectionController();
+        this.display(controller.getView(), "Selezione Servizi");
     }
 
     public void navigateToBookingRoom(BookRoom bookRoom) {
-        new BookingRoomController(this.stage, this, bookRoom).loadBookingRoom();
+        BookingRoomController controller = new BookingRoomController(bookRoom);
+        this.display(controller.getView(), "Prenotazione Camera");
     }
 
-    public void navigateToLogin(String previousPage, String nextPage, String type){
-        new LoginController(this.stage,this,previousPage,nextPage).loadLoginView(type);
+    public void navigateToLogin(String previousPage, String nextPage, String typeOfLogin) {
+        LoginController controller = new LoginController(previousPage, nextPage, typeOfLogin);
+        this.display(controller.getView(), "Login");
     }
 
-    public void navigateToRegistration(String previousPage, String nextPage, String userType){
-        new RegistrationController(this.stage,this,previousPage,nextPage).loadRegistrationView(userType);
+    public void navigateToRegistration(String previousPage, String nextPage, String userType) {
+        RegistrationController controller = new RegistrationController(previousPage, nextPage, userType);
+        this.display(controller.getView(), "Registrazione");
     }
 
-
-    public void display(Stage stage, VBox root, String title) {
+    public void display(VBox root, String title) {
         try {
             Scene scene = new Scene(root);
-            //modifica colori
             scene.getStylesheets().clear();
             String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
             scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();
-        }catch (Exception e){
-            this.logger.warning("Date non valide. Selezionare entrambe le date.");
+        } catch (Exception e) {
+            logger.warning("Errore durante il caricamento della vista: " + e.getMessage());
         }
     }
 
@@ -87,8 +96,7 @@ public class NavigationManager implements NavigationService{
         }
     }
 
-
-    protected Stage getStage() {
-        return this.stage;
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

@@ -1,5 +1,6 @@
 package org.example.graphic_controller;
 
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entity.User;
 import org.example.view.AbstractRegistrationView;
@@ -14,29 +15,19 @@ import java.util.logging.Logger;
 
 public class RegistrationController {
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final Stage stage;
-    private final NavigationService navigationService;
     private AbstractRegistrationView registrationView;
     private final String previousPage;
     private final String nextPage;
 
-    public RegistrationController(Stage stage, NavigationService navigationService, String previousPage, String nextPage) {
-        this.stage = stage;
-        this.navigationService = navigationService;
+    public RegistrationController(String previousPage, String nextPage, String userType) {
         this.previousPage = previousPage;
         this.nextPage = nextPage;
-    }
-
-    public void loadRegistrationView(String userType) {
+        //meccanismo di scelta
         if (userType.equalsIgnoreCase("client")) {
             this.registrationView = new ClientRegistrationView();
         } else {
             this.registrationView = new ReceptionistRegistrationView();
         }
-
-        // Mostra la view
-        navigationService.display(stage, registrationView.getVBox(), "Registrazione");
-
         // Aggiungi gestione eventi
         addEventHandlers();
     }
@@ -63,7 +54,7 @@ public class RegistrationController {
             return;
         }
         //conversione sha password
-        password = navigationService.hashWithSHA256(password);
+        password = NavigationManager.getInstance().hashWithSHA256(password);
 
         User newUser = createUserFromInput(firstName,lastName,email,password);
 
@@ -115,8 +106,8 @@ public class RegistrationController {
 
     private void navigateToNextPage() {
         switch (nextPage) {
-            case "HomePage" -> navigationService.navigateToHomePage();
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
+            case "HomePage" -> NavigationManager.getInstance().navigateToHomePage();
+            case "ServiceSelection" -> NavigationManager.getInstance().navigateToServiceSelection();
             default -> logger.warning("Pagina successiva non definita");
         }
     }
@@ -128,14 +119,18 @@ public class RegistrationController {
         }
 
         switch (previousPage) {
-            case "StartupSettings" -> navigationService.navigateToStartupSettings();
-            case "HomePage" -> navigationService.navigateToHomePage();
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
+            case "StartupSettings" -> NavigationManager.getInstance().navigateToStartupSettings();
+            case "HomePage" -> NavigationManager.getInstance().navigateToHomePage();
+            case "ServiceSelection" -> NavigationManager.getInstance().navigateToServiceSelection();
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }
 
     private void goToLogin() {
-        navigationService.navigateToLogin(previousPage,nextPage,registrationView.getType());
+        NavigationManager.getInstance().navigateToLogin(previousPage,nextPage,registrationView.getType());
+    }
+
+    public VBox getView(){
+        return this.registrationView.getRoot();
     }
 }

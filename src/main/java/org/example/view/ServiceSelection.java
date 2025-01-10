@@ -55,5 +55,5 @@ public class ServiceSelection {
         return cancelButton;
     }
 
-    public VBox getVBox(){return root;}
+    public VBox getRoot(){return root;}
 }

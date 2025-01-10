@@ -83,7 +83,7 @@ public abstract class AbstractLoginView {
         return cancelButton;
     }
 
-    public VBox getVBox() {
+    public VBox getRoot() {
         return root;
     }
 

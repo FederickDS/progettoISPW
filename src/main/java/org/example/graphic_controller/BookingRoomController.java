@@ -1,5 +1,6 @@
 package org.example.graphic_controller;
 
+import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.view.BookingRoom;
 import javafx.stage.Stage;
@@ -9,21 +10,11 @@ import java.util.logging.Logger;
 public class BookingRoomController {
     private BookingRoom bookingRoom;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final Stage stage;
-    private final NavigationService navigationService;
     private BookRoom bookRoom;
 
-    public BookingRoomController(Stage stage, NavigationService navigationService, BookRoom bookRoom) {
-        this.stage = stage;
-        this.navigationService = navigationService;
+    public BookingRoomController(BookRoom bookRoom) {
         this.bookRoom = bookRoom;
-    }
-
-    public void loadBookingRoom() {
         bookingRoom = new BookingRoom();
-        // Mostra la view
-        navigationService.display(stage, bookingRoom.getVBox(),"Seleziona date e persone");
-
         // Aggiungi gestione eventi per i bottoni
         addEventHandlers();
     }
@@ -60,6 +51,10 @@ public class BookingRoomController {
 
     private void handleCancel() {
         logger.info("Prenotazione annullata. Torna alla Home Page.");
-        navigationService.navigateToServiceSelection();
+        NavigationManager.getInstance().navigateToServiceSelection();
+    }
+
+    public VBox getView(){
+        return bookingRoom.getRoot();
     }
 }

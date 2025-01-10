@@ -1,27 +1,19 @@
 package org.example.graphic_controller;
 
+import javafx.scene.layout.VBox;
 import org.example.application_controller.StartupSettingsSaving;
 import org.example.view.StartupSettingsView;
-import javafx.stage.Stage;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
-    private final Stage stage;
-    private final NavigationService navigationService;
 
-    public StartupSettingsController(Stage stage, NavigationService navigationService) {
-        this.stage = stage;
-        this.navigationService = navigationService;
-        view = new StartupSettingsView();
-    }
-
-    protected void loadStartupSettings(){
-        view.start(this.stage);
-        initController();
-    }
-
-    private void initController() {
+    public StartupSettingsController() {
+        this.view = new StartupSettingsView();
         view.getConfirmButton().setOnAction(e -> handleConfirmButton());
+    }
+
+    public VBox getView() {
+        return view.getRoot();
     }
 
     private void handleConfirmButton() {
@@ -53,6 +45,6 @@ public class StartupSettingsController {
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
         // Passaggio del controllo a HomePageController
-        navigationService.navigateToHomePage();
+        NavigationManager.getInstance().navigateToHomePage();
     }
 }

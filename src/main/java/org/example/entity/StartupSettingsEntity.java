@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class StartupSettingsEntity implements Serializable {
 
-    private String storageOption;
-    private String interfaceOption;
+    private String storageOption = "memory";
+    private String interfaceOption = "color";
 
     // Costruttore privato per impedire l'instanziazione diretta
     private StartupSettingsEntity() {

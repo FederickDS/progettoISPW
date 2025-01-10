@@ -53,5 +53,5 @@ public class BookingRoom {
         return cancelButton;
     }
 
-    public VBox getVBox(){return root;}
+    public VBox getRoot(){return root;}
 }

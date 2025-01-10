@@ -39,5 +39,5 @@ public class HomePage {
     public Button getloginButton() {
         return loginButton;
     }
-    public VBox getVBox() {return root;}
+    public VBox getRoot() {return root;}
 }

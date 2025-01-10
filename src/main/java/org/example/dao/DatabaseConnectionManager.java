@@ -32,17 +32,18 @@ public class DatabaseConnectionManager {
     }
 
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(url, user, password);
-                logger.info("Connessione al database stabilita.");
-            } catch (SQLException e) {
-                logger.severe("Errore nella connessione al database: " + e.getMessage());
-                throw new RuntimeException("Impossibile connettersi al database", e);
+                logger.info("Connessione al database ristabilita.");
             }
+        } catch (SQLException e) {
+            logger.severe("Errore nella connessione al database: " + e.getMessage());
+            throw new RuntimeException("Impossibile connettersi al database", e);
         }
         return connection;
     }
+
 
     public static void closeConnection() {
         if (connection != null) {
