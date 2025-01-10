@@ -16,6 +16,10 @@ public class DatabaseConnectionManager {
     private static String user;
     private static String password;
 
+    private DatabaseConnectionManager() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static {
         // Carica i dati di configurazione
         try (FileInputStream fis = new FileInputStream("config/dbconfig.properties")) {
@@ -26,7 +30,6 @@ public class DatabaseConnectionManager {
             user = properties.getProperty("db.user");
             password = properties.getProperty("db.password");
         } catch (IOException e) {
-            logger.severe("Errore durante il caricamento della configurazione del database: " + e.getMessage());
             throw new RuntimeException("Impossibile caricare la configurazione del database", e);
         }
     }

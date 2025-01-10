@@ -27,7 +27,7 @@ public class ValidateLogin {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Error validating user ", e);
         }
         return null; // Login fallito
     }

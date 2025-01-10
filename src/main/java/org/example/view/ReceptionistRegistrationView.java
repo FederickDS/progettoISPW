@@ -8,16 +8,6 @@ public class ReceptionistRegistrationView extends AbstractRegistrationView {
         super();
     }
 
-    private boolean isValidDate(String date) {
-        try {
-            LocalDate.parse(date); // Verifica se il formato è "yyyy-MM-dd"
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-
     @Override
     protected void addSpecificFields() {/*non implementato, solo da client, receptionist non ha altri campi*/}
 
