@@ -10,8 +10,10 @@ public class BookingRoomController {
     private BookingRoom bookingRoom;
     private final Logger logger = Logger.getLogger(getClass().getName());
     private BookRoom bookRoom;
+    private final NavigationService navigationService;
 
-    public BookingRoomController(BookRoom bookRoom) {
+    public BookingRoomController(NavigationService navigationService, BookRoom bookRoom) {
+        this.navigationService = navigationService;
         this.bookRoom = bookRoom;
         bookingRoom = new BookingRoom();
         // Aggiungi gestione eventi per i bottoni
@@ -50,8 +52,7 @@ public class BookingRoomController {
 
     private void handleCancel() {
         logger.info("Prenotazione annullata. Torna alla Home Page.");
-        NavigationService navigationService = NavigationManager.getInstance();
-        navigationService.navigateToServiceSelection();
+        navigationService.navigateToServiceSelection(this.navigationService);
     }
 
     public VBox getView(){

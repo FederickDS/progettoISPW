@@ -5,8 +5,10 @@ import org.example.view.HomePage;
 
 public class HomePageController {
     private final HomePage homePage;
+    private final NavigationService navigationService;
 
-    public HomePageController() {
+    public HomePageController(NavigationService navigationService) {
+        this.navigationService = navigationService;
         // Crea l'HomePage tramite la factory
         this.homePage = new HomePage();
 
@@ -15,8 +17,7 @@ public class HomePageController {
 
     private void addEventHandlers() {
         // Aggiungi il gestore per il pulsante "Prenota Stanza"
-        NavigationService navigationService = NavigationManager.getInstance();
-        homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToLogin("HomePage","ServiceSelection","client"));
+        homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToLogin(this.navigationService, "HomePage","ServiceSelection","client"));
     }
 
     public VBox getView(){

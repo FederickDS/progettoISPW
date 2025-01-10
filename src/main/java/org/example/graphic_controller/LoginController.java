@@ -14,8 +14,10 @@ public class LoginController {
     private AbstractLoginView loginView;
     private final String previousPage;
     private final String nextPage;
+    private final NavigationService navigationService;
 
-    public LoginController(String previousPage, String nextPage, String typeOfLogin) {
+    public LoginController(NavigationService navigationService, String previousPage, String nextPage, String typeOfLogin) {
+        this.navigationService = navigationService;
         this.previousPage = previousPage;
         this.nextPage = nextPage;
         //tipo di view
@@ -51,7 +53,7 @@ public class LoginController {
         ValidateLogin validateLogin = new ValidateLogin();
         String typeOfLogin = loginView.getType();
         try {
-            User user = validateLogin.validate(email, NavigationManager.getInstance().hashWithSHA256(password), typeOfLogin);
+            User user = validateLogin.validate(email, navigationService.hashWithSHA256(password), typeOfLogin);
             if (user != null) {
                 logger.info("Login riuscito!");
                 navigateToNextPage(user);
@@ -66,12 +68,11 @@ public class LoginController {
     }
 
     private void navigateToNextPage(User user) {
-        NavigationService navigationService = NavigationManager.getInstance();
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
         if (nextPage.equalsIgnoreCase("homepage")) {
-            navigationService.navigateToHomePage();
+            navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("serviceSelection")) {
-            navigationService.navigateToServiceSelection();
+            navigationService.navigateToServiceSelection(this.navigationService);
         }
     }
 
@@ -84,17 +85,16 @@ public class LoginController {
 
         // Utilizza il NavigationService direttamente per navigare indietro
         if(previousPage.equalsIgnoreCase("HomePage")){
-            NavigationManager.getInstance().navigateToHomePage();
+            navigationService.navigateToHomePage(this.navigationService);
         }else if(previousPage.equalsIgnoreCase("ServiceSelection")){
-            NavigationManager.getInstance().navigateToServiceSelection();
+            navigationService.navigateToServiceSelection(this.navigationService);
         }else if(previousPage.equalsIgnoreCase("StartupSettings")){
-            NavigationManager.getInstance().navigateToStartupSettings();
+            navigationService.navigateToStartupSettings(this.navigationService);
         }
     }
 
     private void goToRegistration() {
-        NavigationService navigationService = NavigationManager.getInstance();
-        navigationService.navigateToRegistration(previousPage,nextPage,loginView.getType());
+        navigationService.navigateToRegistration(this.navigationService,previousPage,nextPage,loginView.getType());
     }
 
     public VBox getView(){

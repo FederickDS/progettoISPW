@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 
 public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
+    private final NavigationService navigationService;
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    public ServiceSelectionController() {
+    public ServiceSelectionController(NavigationService navigationService) {
+        this.navigationService = navigationService;
         // Determina quale view caricare in base alle impostazioni
         serviceSelection = new ServiceSelection();
         // Aggiungi gestione eventi per i bottoni
@@ -32,14 +34,12 @@ public class ServiceSelectionController {
         //metodo per registrare attivita da salvare
         bookRoom.setServicesToReservation();
         //pagina successiva
-        NavigationService navigationService = NavigationManager.getInstance();
-        navigationService.navigateToBookingRoom(bookRoom);
+        navigationService.navigateToBookingRoom(this.navigationService, bookRoom);
     }
 
     public void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
-        NavigationService navigationService = NavigationManager.getInstance();
-        navigationService.navigateToHomePage();
+        navigationService.navigateToHomePage(this.navigationService);
     }
 
     public VBox getView(){

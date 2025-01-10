@@ -12,51 +12,43 @@ import org.example.entity.StartupSettingsEntity;
 import javafx.scene.layout.VBox;
 
 public class NavigationManager implements NavigationService {
-    private static NavigationManager instance;
     private Stage stage;
     private final Logger logger = Logger.getLogger(NavigationManager.class.getName());
 
-    public NavigationManager() {
-        //classe singleton
-    }
-
-    public static NavigationManager getInstance() {
-        if (instance == null) {
-            instance = new NavigationManager();
-        }
-        return instance;
+    public NavigationManager(Stage stage) {
+        this.stage = stage;
     }
 
     @Override
-    public void navigateToStartupSettings() {
-        StartupSettingsController controller = new StartupSettingsController();
+    public void navigateToStartupSettings(NavigationService navigationService) {
+        StartupSettingsController controller = new StartupSettingsController(navigationService);
         this.display(controller.getView(), "Impostazioni Iniziali");
     }
 
     @Override
-    public void navigateToHomePage() {
-        HomePageController controller = new HomePageController();
+    public void navigateToHomePage(NavigationService navigationService) {
+        HomePageController controller = new HomePageController(navigationService);
         this.display(controller.getView(), "Home Page");
     }
 
     @Override
-    public void navigateToServiceSelection() {
-        ServiceSelectionController controller = new ServiceSelectionController();
+    public void navigateToServiceSelection(NavigationService navigationService) {
+        ServiceSelectionController controller = new ServiceSelectionController(navigationService);
         this.display(controller.getView(), "Selezione Servizi");
     }
 
-    public void navigateToBookingRoom(BookRoom bookRoom) {
-        BookingRoomController controller = new BookingRoomController(bookRoom);
+    public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
+        BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
         this.display(controller.getView(), "Prenotazione Camera");
     }
 
-    public void navigateToLogin(String previousPage, String nextPage, String typeOfLogin) {
-        LoginController controller = new LoginController(previousPage, nextPage, typeOfLogin);
+    public void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String typeOfLogin) {
+        LoginController controller = new LoginController(navigationService, previousPage, nextPage, typeOfLogin);
         this.display(controller.getView(), "Login");
     }
 
-    public void navigateToRegistration(String previousPage, String nextPage, String userType) {
-        RegistrationController controller = new RegistrationController(previousPage, nextPage, userType);
+    public void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType) {
+        RegistrationController controller = new RegistrationController(navigationService, previousPage, nextPage, userType);
         this.display(controller.getView(), "Registrazione");
     }
 

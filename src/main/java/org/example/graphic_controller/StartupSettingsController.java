@@ -6,9 +6,10 @@ import org.example.view.StartupSettingsView;
 
 public class StartupSettingsController {
     private final StartupSettingsView view;
-    private NavigationService navigationService = NavigationManager.getInstance();
+    private NavigationService navigationService;
 
-    public StartupSettingsController() {
+    public StartupSettingsController(NavigationService navigationService) {
+        this.navigationService = navigationService;
         this.view = new StartupSettingsView();
         view.getConfirmButton().setOnAction(e -> handleConfirmButton());
     }
@@ -46,6 +47,6 @@ public class StartupSettingsController {
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
         // Passaggio del controllo a HomePageController
-        navigationService.navigateToHomePage();
+        navigationService.navigateToHomePage(this.navigationService);
     }
 }

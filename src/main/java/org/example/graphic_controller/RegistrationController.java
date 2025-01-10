@@ -17,8 +17,10 @@ public class RegistrationController {
     private AbstractRegistrationView registrationView;
     private final String previousPage;
     private final String nextPage;
+    private final NavigationService navigationService;
 
-    public RegistrationController(String previousPage, String nextPage, String userType) {
+    public RegistrationController(NavigationService navigationService, String previousPage, String nextPage, String userType) {
+        this.navigationService = navigationService;
         this.previousPage = previousPage;
         this.nextPage = nextPage;
         //meccanismo di scelta
@@ -53,7 +55,7 @@ public class RegistrationController {
             return;
         }
         //conversione sha password
-        password = NavigationManager.getInstance().hashWithSHA256(password);
+        password = navigationService.hashWithSHA256(password);
 
         User newUser = createUserFromInput(firstName,lastName,email,password);
 
@@ -104,32 +106,29 @@ public class RegistrationController {
     }
 
     private void navigateToNextPage() {
-        NavigationService navigationService = NavigationManager.getInstance();
         switch (nextPage) {
-            case "HomePage" -> navigationService.navigateToHomePage();
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
+            case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
             default -> logger.warning("Pagina successiva non definita");
         }
     }
 
     private void navigateBack() {
-        NavigationService navigationService = NavigationManager.getInstance();
         if (previousPage == null || previousPage.isBlank()) {
             logger.warning("Pagina precedente non definita. Operazione annullata.");
             return;
         }
 
         switch (previousPage) {
-            case "StartupSettings" -> navigationService.navigateToStartupSettings();
-            case "HomePage" -> navigationService.navigateToHomePage();
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
+            case "StartupSettings" -> navigationService.navigateToStartupSettings(this.navigationService);
+            case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }
 
     private void goToLogin() {
-        NavigationService navigationService = NavigationManager.getInstance();
-        navigationService.navigateToLogin(previousPage,nextPage,registrationView.getType());
+        navigationService.navigateToLogin(this.navigationService, previousPage,nextPage,registrationView.getType());
     }
 
     public VBox getView(){

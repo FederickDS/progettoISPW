@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        NavigationManager.getInstance().setStage(stage);
-        NavigationManager.getInstance().navigateToStartupSettings();
+        NavigationManager navigationService = new NavigationManager(stage);
+        navigationService.navigateToStartupSettings(navigationService);
     }
 
     public static void main(String[] args) {
