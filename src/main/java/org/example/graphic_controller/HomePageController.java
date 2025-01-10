@@ -15,7 +15,8 @@ public class HomePageController {
 
     private void addEventHandlers() {
         // Aggiungi il gestore per il pulsante "Prenota Stanza"
-        homePage.getBookRoomButton().setOnAction(e -> NavigationManager.getInstance().navigateToLogin("HomePage","ServiceSelection","client"));
+        NavigationService navigationService = NavigationManager.getInstance();
+        homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToLogin("HomePage","ServiceSelection","client"));
     }
 
     public VBox getView(){

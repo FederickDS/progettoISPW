@@ -104,29 +104,32 @@ public class RegistrationController {
     }
 
     private void navigateToNextPage() {
+        NavigationService navigationService = NavigationManager.getInstance();
         switch (nextPage) {
-            case "HomePage" -> NavigationManager.getInstance().navigateToHomePage();
-            case "ServiceSelection" -> NavigationManager.getInstance().navigateToServiceSelection();
+            case "HomePage" -> navigationService.navigateToHomePage();
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
             default -> logger.warning("Pagina successiva non definita");
         }
     }
 
     private void navigateBack() {
+        NavigationService navigationService = NavigationManager.getInstance();
         if (previousPage == null || previousPage.isBlank()) {
             logger.warning("Pagina precedente non definita. Operazione annullata.");
             return;
         }
 
         switch (previousPage) {
-            case "StartupSettings" -> NavigationManager.getInstance().navigateToStartupSettings();
-            case "HomePage" -> NavigationManager.getInstance().navigateToHomePage();
-            case "ServiceSelection" -> NavigationManager.getInstance().navigateToServiceSelection();
+            case "StartupSettings" -> navigationService.navigateToStartupSettings();
+            case "HomePage" -> navigationService.navigateToHomePage();
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection();
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }
 
     private void goToLogin() {
-        NavigationManager.getInstance().navigateToLogin(previousPage,nextPage,registrationView.getType());
+        NavigationService navigationService = NavigationManager.getInstance();
+        navigationService.navigateToLogin(previousPage,nextPage,registrationView.getType());
     }
 
     public VBox getView(){

@@ -45,6 +45,7 @@ public class StartupSettingsController {
         settingsSaving.saveSettings(storageOption, interfaceOption);
 
         // Passaggio del controllo a HomePageController
-        NavigationManager.getInstance().navigateToHomePage();
+        NavigationService navigationService = NavigationManager.getInstance();
+        navigationService.navigateToHomePage();
     }
 }

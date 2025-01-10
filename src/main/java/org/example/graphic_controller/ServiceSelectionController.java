@@ -32,12 +32,14 @@ public class ServiceSelectionController {
         //metodo per registrare attivita da salvare
         bookRoom.setServicesToReservation();
         //pagina successiva
-        NavigationManager.getInstance().navigateToBookingRoom(bookRoom);
+        NavigationService navigationService = NavigationManager.getInstance();
+        navigationService.navigateToBookingRoom(bookRoom);
     }
 
     public void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");
-        NavigationManager.getInstance().navigateToHomePage();
+        NavigationService navigationService = NavigationManager.getInstance();
+        navigationService.navigateToHomePage();
     }
 
     public VBox getView(){
