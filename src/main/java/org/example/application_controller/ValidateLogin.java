@@ -34,7 +34,7 @@ public class ValidateLogin {
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.WARNING,"Errore durante la validazione dell'utente: " + e);
+            logger.log(Level.WARNING,"Errore durante la validazione dell'utente: ", e);
         }
         return null; // Login fallito
     }
