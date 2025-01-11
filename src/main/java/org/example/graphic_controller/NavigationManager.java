@@ -10,6 +10,7 @@ import org.example.application_controller.BookRoom;
 import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
+import org.example.exception.HashingException;
 
 public class NavigationManager implements NavigationService {
     private Stage stage;
@@ -66,7 +67,7 @@ public class NavigationManager implements NavigationService {
         }
     }
 
-    public String hashWithSHA256(String input) {
+    public String hashWithSHA256(String input){
         try {
             // Crea un'istanza di MessageDigest per SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -85,7 +86,7 @@ public class NavigationManager implements NavigationService {
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Errore: Algoritmo SHA-256 non disponibile", e);
+            throw new HashingException("Errore: Algoritmo SHA-256 non disponibile", e);
         }
     }
 

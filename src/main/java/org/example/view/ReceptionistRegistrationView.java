@@ -1,6 +1,5 @@
 package org.example.view;
 
-import java.time.LocalDate;
 
 public class ReceptionistRegistrationView extends AbstractRegistrationView {
 
