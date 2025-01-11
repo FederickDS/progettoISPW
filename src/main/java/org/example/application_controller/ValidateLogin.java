@@ -7,10 +7,13 @@ import org.example.entity.Receptionist;
 import org.example.entity.User;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ValidateLogin {
     private final GenericDao<Client> clientDao;
     private final GenericDao<Receptionist> receptionistDao;
+    private final Logger logger = Logger.getLogger(ValidateLogin.class.getName());
 
     public ValidateLogin() {
         this.clientDao = DaoFactory.getClientDao();
@@ -31,7 +34,7 @@ public class ValidateLogin {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Errore durante la validazione dell'utente: " + e);
+            logger.log(Level.WARNING,"Errore durante la validazione dell'utente: " + e);
         }
         return null; // Login fallito
     }

@@ -9,6 +9,10 @@ public class DaoFactory {
     private static ClientDaoMemory clientDaoMemoryInstance;
     private static ReceptionistDaoMemory receptionistDaoMemoryInstance;
 
+    private DaoFactory(){
+        //mettere costruttore privato, nascondere quello pubblico implicito
+    }
+
     public static GenericDao<Client> getClientDao() {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if ("database".equalsIgnoreCase(storageOption)) {

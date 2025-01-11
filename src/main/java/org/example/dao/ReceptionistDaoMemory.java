@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     private final Map<String, Receptionist> storage = new HashMap<>();
-    private static final String message = "Receptionist not found";
+    private static final String MESSAGE = "Receptionist not found";
 
     @Override
     public void create(Receptionist receptionist) throws SQLException {
@@ -20,7 +20,7 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
 
     @Override
     public Receptionist read(String email) throws SQLException {
-        if (!storage.containsKey(email)) throw new SQLException(message);
+        if (!storage.containsKey(email)) throw new SQLException(MESSAGE);
         return storage.get(email);
     }
 
@@ -28,13 +28,13 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     public void update(Receptionist receptionist) throws SQLException {
         if (receptionist == null) throw new SQLException("Receptionist cannot be null");
         if (!storage.containsKey(receptionist.getEmail()))
-            throw new SQLException(message);
+            throw new SQLException(MESSAGE);
         storage.put(receptionist.getEmail(), receptionist);
     }
 
     @Override
     public void delete(String email) throws SQLException {
-        if (!storage.containsKey(email)) throw new SQLException(message);
+        if (!storage.containsKey(email)) throw new SQLException(MESSAGE);
         storage.remove(email);
     }
 }
