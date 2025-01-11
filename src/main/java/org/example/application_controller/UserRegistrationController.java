@@ -1,14 +1,11 @@
 package org.example.application_controller;
 
-import org.example.dao.ClientDaoDB;
-import org.example.dao.ReceptionistDaoDB;
+import org.example.dao.DaoFactory;
 import org.example.dao.GenericDao;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
-import org.example.dao.DatabaseConnectionManager;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +16,9 @@ public class UserRegistrationController {
     private final GenericDao<Receptionist> receptionistDao;
 
     public UserRegistrationController() {
-        Connection connection = DatabaseConnectionManager.getConnection();
-        this.clientDao = new ClientDaoDB(connection);
-        this.receptionistDao = new ReceptionistDaoDB(connection);
+        // Ottenere i DAO utilizzando DaoFactory
+        this.clientDao = DaoFactory.getClientDao();
+        this.receptionistDao = DaoFactory.getReceptionistDao();
     }
 
     public String registerUser(User user) {
@@ -40,7 +37,7 @@ public class UserRegistrationController {
             }
         } catch (SQLException e) {
             if (e.getMessage().contains("Il numero di telefono è già registrato")) {
-                logger.log(Level.WARNING,"Registrazione fallita: ", e.getMessage());
+                logger.log(Level.WARNING, "Registrazione fallita: ", e.getMessage());
                 return "error:phone_exists";
             } else {
                 logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: ", e);
@@ -48,5 +45,4 @@ public class UserRegistrationController {
             }
         }
     }
-
 }
