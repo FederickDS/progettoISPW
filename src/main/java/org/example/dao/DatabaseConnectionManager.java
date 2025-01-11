@@ -1,5 +1,8 @@
 package org.example.dao;
 
+import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.DatabaseConnectionException;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,7 +33,7 @@ public class DatabaseConnectionManager {
             user = properties.getProperty("db.user");
             password = properties.getProperty("db.password");
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare la configurazione del database", e);
+            throw new DatabaseConfigurationException("Impossibile caricare la configurazione del database", e);
         }
     }
 
@@ -42,7 +45,7 @@ public class DatabaseConnectionManager {
             }
         } catch (SQLException e) {
             logger.severe("Errore nella connessione al database: " + e.getMessage());
-            throw new RuntimeException("Impossibile connettersi al database", e);
+            throw new DatabaseConnectionException("Impossibile connettersi al database", e);
         }
         return connection;
     }

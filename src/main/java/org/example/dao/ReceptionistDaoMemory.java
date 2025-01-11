@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     private final Map<String, Receptionist> storage = new HashMap<>();
-    private final String message = "Receptionist not found";
+    private static final String message = "Receptionist not found";
 
     @Override
     public void create(Receptionist receptionist) throws SQLException {

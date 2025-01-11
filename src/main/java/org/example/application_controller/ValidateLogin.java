@@ -7,12 +7,10 @@ import org.example.entity.Receptionist;
 import org.example.entity.User;
 
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class ValidateLogin {
     private final GenericDao<Client> clientDao;
     private final GenericDao<Receptionist> receptionistDao;
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public ValidateLogin() {
         this.clientDao = DaoFactory.getClientDao();

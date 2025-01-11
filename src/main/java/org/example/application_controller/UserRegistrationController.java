@@ -37,7 +37,7 @@ public class UserRegistrationController {
             }
         } catch (SQLException e) {
             if (e.getMessage().contains("Il numero di telefono è già registrato")) {
-                logger.log(Level.WARNING, "Registrazione fallita: ", e.getMessage());
+                logger.log(Level.WARNING, "Registrazione fallita: ", e);
                 return "error:phone_exists";
             } else {
                 logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: ", e);
