@@ -1,41 +1,52 @@
 package org.example.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.entity.Client;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClientDaoMemory implements GenericDao<Client> {
-    private final Map<String, Client> storage = new HashMap<>();
+    private final ObservableList<Client> storage;
     private static final String CLIENT_NOT_FOUND = "Client not found";
     private static final String CLIENT_CANNOT_BE_NULL = "Client cannot be null";
+
+    public ClientDaoMemory() {
+        storage = FXCollections.observableArrayList();
+    }
 
     @Override
     public void create(Client client) throws SQLException {
         if (client == null) throw new SQLException(CLIENT_CANNOT_BE_NULL);
-        if (storage.containsKey(client.getEmail()))
+        if (!isEmailUnique(client.getEmail())) {
             throw new SQLException("Client with this email already exists");
-        storage.put(client.getEmail(), client);
+        }
+        storage.add(client);
     }
 
     @Override
     public Client read(String email) throws SQLException {
-        if (!storage.containsKey(email)) throw new SQLException(CLIENT_NOT_FOUND);
-        return storage.get(email);
+        return storage.stream()
+                .filter(client -> client.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new SQLException(CLIENT_NOT_FOUND));
     }
 
     @Override
     public void update(Client client) throws SQLException {
         if (client == null) throw new SQLException(CLIENT_CANNOT_BE_NULL);
-        if (!storage.containsKey(client.getEmail()))
-            throw new SQLException(CLIENT_NOT_FOUND);
-        storage.put(client.getEmail(), client);
+        Client existingClient = read(client.getEmail()); // Verifica se esiste già
+        storage.remove(existingClient); // Rimuovi il vecchio record
+        storage.add(client); // Aggiungi il record aggiornato
     }
 
     @Override
     public void delete(String email) throws SQLException {
-        if (!storage.containsKey(email)) throw new SQLException(CLIENT_NOT_FOUND);
-        storage.remove(email);
+        Client existingClient = read(email); // Verifica se esiste già
+        storage.remove(existingClient);
+    }
+
+    private boolean isEmailUnique(String email) {
+        return storage.stream().noneMatch(client -> client.getEmail().equals(email));
     }
 }
