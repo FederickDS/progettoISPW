@@ -5,10 +5,9 @@ import javafx.scene.text.Text;
 
 public class ClientRegistrationView extends AbstractRegistrationView {
     private TextField birthDateField;
+    private Text birthDateError;
     private TextField taxCodeField;
-    private TextField phoneNumberField;
-    protected Text phoneErrorMessage;
-
+    private Text taxCodeError;
     public ClientRegistrationView() {
         super();
     }
@@ -19,17 +18,19 @@ public class ClientRegistrationView extends AbstractRegistrationView {
         birthDateField = new TextField();
         birthDateField.setPromptText("Data di nascita (yyyy-mm-dd)");
 
+        birthDateError = new Text();
+        birthDateError.getStyleClass().add("error");
+        birthDateError.setVisible(false);
+
         taxCodeField = new TextField();
         taxCodeField.setPromptText("Codice fiscale");
 
-        phoneNumberField = new TextField();
-        phoneNumberField.setPromptText("Numero di telefono");
+        taxCodeError = new Text();
+        taxCodeError.getStyleClass().add("error");
+        taxCodeError.setVisible(false);
 
-        phoneErrorMessage = new Text("Il numero di telefono inserito e'stato utilizzato per un altro utente.");
-        phoneErrorMessage.getStyleClass().add("error-message");
-        phoneErrorMessage.setVisible(false);
         // Aggiungi campi specifici al layout
-        root.getChildren().addAll(birthDateField, taxCodeField, phoneNumberField, phoneErrorMessage);
+        root.getChildren().addAll(birthDateField, birthDateError, taxCodeField, taxCodeError);
     }
 
     @Override
@@ -46,20 +47,23 @@ public class ClientRegistrationView extends AbstractRegistrationView {
         return birthDateField;
     }
 
+    public void showBirthDateError(String message) {
+        birthDateError.setText(message);
+        birthDateError.setVisible(true);
+    }
+
     public TextField getTaxCodeField() {
         return taxCodeField;
     }
 
-    public TextField getPhoneNumberField() {
-        return phoneNumberField;
+    public void showTaxCodeError(String message) {
+        taxCodeError.setText(message);
+        taxCodeError.setVisible(true);
     }
-
-    public Text getPhoneErrorMessage() {return phoneErrorMessage;}
 
     @Override
-    public void showPhoneErrorMessage(String message) {
-        phoneErrorMessage.setText(message);
-        phoneErrorMessage.setVisible(true);
+    public void hideSpecificErrors(){
+        birthDateError.setVisible(false);
+        taxCodeError.setVisible(false);
     }
-
 }

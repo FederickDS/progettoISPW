@@ -18,5 +18,9 @@ public class ReceptionistRegistrationView extends AbstractRegistrationView {
     public String getType(){
         return "receptionist";
     }
+    @Override
+    public void hideSpecificErrors(){
+        //non implementa
+    }
 
 }

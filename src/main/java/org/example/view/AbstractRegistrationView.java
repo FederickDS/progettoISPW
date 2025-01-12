@@ -7,12 +7,20 @@ import javafx.scene.text.Text;
 public abstract class AbstractRegistrationView {
     protected VBox root;
 
+    protected Text databaseError;
     protected Label titleLabel;
     protected TextField firstNameField;
+    protected Text firstNameError;
     protected TextField lastNameField;
+    protected Text lastNameError;
     protected TextField emailField;
+    protected Text emailError;
+    private TextField phoneNumberField;
+    protected Text phoneNumberError;
     protected PasswordField passwordField;
+    protected Text passwordError;
     protected PasswordField repeatPasswordField;
+    protected Text repeatPasswordError;
     protected Button registerButton;
     protected Button cancelButton;
     protected Text loginPrompt;
@@ -27,23 +35,54 @@ public abstract class AbstractRegistrationView {
         String bottone ="button";
 
         // Campi comuni
+        databaseError = new Text();
+        databaseError.getStyleClass().add("error");
+        databaseError.setVisible(false);
+
         titleLabel = new Label(getTitleText());
         titleLabel.getStyleClass().add("label");
 
         firstNameField = new TextField();
         firstNameField.setPromptText("Nome");
 
+        firstNameError = new Text("Nome non può essere nullo");
+        firstNameError.getStyleClass().add("error");
+        firstNameError.setVisible(false);
+
         lastNameField = new TextField();
         lastNameField.setPromptText("Cognome");
+
+        lastNameError = new Text("Cognome non può essere nullo");
+        lastNameError.getStyleClass().add("error");
+        lastNameError.setVisible(false);
 
         emailField = new TextField();
         emailField.setPromptText("Email");
 
+        emailError = new Text("Inserisci una email");
+        emailError.getStyleClass().add("error");
+        emailError.setVisible(false);
+
+        phoneNumberField = new TextField();
+        phoneNumberField.setPromptText("Numero di telefono");
+
+        phoneNumberError = new Text("Il numero di telefono inserito e'stato utilizzato per un altro utente.");
+        phoneNumberError.getStyleClass().add("error-message");
+        phoneNumberError.setVisible(false);
+
         passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
+        passwordError = new Text("Inserisci una password dagli 8 ai 16 caratteri");
+        passwordError.getStyleClass().add("error");
+        passwordError.setVisible(false);
+
         repeatPasswordField = new PasswordField();
         repeatPasswordField.setPromptText("Repeat Password");
+
+        repeatPasswordError = new Text("Campo diverso dalla password");
+        repeatPasswordError.getStyleClass().add("error");
+        repeatPasswordError.setVisible(false);
 
         registerButton = new Button("Registrati");
         registerButton.getStyleClass().add(bottone);
@@ -53,7 +92,7 @@ public abstract class AbstractRegistrationView {
 
 
         // Aggiungi campi alla root
-        root.getChildren().addAll(titleLabel,firstNameField, lastNameField, emailField, passwordField, repeatPasswordField);
+        root.getChildren().addAll(titleLabel,firstNameField, firstNameError, lastNameField, lastNameError, emailField, emailError, phoneNumberField, phoneNumberError, passwordField, passwordError, repeatPasswordField, repeatPasswordError);
 
         addSpecificFields();
 
@@ -72,6 +111,7 @@ public abstract class AbstractRegistrationView {
     }
 
     protected abstract void addSpecificFields();
+    public abstract void hideSpecificErrors();
     protected abstract String getTitleText();
     public abstract String getType();
 
@@ -108,11 +148,52 @@ public abstract class AbstractRegistrationView {
         return loginButton;
     }
 
+    public void showFirstNameError() {
+        firstNameError.setVisible(true);
+    }
+
+    public void hideAllErrors() {
+        firstNameError.setVisible(false);
+        lastNameError.setVisible(false);
+        emailError.setVisible(false);
+        passwordError.setVisible(false);
+        repeatPasswordError.setVisible(false);
+    }
+
+    public void showLastNameError() {
+        lastNameError.setVisible(true);
+    }
+
+    public void showEmailError() {
+        emailError.setVisible(true);
+    }
+
+    public void showPasswordError(String message) {
+        passwordError.setText(message);
+        passwordError.setVisible(true);
+    }
+
+    public void showRepeatPasswordError(String message) {
+        repeatPasswordError.setText(message);
+        repeatPasswordError.setVisible(true);
+    }
+
     public VBox getRoot() {
         return root;
     }
 
-    public void showPhoneErrorMessage(String message) {
-        // Default vuoto, da sovrascrivere nelle sottoclassi se necessario
+    public void showPhoneNumberError(String message) {
+        phoneNumberError.setText(message);
+        phoneNumberError.setVisible(true);
     }
+
+    public TextField getPhoneNumberField() {
+        return phoneNumberField;
+    }
+
+    public void showDatabaseError(String message) {
+        databaseError.setText(message);
+        databaseError.setVisible(true);
+    }
+
 }
