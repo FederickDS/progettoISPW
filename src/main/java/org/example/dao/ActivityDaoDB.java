@@ -19,7 +19,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
 
     @Override
     public void create(Activity entity) throws SQLException {
-        String query = "INSERT INTO Activity (name, description, max_participants) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Activities (name, description, max_participants) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getDescription());
@@ -30,7 +30,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
 
     @Override
     public Activity read(String name) throws SQLException {
-        String query = "SELECT name, description, max_participants FROM Activity WHERE name = ?";
+        String query = "SELECT name, description, max_participants FROM Activities WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -48,7 +48,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
 
     @Override
     public void update(Activity entity) throws SQLException {
-        String query = "UPDATE Activity SET description = ?, max_participants = ? WHERE name = ?";
+        String query = "UPDATE Activities SET description = ?, max_participants = ? WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity.getDescription());
             statement.setInt(2, entity.getMaxParticipants());
@@ -59,7 +59,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
 
     @Override
     public void delete(String name) throws SQLException {
-        String query = "DELETE FROM Activity WHERE name = ?";
+        String query = "DELETE FROM Activities WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             statement.executeUpdate();
@@ -69,7 +69,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
     // Nuovo metodo readAll
     public List<Activity> readAll() {
         List<Activity> activities = new ArrayList<>();
-        String query = "SELECT name, description, max_participants FROM Activity";
+        String query = "SELECT name, description, max_participants FROM Activities";
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

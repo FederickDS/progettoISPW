@@ -75,10 +75,12 @@ public class DaoFactory {
 
     // Nuovi metodi per ottenere liste di attività e servizi
     public static List<Activity> getAvailableActivities() {
-        return getActivityDao().readAll(); // Metodo da implementare nel DAO
+        GenericDao<Activity> activityDao = getActivityDao();
+        return activityDao.readAll(); // Metodo da implementare nel DAO
     }
 
     public static List<Service> getAvailableServices() {
-        return getServiceDao().readAll(); // Metodo da implementare nel DAO
+        GenericDao<Service> serviceDao = getServiceDao();
+        return serviceDao.readAll(); // Metodo da implementare nel DAO
     }
 }
