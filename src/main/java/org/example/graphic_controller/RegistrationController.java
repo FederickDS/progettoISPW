@@ -146,7 +146,7 @@ public class RegistrationController {
             result = false;
         }
         String password = registrationView.getPasswordField().getText();
-        if(password.isBlank()||(password.length()<=8)||(password.length()>=16)){
+        if(password.isBlank()||(password.length()<8)||(password.length()>16)){
             registrationView.showPasswordError("Inserire una password tra gli 8 e i 16 caratteri");
             result = false;
         }
@@ -156,7 +156,7 @@ public class RegistrationController {
             result = false;
         }
         String phoneNumber = registrationView.getPhoneNumberField().getText();
-        if(!(phoneNumber.length()==10)){
+        if(phoneNumber.length()!=10){
             registrationView.showPhoneNumberError("Il numero di telefono inserito deve essere di 10 caratteri, senza prefisso, italiano.");
             result = false;
         }

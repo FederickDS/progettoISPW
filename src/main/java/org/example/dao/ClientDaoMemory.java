@@ -2,7 +2,6 @@ package org.example.dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.example.entity.Activity;
 import org.example.entity.Client;
 
 import java.sql.SQLException;

@@ -30,7 +30,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
 
     @Override
     public Activity read(String name) throws SQLException {
-        String query = "SELECT * FROM Activity WHERE name = ?";
+        String query = "SELECT name, description, max_participants FROM Activity WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -69,7 +69,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
     // Nuovo metodo readAll
     public List<Activity> readAll() {
         List<Activity> activities = new ArrayList<>();
-        String query = "SELECT * FROM Activity";
+        String query = "SELECT name, description, max_participants FROM Activity";
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

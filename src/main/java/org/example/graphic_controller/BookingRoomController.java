@@ -2,7 +2,6 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
-import org.example.entity.User;
 import org.example.view.BookingRoom;
 
 import java.util.logging.Logger;

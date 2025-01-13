@@ -30,7 +30,7 @@ public class ServiceDaoDB implements GenericDao<Service> {
 
     @Override
     public Service read(String name) throws SQLException {
-        String query = "SELECT * FROM Services WHERE name = ?";
+        String query = "SELECT name, description, max_participants FROM Services WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -69,7 +69,7 @@ public class ServiceDaoDB implements GenericDao<Service> {
     // Nuovo metodo readAll
     public List<Service> readAll() {
         List<Service> services = new ArrayList<>();
-        String query = "SELECT * FROM Services";
+        String query = "SELECT name, description, max_participants FROM Services";
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

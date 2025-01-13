@@ -13,6 +13,7 @@ public class BookRoom {
     private List<Client> clientList = new ArrayList<>();
 
     public BookRoom() {
+        //il costruttore non deve definire attributi
     }
 
     public void setServicesToReservation() {

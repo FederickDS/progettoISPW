@@ -27,7 +27,7 @@ public class ServiceSelectionController {
         this.serviceSelection = new ServiceSelection();
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
-        bookRoom.addFirstClient((Client) newUser);
+        this.bookRoom.addFirstClient((Client) newUser);
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni
@@ -45,12 +45,11 @@ public class ServiceSelectionController {
     public void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
         // Salvataggio utente quando creiamo caso d'uso
-        BookRoom bookRoom = new BookRoom();
-        bookRoom.addFirstClient((Client) user);//minori controlli
+        this.bookRoom.addFirstClient((Client) user);//minori controlli
         //metodo per registrare attivita da salvare
-        bookRoom.setServicesToReservation();
+        this.bookRoom.setServicesToReservation();
         //pagina successiva
-        navigationService.navigateToBookingRoom(this.navigationService, bookRoom);
+        navigationService.navigateToBookingRoom(this.navigationService, this.bookRoom);
     }
 
     public void handleCancel() {
@@ -64,14 +63,14 @@ public class ServiceSelectionController {
 
     private void loadAvailableActivitiesAndServices() {
         // Carica le attività
-        List<Activity> activities = bookRoom.getAvailableActivities();
+        List<Activity> activities = this.bookRoom.getAvailableActivities();
         for (Activity activity : activities) {
             CheckBox activityCheckBox = new CheckBox(activity.getName());
             serviceSelection.getActivitySection().getChildren().add(activityCheckBox);
         }
 
         // Carica i servizi
-        List<Service> services = bookRoom.getAvailableServices();
+        List<Service> services = this.bookRoom.getAvailableServices();
         for (Service service : services) {
             CheckBox serviceCheckBox = new CheckBox(service.getName());
             serviceSelection.getServiceSection().getChildren().add(serviceCheckBox);
