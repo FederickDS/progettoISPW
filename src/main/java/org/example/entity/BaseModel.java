@@ -3,14 +3,15 @@ package org.example.entity;
 import java.io.Serializable;
 
 // Classe base per rappresentare un modello con descrizione e numero massimo di partecipanti
-abstract class BaseModel implements Serializable {
+public abstract class BaseModel implements Serializable {
     private String name;
     private String description;
     private int maxParticipants;
 
     protected BaseModel() {/*classe bean*/}
 
-    protected BaseModel(String description, int maxParticipants) {
+    protected BaseModel(String name, String description, int maxParticipants) {
+        this.name = name;
         this.description = description;
         this.maxParticipants = maxParticipants;
     }

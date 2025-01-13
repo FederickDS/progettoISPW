@@ -10,6 +10,7 @@ import org.example.application_controller.BookRoom;
 import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
+import org.example.entity.User;
 import org.example.exception.HashingException;
 
 public class NavigationManager implements NavigationService {
@@ -33,8 +34,8 @@ public class NavigationManager implements NavigationService {
     }
 
     @Override
-    public void navigateToServiceSelection(NavigationService navigationService) {
-        ServiceSelectionController controller = new ServiceSelectionController(navigationService);
+    public void navigateToServiceSelection(NavigationService navigationService, User newUser) {
+        ServiceSelectionController controller = new ServiceSelectionController(navigationService, newUser);
         this.display(controller.getView(), "Selezione Servizi");
     }
 

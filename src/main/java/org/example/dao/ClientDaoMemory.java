@@ -2,9 +2,12 @@ package org.example.dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.example.entity.Activity;
 import org.example.entity.Client;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDaoMemory implements GenericDao<Client> {
     private final ObservableList<Client> storage;
@@ -48,5 +51,10 @@ public class ClientDaoMemory implements GenericDao<Client> {
 
     private boolean isEmailUnique(String email) {
         return storage.stream().noneMatch(client -> client.getEmail().equals(email));
+    }
+
+    // Nuovo metodo readAll
+    public List<Client> readAll() {
+        return new ArrayList<>(storage); // Restituisce una copia della lista
     }
 }

@@ -2,6 +2,7 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.ValidateLogin;
+import org.example.entity.Client;
 import org.example.entity.User;
 import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
@@ -72,7 +73,7 @@ public class LoginController {
         if (nextPage.equalsIgnoreCase("homepage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("serviceSelection")) {
-            navigationService.navigateToServiceSelection(this.navigationService);
+            navigationService.navigateToServiceSelection(this.navigationService, user);
         }
     }
 
@@ -86,8 +87,6 @@ public class LoginController {
         // Utilizza il NavigationService direttamente per navigare indietro
         if(previousPage.equalsIgnoreCase("HomePage")){
             navigationService.navigateToHomePage(this.navigationService);
-        }else if(previousPage.equalsIgnoreCase("ServiceSelection")){
-            navigationService.navigateToServiceSelection(this.navigationService);
         }else if(previousPage.equalsIgnoreCase("StartupSettings")){
             navigationService.navigateToStartupSettings(this.navigationService);
         }

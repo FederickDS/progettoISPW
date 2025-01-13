@@ -2,10 +2,11 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
+import org.example.entity.User;
 
 public interface NavigationService {
     void navigateToHomePage(NavigationService navigationService);
-    void navigateToServiceSelection(NavigationService navigationService);
+    void navigateToServiceSelection(NavigationService navigationService, User newUser);
     void navigateToStartupSettings(NavigationService navigationService);
     void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom);
     void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String type);

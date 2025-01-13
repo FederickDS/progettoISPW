@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.entity.Client;
 import org.example.entity.Receptionist;
 
 import java.sql.SQLException;
@@ -43,5 +44,10 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
 
     private boolean isEmailUnique(String email) {
         return storage.stream().noneMatch(receptionist -> receptionist.getEmail().equals(email));
+    }
+
+    // Nuovo metodo readAll
+    public List<Receptionist> readAll() {
+        return new ArrayList<>(storage); // Restituisce una copia della lista
     }
 }

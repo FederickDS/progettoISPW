@@ -14,19 +14,20 @@ public class ClientRegistrationView extends AbstractRegistrationView {
 
     @Override
     protected void addSpecificFields() {
+        String error = "error";
         // Campi specifici per i clienti
         birthDateField = new TextField();
         birthDateField.setPromptText("Data di nascita (yyyy-mm-dd)");
 
         birthDateError = new Text();
-        birthDateError.getStyleClass().add("error");
+        birthDateError.getStyleClass().add(error);
         birthDateError.setVisible(false);
 
         taxCodeField = new TextField();
         taxCodeField.setPromptText("Codice fiscale");
 
         taxCodeError = new Text();
-        taxCodeError.getStyleClass().add("error");
+        taxCodeError.getStyleClass().add(error);
         taxCodeError.setVisible(false);
 
         // Aggiungi campi specifici al layout

@@ -1,11 +1,14 @@
 package org.example.dao;
 
 import org.example.entity.Receptionist;
+import org.example.exception.DatabaseConfigurationException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReceptionistDaoDB implements GenericDao<Receptionist> {
     private final Connection connection;
@@ -67,5 +70,26 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
             ps.setString(1, email);
             ps.executeUpdate();
         }
+    }
+
+    // Nuovo metodo readAll
+    public List<Receptionist> readAll() {
+        List<Receptionist> receptionists = new ArrayList<>();
+        String sql = "SELECT first_name, last_name, email, phone_number, password FROM Receptionist";
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                receptionists.add(new Receptionist(
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("password")
+                ));
+            }
+        }catch (SQLException e) {
+            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+        }
+        return receptionists;
     }
 }

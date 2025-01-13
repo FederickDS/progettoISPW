@@ -33,10 +33,11 @@ public abstract class AbstractRegistrationView {
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
         //risolve code smell
         String bottone ="button";
+        String error = "error";
 
         // Campi comuni
         databaseError = new Text();
-        databaseError.getStyleClass().add("error");
+        databaseError.getStyleClass().add(error);
         databaseError.setVisible(false);
 
         titleLabel = new Label(getTitleText());
@@ -46,21 +47,21 @@ public abstract class AbstractRegistrationView {
         firstNameField.setPromptText("Nome");
 
         firstNameError = new Text("Nome non può essere nullo");
-        firstNameError.getStyleClass().add("error");
+        firstNameError.getStyleClass().add(error);
         firstNameError.setVisible(false);
 
         lastNameField = new TextField();
         lastNameField.setPromptText("Cognome");
 
         lastNameError = new Text("Cognome non può essere nullo");
-        lastNameError.getStyleClass().add("error");
+        lastNameError.getStyleClass().add(error);
         lastNameError.setVisible(false);
 
         emailField = new TextField();
         emailField.setPromptText("Email");
 
         emailError = new Text("Inserisci una email");
-        emailError.getStyleClass().add("error");
+        emailError.getStyleClass().add(error);
         emailError.setVisible(false);
 
         phoneNumberField = new TextField();
@@ -74,14 +75,14 @@ public abstract class AbstractRegistrationView {
         passwordField.setPromptText("Password");
 
         passwordError = new Text("Inserisci una password dagli 8 ai 16 caratteri");
-        passwordError.getStyleClass().add("error");
+        passwordError.getStyleClass().add(error);
         passwordError.setVisible(false);
 
         repeatPasswordField = new PasswordField();
         repeatPasswordField.setPromptText("Repeat Password");
 
         repeatPasswordError = new Text("Campo diverso dalla password");
-        repeatPasswordError.getStyleClass().add("error");
+        repeatPasswordError.getStyleClass().add(error);
         repeatPasswordError.setVisible(false);
 
         registerButton = new Button("Registrati");

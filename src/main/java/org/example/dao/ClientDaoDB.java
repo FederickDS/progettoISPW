@@ -1,8 +1,11 @@
 package org.example.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.example.entity.Client;
+import org.example.exception.DatabaseConfigurationException;
 
 public class ClientDaoDB implements GenericDao<Client> {
     private final Connection connection;
@@ -37,11 +40,10 @@ public class ClientDaoDB implements GenericDao<Client> {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, phoneNumber);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // Restituisce true se esiste almeno una riga, esiste uno nuovo
+                return rs.next(); // Restituisce true se esiste almeno una riga
             }
         }
     }
-
 
     @Override
     public Client read(String email) throws SQLException {
@@ -87,5 +89,28 @@ public class ClientDaoDB implements GenericDao<Client> {
             ps.setString(1, email);
             ps.executeUpdate();
         }
+    }
+
+    // Nuovo metodo readAll
+    public List<Client> readAll(){
+        List<Client> clients = new ArrayList<>();
+        String sql = "SELECT first_name, last_name, email, phone_number, password, birth_date, tax_code FROM Client";
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                clients.add(new Client(
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("password"),
+                        rs.getDate("birth_date").toLocalDate(),
+                        rs.getString("tax_code")
+                ));
+            }
+        }catch (SQLException e) {
+            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+        }
+        return clients;
     }
 }

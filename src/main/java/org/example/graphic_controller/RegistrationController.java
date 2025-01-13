@@ -59,13 +59,13 @@ public class RegistrationController {
 
         User newUser = createUserFromInput(firstName,lastName,email,password,phoneNumber);
 
-        // Salva l'utente nel sistema
+        // Salva l'utente nel sistema (controller applicativo)
         if(newUser!=null){
             UserRegistrationController appController = new UserRegistrationController();
             String result = appController.registerUser(newUser);
 
             switch (result) {
-                case "success" -> navigateToNextPage();
+                case "success" -> navigateToNextPage(newUser);
                 case "error:phone_exists" -> registrationView.showPhoneNumberError("Il numero di telefono è già registrato.");
                 case "error:database_error" -> registrationView.showDatabaseError("Errore durante la registrazione. Riprova più tardi.");
                 default -> registrationView.showDatabaseError("Errore sconosciuto.");
@@ -106,10 +106,10 @@ public class RegistrationController {
         return null;
     }
 
-    private void navigateToNextPage() {
+    private void navigateToNextPage(User newUser) {
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService, newUser);
             default -> logger.warning("Pagina successiva non definita");
         }
     }
@@ -123,7 +123,6 @@ public class RegistrationController {
         switch (previousPage) {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(this.navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }

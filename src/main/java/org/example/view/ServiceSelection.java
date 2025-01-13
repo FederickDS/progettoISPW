@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 
 public class ServiceSelection {
     protected VBox root;
+    private final VBox serviceSection;
+    private final VBox activitySection;
     private final Button confirmButton;
     private final Button cancelButton;
 
@@ -17,24 +19,15 @@ public class ServiceSelection {
 
         // Sezione per i servizi
         Label serviceLabel = new Label("Servizi Inclusi:");
-        CheckBox saunaCheckBox = new CheckBox("Sauna");
-        CheckBox beachCheckBox = new CheckBox("Spiaggia");
-        CheckBox tanningBedCheckBox = new CheckBox("Lettino Abbronzante");
-        CheckBox bicycleCheckBox = new CheckBox("Bicicletta");
-
-        VBox serviceSection = new VBox(10, serviceLabel, saunaCheckBox, beachCheckBox, tanningBedCheckBox, bicycleCheckBox);
-        serviceSection.setStyle("-fx-alignment: center-left;");
+        this.serviceSection = new VBox(10);
+        this.serviceSection.setStyle("-fx-alignment: center-left;");
+        this.serviceSection.getChildren().add(serviceLabel);
 
         // Sezione per le attività
         Label activityLabel = new Label("Attività Disponibili:");
-        CheckBox excursionCheckBox = new CheckBox("Escursione");
-        CheckBox boatTripCheckBox = new CheckBox("Giro in Barca");
-        CheckBox windsurfLessonCheckBox = new CheckBox("Lezione di Windsurf");
-        CheckBox padelLessonCheckBox = new CheckBox("Lezione di Padel");
-        CheckBox yogaLessonCheckBox = new CheckBox("Lezione di Yoga");
-
-        VBox activitySection = new VBox(10, activityLabel, excursionCheckBox, boatTripCheckBox, windsurfLessonCheckBox, padelLessonCheckBox, yogaLessonCheckBox);
-        activitySection.setStyle("-fx-alignment: center-left;");
+        this.activitySection = new VBox(10);
+        this.activitySection.setStyle("-fx-alignment: center-left;");
+        this.activitySection.getChildren().add(activityLabel);
 
         // Bottoni di azione
         confirmButton = new Button("Conferma");
@@ -56,4 +49,13 @@ public class ServiceSelection {
     }
 
     public VBox getRoot(){return root;}
+
+    //getter per aggiunta attivita e servizi
+    public VBox getServiceSection() {
+        return serviceSection;
+    }
+
+    public VBox getActivitySection() {
+        return activitySection;
+    }
 }
