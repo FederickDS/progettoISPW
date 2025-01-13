@@ -15,7 +15,7 @@ public class DaoFactory {
     private static GenericDao<Activity> activityDaoMemoryInstance;
     private static GenericDao<Service> serviceDaoMemoryInstance;
     //solving smell
-    private static final String database = "database";
+    private static final String DATABASE = "database";
 
     private DaoFactory() {
         // Costruttore privato per nascondere quello pubblico implicito
@@ -23,7 +23,7 @@ public class DaoFactory {
 
     public static GenericDao<Client> getClientDao() {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
-        if (database.equalsIgnoreCase(storageOption)) {
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ClientDaoDB(connection);
         } else {
@@ -36,7 +36,7 @@ public class DaoFactory {
 
     public static GenericDao<Receptionist> getReceptionistDao() {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
-        if (database.equalsIgnoreCase(storageOption)) {
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ReceptionistDaoDB(connection);
         } else {
@@ -49,7 +49,7 @@ public class DaoFactory {
 
     public static GenericDao<Activity> getActivityDao() {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
-        if (database.equalsIgnoreCase(storageOption)) {
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ActivityDaoDB(connection);
         } else {
@@ -62,7 +62,7 @@ public class DaoFactory {
 
     public static GenericDao<Service> getServiceDao() {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
-        if (database.equalsIgnoreCase(storageOption)) {
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ServiceDaoDB(connection);
         } else {
