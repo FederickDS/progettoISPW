@@ -39,6 +39,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getView(), "Selezione Servizi");
     }
 
+    public void navigateToRoomBookingOptions(NavigationService navigationService) {
+        RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService);
+        this.display(controller.getView(), "Opzioni Prenotazione Stanza");
+    }
+
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
         BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
         this.display(controller.getView(), "Prenotazione Camera");
