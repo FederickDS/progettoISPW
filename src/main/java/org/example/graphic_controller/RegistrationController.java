@@ -5,16 +5,11 @@ import org.example.entity.User;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.ClientRegistrationView;
 import org.example.view.ReceptionistRegistrationView;
-import org.example.entity.Client;
-import org.example.entity.Receptionist;
 import org.example.application_controller.UserRegistrationController;
 
-import java.time.LocalDate;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 public class RegistrationController {
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private final Logger logger = Logger.getLogger(getClass().getName());
     private AbstractRegistrationView registrationView;
     private final String previousPage;

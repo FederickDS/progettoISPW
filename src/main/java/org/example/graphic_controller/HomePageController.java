@@ -20,7 +20,6 @@ public class HomePageController {
         homePage.getBookRoomButton().setOnAction(e -> navigationService.navigateToRoomBookingOptions(navigationService));
 
         // Eventi per altri bottoni
-        //homePage.getbookActivityButton().setOnAction(e -> navigationService.navigateToActivityBooking(navigationService));
         homePage.getloginButton().setOnAction(e -> navigationService.navigateToLogin(navigationService, "HomePage", "HomePage", "Client"));
     }
 
