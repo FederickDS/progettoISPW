@@ -13,6 +13,7 @@ public interface NavigationService {
     void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType);
     void navigateToRoomBookingOptions(NavigationService navigationService);
     void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage);
+    void navigateBack(String previousPage, NavigationService navigationService);
     void display(VBox root, String title);
     String hashWithSHA256(String input);
     }

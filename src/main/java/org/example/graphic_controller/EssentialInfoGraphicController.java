@@ -27,7 +27,7 @@ public class EssentialInfoGraphicController {
 
     private void addEventHandlers() {
         essentialInfoView.getRegisterButton().setOnAction(e -> handleRegistration());
-        essentialInfoView.getCancelButton().setOnAction(e -> navigateBack());
+        essentialInfoView.getCancelButton().setOnAction(e -> this.navigationService.navigateBack(previousPage,this.navigationService));
     }
 
     private void handleRegistration() {
@@ -54,20 +54,6 @@ public class EssentialInfoGraphicController {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
             navigationService.navigateToServiceSelection(this.navigationService, user);
-        }
-    }
-
-    private void navigateBack() {
-        if (previousPage == null || previousPage.isBlank()) {
-            logger.warning("Pagina precedente non definita. Operazione annullata.");
-            return;
-        }
-
-        switch (previousPage) {
-            case "StartupSettings" -> navigationService.navigateToStartupSettings(this.navigationService);
-            case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
-            case "RoomBookingOptions" -> navigationService.navigateToRoomBookingOptions(this.navigationService);
-            default -> logger.warning("Pagina precedente sconosciuta");
         }
     }
 

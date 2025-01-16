@@ -35,7 +35,7 @@ public class LoginController {
         loginView.getLoginButton().setOnAction(e -> handleLogin());
 
         // Gestione navigazione indietro
-        loginView.getCancelButton().setOnAction(e -> navigateBack());
+        loginView.getCancelButton().setOnAction(e -> this.navigationService.navigateBack(previousPage,this.navigationService));
 
         loginView.getRegisterButton().setOnAction(e -> goToRegistration());
     }
@@ -73,21 +73,6 @@ public class LoginController {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("serviceSelection")) {
             navigationService.navigateToServiceSelection(this.navigationService, user);
-        }
-    }
-
-
-    private void navigateBack() {
-        if (previousPage == null || previousPage.isBlank()) {
-            logger.warning("Pagina precedente non definita. Operazione annullata.");
-            return;
-        }
-
-        // Utilizza il NavigationService direttamente per navigare indietro
-        if(previousPage.equalsIgnoreCase("HomePage")){
-            navigationService.navigateToHomePage(this.navigationService);
-        }else if(previousPage.equalsIgnoreCase("StartupSettings")){
-            navigationService.navigateToStartupSettings(this.navigationService);
         }
     }
 

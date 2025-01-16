@@ -101,6 +101,21 @@ public class NavigationManager implements NavigationService {
         }
     }
 
+    public void navigateBack(String previousPage, NavigationService navigationService) {
+        if (previousPage == null || previousPage.isBlank()) {
+            logger.warning("Pagina precedente non definita. Operazione annullata.");
+            return;
+        }
+
+        switch (previousPage) {
+            case "StartupSettings" -> navigationService.navigateToStartupSettings(navigationService);
+            case "HomePage" -> navigationService.navigateToHomePage(navigationService);
+            case "RoomBookingOptions" -> navigationService.navigateToRoomBookingOptions(navigationService);
+            default -> logger.warning("Pagina precedente sconosciuta");
+        }
+    }
+
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
