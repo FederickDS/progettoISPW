@@ -6,9 +6,9 @@ import org.example.view.RoomBookingOptionsView;
 public class RoomBookingOptionsController {
     private final RoomBookingOptionsView view;
     private final NavigationService navigationService;
-    private final String ROOM_BOOKING_OPTIONS = "RoomBookingOptions";
-    private final String SERVICE_SELECTION = "ServiceSelection";
-    private final String CLIENT = "Client";
+    private static final String ROOM_BOOKING_OPTIONS = "RoomBookingOptions";
+    private static final String SERVICE_SELECTION = "ServiceSelection";
+    private static final String CLIENT = "Client";
 
     public RoomBookingOptionsController(NavigationService navigationService) {
         this.navigationService = navigationService;
