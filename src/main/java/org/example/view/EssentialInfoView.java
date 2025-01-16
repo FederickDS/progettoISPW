@@ -1,9 +1,5 @@
 package org.example.view;
 
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
 public class EssentialInfoView extends AbstractRegistrationView {
 
     @Override

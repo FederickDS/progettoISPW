@@ -1,16 +1,11 @@
 package org.example.graphic_controller;
 
-import javafx.scene.layout.VBox;
 import org.example.application_controller.EssentialInfoController;
 import org.example.entity.Client;
 import org.example.entity.User;
 import org.example.view.EssentialInfoView;
 
-import javax.swing.text.View;
-import java.util.logging.Logger;
-
 public class EssentialInfoGraphicController {
-    private static final Logger logger = Logger.getLogger(EssentialInfoGraphicController.class.getName());
     private EssentialInfoView essentialInfoView;
     private final String previousPage;
     private final String nextPage;

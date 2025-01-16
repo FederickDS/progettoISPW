@@ -6,6 +6,9 @@ import org.example.view.RoomBookingOptionsView;
 public class RoomBookingOptionsController {
     private final RoomBookingOptionsView view;
     private final NavigationService navigationService;
+    private final String ROOM_BOOKING_OPTIONS = "RoomBookingOptions";
+    private final String SERVICE_SELECTION = "ServiceSelection";
+    private final String CLIENT = "Client";
 
     public RoomBookingOptionsController(NavigationService navigationService) {
         this.navigationService = navigationService;
@@ -21,15 +24,15 @@ public class RoomBookingOptionsController {
     }
 
     private void navigateToLogin() {
-        navigationService.navigateToLogin(navigationService, "RoomBookingOptions", "ServiceSelection", "client");
+        navigationService.navigateToLogin(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION, CLIENT);
     }
 
     private void navigateToRegistration() {
-        navigationService.navigateToRegistration(navigationService, "RoomBookingOptions", "ServiceSelection", "client");
+        navigationService.navigateToRegistration(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION, CLIENT);
     }
 
     private void navigateToEssentialInfo() {
-        navigationService.navigateToEssentialInfo(navigationService, "RoomBookingOptions", "ServiceSelection");
+        navigationService.navigateToEssentialInfo(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION);
     }
 
     public VBox getView() {
