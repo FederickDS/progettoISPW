@@ -1,0 +1,33 @@
+package org.example.view;
+
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+public class EssentialInfoView extends AbstractRegistrationView {
+
+    @Override
+    protected void addSpecificFields() {
+        // Nessun campo specifico aggiuntivo per questa vista
+    }
+
+    @Override
+    public void hideSpecificErrors() {
+        // Nessun errore specifico da gestire
+    }
+
+    @Override
+    public String getTitleText() {
+        return "Inserisci Informazioni Essenziali";
+    }
+
+    @Override
+    public String getType() {
+        return "client";
+    }
+
+    // Rimuoviamo i campi superflui della vista base
+    public void hideBasicFields() {
+        root.getChildren().removeAll(passwordField, passwordError, repeatPasswordField, repeatPasswordError);
+    }
+}

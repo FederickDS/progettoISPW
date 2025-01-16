@@ -59,6 +59,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getView(), "Registrazione");
     }
 
+    public void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage){
+        EssentialInfoGraphicController controller = new EssentialInfoGraphicController(navigationService, previousPage, nextPage);
+        this.display(controller.getView().getRoot(), controller.getView().getTitleText());
+    }
+
     public void display(VBox root, String title) {
         try {
             Scene scene = new Scene(root);

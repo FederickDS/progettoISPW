@@ -72,6 +72,7 @@ public class RegistrationController {
         switch (previousPage) {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(this.navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
+            case "RoomBookingOptions" -> navigationService.navigateToRoomBookingOptions(this.navigationService);
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }

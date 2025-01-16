@@ -29,7 +29,7 @@ public class RoomBookingOptionsController {
     }
 
     private void navigateToEssentialInfo() {
-        //navigationService.navigateToEssentialInfo(navigationService, "RoomBookingOptions", "RoomBooking");
+        navigationService.navigateToEssentialInfo(navigationService, "RoomBookingOptions", "ServiceSelection");
     }
 
     public VBox getView() {
