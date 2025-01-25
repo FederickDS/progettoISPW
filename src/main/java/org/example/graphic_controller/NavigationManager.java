@@ -39,8 +39,8 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getView(), "Selezione Servizi");
     }
 
-    public void navigateToRoomBookingOptions(NavigationService navigationService) {
-        RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService);
+    public void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage) {
+        RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService, previousPage, nextPage);
         this.display(controller.getView(), "Opzioni Prenotazione Stanza");
     }
 
@@ -62,6 +62,11 @@ public class NavigationManager implements NavigationService {
     public void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage){
         EssentialInfoGraphicController controller = new EssentialInfoGraphicController(navigationService, previousPage, nextPage);
         this.display(controller.getView().getRoot(), controller.getView().getTitleText());
+    }
+
+    public void navigateToNotImplemented(NavigationService navigationService, String previousPage){
+        NotImplementedController controller = new NotImplementedController(navigationService, previousPage);
+        this.display(controller.getView().getRoot(), "Non implementato (come impostare titolo)");
     }
 
     public void display(VBox root, String title) {
@@ -110,7 +115,7 @@ public class NavigationManager implements NavigationService {
         switch (previousPage) {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(navigationService);
-            case "RoomBookingOptions" -> navigationService.navigateToRoomBookingOptions(navigationService);
+            case "NotImplemented" -> navigationService.navigateToNotImplemented(navigationService,previousPage);
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }

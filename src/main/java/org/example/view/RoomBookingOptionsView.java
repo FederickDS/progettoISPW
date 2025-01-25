@@ -9,6 +9,7 @@ public class RoomBookingOptionsView {
     private final Button loginButton;
     private final Button registerButton;
     private final Button essentialInfoButton;
+    private final Button backButton;
 
     public RoomBookingOptionsView() {
         // Layout della pagina
@@ -24,9 +25,10 @@ public class RoomBookingOptionsView {
         loginButton = new Button("Accedi");
         registerButton = new Button("Registrati");
         essentialInfoButton = new Button("Prenota senza registrarti");
+        backButton = new Button("Indietro");
 
         // Aggiungi elementi alla root
-        root.getChildren().addAll(title, description, loginButton, registerButton, essentialInfoButton);
+        root.getChildren().addAll(title, description, loginButton, registerButton, essentialInfoButton, backButton);
     }
 
     public VBox getRoot() {
@@ -43,5 +45,9 @@ public class RoomBookingOptionsView {
 
     public Button getEssentialInfoButton() {
         return essentialInfoButton;
+    }
+
+    public Button getBackButton() {
+        return backButton;
     }
 }

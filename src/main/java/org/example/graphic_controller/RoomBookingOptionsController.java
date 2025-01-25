@@ -6,13 +6,15 @@ import org.example.view.RoomBookingOptionsView;
 public class RoomBookingOptionsController {
     private final RoomBookingOptionsView view;
     private final NavigationService navigationService;
-    private static final String ROOM_BOOKING_OPTIONS = "RoomBookingOptions";
-    private static final String SERVICE_SELECTION = "ServiceSelection";
+    private final String previousPage;
+    private final String nextPage;
     private static final String CLIENT = "Client";
 
-    public RoomBookingOptionsController(NavigationService navigationService) {
+    public RoomBookingOptionsController(NavigationService navigationService, String previousPage, String nextPage) {
         this.navigationService = navigationService;
         this.view = new RoomBookingOptionsView();
+        this.previousPage = previousPage;
+        this.nextPage = nextPage;
         addEventHandlers();
     }
 
@@ -21,18 +23,23 @@ public class RoomBookingOptionsController {
         view.getLoginButton().setOnAction(e -> navigateToLogin());
         view.getRegisterButton().setOnAction(e -> navigateToRegistration());
         view.getEssentialInfoButton().setOnAction(e -> navigateToEssentialInfo());
+        view.getBackButton().setOnAction(e -> navigateBack());
     }
 
     private void navigateToLogin() {
-        navigationService.navigateToLogin(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION, CLIENT);
+        navigationService.navigateToLogin(navigationService, previousPage, nextPage, CLIENT);
     }
 
     private void navigateToRegistration() {
-        navigationService.navigateToRegistration(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION, CLIENT);
+        navigationService.navigateToRegistration(navigationService, previousPage, nextPage, CLIENT);
     }
 
     private void navigateToEssentialInfo() {
-        navigationService.navigateToEssentialInfo(navigationService, ROOM_BOOKING_OPTIONS, SERVICE_SELECTION);
+        navigationService.navigateToEssentialInfo(navigationService, previousPage, nextPage);
+    }
+
+    private void navigateBack() {
+        navigationService.navigateBack(previousPage, navigationService);
     }
 
     public VBox getView() {

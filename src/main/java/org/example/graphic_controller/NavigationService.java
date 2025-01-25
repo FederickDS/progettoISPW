@@ -11,8 +11,9 @@ public interface NavigationService {
     void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom);
     void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String type);
     void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType);
-    void navigateToRoomBookingOptions(NavigationService navigationService);
+    void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage);
     void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage);
+    void navigateToNotImplemented(NavigationService navigationService, String previousPage);
     void navigateBack(String previousPage, NavigationService navigationService);
     void display(VBox root, String title);
     String hashWithSHA256(String input);
