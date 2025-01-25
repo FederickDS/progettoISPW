@@ -6,7 +6,7 @@ import org.example.view.HomePage;
 public class HomePageController {
     private final HomePage homePage;
     private final NavigationService navigationService;
-    private static String HOME_PAGE = "HomePage";
+    private static final String HOME_PAGE = "HomePage";
 
     public HomePageController(NavigationService navigationService) {
         this.navigationService = navigationService;
