@@ -69,9 +69,9 @@ public class LoginController {
 
     private void navigateToNextPage(User user) {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
-        if (nextPage.equalsIgnoreCase("homepage")) {
+        if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
-        } else if (nextPage.equalsIgnoreCase("serviceSelection")) {
+        } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
             navigationService.navigateToServiceSelection(this.navigationService, user);
         }
     }
@@ -80,7 +80,7 @@ public class LoginController {
         navigationService.navigateToRegistration(this.navigationService,previousPage,nextPage,loginView.getType());
     }
 
-    public VBox getView(){
+    public VBox getRoot(){
         return this.loginView.getRoot();
     }
 }

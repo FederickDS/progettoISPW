@@ -1,5 +1,6 @@
 package org.example.graphic_controller;
 
+import javafx.scene.layout.VBox;
 import org.example.view.NotImplementedView;
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ public class NotImplementedController {
         navigationService.navigateBack(returnPage, navigationService);
     }
 
-    public NotImplementedView getView() {
-        return notImplementedView;
+    public VBox getRoot() {
+        return notImplementedView.getRoot();
     }
 }

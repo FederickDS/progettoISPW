@@ -57,7 +57,7 @@ public class ServiceSelectionController {
         navigationService.navigateToHomePage(this.navigationService);
     }
 
-    public VBox getView(){
+    public VBox getRoot(){
         return serviceSelection.getRoot();
     }
 

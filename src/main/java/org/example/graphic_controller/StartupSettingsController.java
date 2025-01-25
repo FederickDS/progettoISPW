@@ -14,7 +14,7 @@ public class StartupSettingsController {
         view.getConfirmButton().setOnAction(e -> handleConfirmButton());
     }
 
-    public VBox getView() {
+    public VBox getRoot() {
         return view.getRoot();
     }
 

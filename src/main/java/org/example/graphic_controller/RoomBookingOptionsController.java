@@ -42,7 +42,7 @@ public class RoomBookingOptionsController {
         navigationService.navigateBack(previousPage, navigationService);
     }
 
-    public VBox getView() {
+    public VBox getRoot() {
         return view.getRoot();
     }
 }

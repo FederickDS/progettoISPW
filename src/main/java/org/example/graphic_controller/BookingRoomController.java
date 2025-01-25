@@ -55,7 +55,7 @@ public class BookingRoomController {
         navigationService.navigateToServiceSelection(this.navigationService, bookRoom.getFirstClient());
     }
 
-    public VBox getView(){
+    public VBox getRoot(){
         return bookingRoom.getRoot();
     }
 }

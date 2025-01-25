@@ -1,5 +1,6 @@
 package org.example.graphic_controller;
 
+import javafx.scene.layout.VBox;
 import org.example.application_controller.EssentialInfoController;
 import org.example.entity.Client;
 import org.example.entity.User;
@@ -52,7 +53,7 @@ public class EssentialInfoGraphicController {
         }
     }
 
-    public EssentialInfoView getView() {
-        return essentialInfoView;
+    public VBox getRoot() {
+        return essentialInfoView.getRoot();
     }
 }

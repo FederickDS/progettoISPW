@@ -24,49 +24,49 @@ public class NavigationManager implements NavigationService {
     @Override
     public void navigateToStartupSettings(NavigationService navigationService) {
         StartupSettingsController controller = new StartupSettingsController(navigationService);
-        this.display(controller.getView(), "Impostazioni Iniziali");
+        this.display(controller.getRoot(), "Impostazioni Iniziali");
     }
 
     @Override
     public void navigateToHomePage(NavigationService navigationService) {
         HomePageController controller = new HomePageController(navigationService);
-        this.display(controller.getView(), "Home Page");
+        this.display(controller.getRoot(), "Home Page");
     }
 
     @Override
     public void navigateToServiceSelection(NavigationService navigationService, User newUser) {
         ServiceSelectionController controller = new ServiceSelectionController(navigationService, newUser);
-        this.display(controller.getView(), "Selezione Servizi");
+        this.display(controller.getRoot(), "Selezione Servizi");
     }
 
     public void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage) {
         RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService, previousPage, nextPage);
-        this.display(controller.getView(), "Opzioni Prenotazione Stanza");
+        this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
     }
 
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
         BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
-        this.display(controller.getView(), "Prenotazione Camera");
+        this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
     public void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String typeOfLogin) {
         LoginController controller = new LoginController(navigationService, previousPage, nextPage, typeOfLogin);
-        this.display(controller.getView(), "Login");
+        this.display(controller.getRoot(), "Login");
     }
 
     public void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType) {
         RegistrationController controller = new RegistrationController(navigationService, previousPage, nextPage, userType);
-        this.display(controller.getView(), "Registrazione");
+        this.display(controller.getRoot(), "Registrazione");
     }
 
     public void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage){
         EssentialInfoGraphicController controller = new EssentialInfoGraphicController(navigationService, previousPage, nextPage);
-        this.display(controller.getView().getRoot(), controller.getView().getTitleText());
+        this.display(controller.getRoot(), "Inserisci Informazioni Essenziali");
     }
 
     public void navigateToNotImplemented(NavigationService navigationService, String previousPage){
         NotImplementedController controller = new NotImplementedController(navigationService, previousPage);
-        this.display(controller.getView().getRoot(), "Non implementato (come impostare titolo)");
+        this.display(controller.getRoot(), "Non implementato (come impostare titolo)");
     }
 
     public void display(VBox root, String title) {

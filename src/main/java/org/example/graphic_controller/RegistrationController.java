@@ -67,7 +67,7 @@ public class RegistrationController {
         navigationService.navigateToLogin(this.navigationService, previousPage,nextPage,registrationView.getType());
     }
 
-    public VBox getView(){
+    public VBox getRoot(){
         return this.registrationView.getRoot();
     }
 }

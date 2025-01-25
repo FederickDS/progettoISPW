@@ -27,7 +27,7 @@ public class HomePageController {
         homePage.getbookActivityButton().setOnAction(e->navigationService.navigateToNotImplemented(navigationService, HOME_PAGE));
     }
 
-    public VBox getView(){
+    public VBox getRoot(){
         return homePage.getRoot();
     }
 }
