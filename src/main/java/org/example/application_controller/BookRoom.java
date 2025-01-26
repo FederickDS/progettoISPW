@@ -5,9 +5,7 @@ import org.example.entity.Activity;
 import org.example.entity.Client;
 import org.example.entity.Service;
 import org.example.entity.TimeInterval;
-import org.example.exception.DatabaseConfigurationException;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

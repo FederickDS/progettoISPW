@@ -4,9 +4,11 @@ import org.example.entity.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class RoomDaoMemory implements GenericDao<Room> {
     private final List<Room> rooms = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(RoomDaoMemory.class.getName());
 
     public RoomDaoMemory() {
         // Aggiungi alcune stanze di esempio
@@ -18,7 +20,6 @@ public class RoomDaoMemory implements GenericDao<Room> {
     @Override
     public void create(Room room) {
         if (read(room.getRoomNumber()) != null) {
-            System.out.println("La stanza con il numero " + room.getRoomNumber() + " è già presente.");
             return;
         }
         rooms.add(room);
@@ -41,7 +42,7 @@ public class RoomDaoMemory implements GenericDao<Room> {
             existingRoom.setMaxPeople(room.getMaxPeople());
             existingRoom.setFloor(room.getFloor());
         } else {
-            System.out.println("La stanza con il numero " + room.getRoomNumber() + " non esiste.");
+            logger.info("La stanza con il numero non esiste.");
         }
     }
 

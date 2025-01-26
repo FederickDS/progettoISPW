@@ -1,11 +1,6 @@
 package org.example.dao;
 
-import org.example.entity.Activity;
-import org.example.entity.Service;
-import org.example.entity.Client;
-import org.example.entity.Receptionist;
-import org.example.entity.StartupSettingsEntity;
-import org.example.entity.TimeInterval;
+import org.example.entity.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -16,6 +11,7 @@ public class DaoFactory {
     private static GenericDao<Activity> activityDaoMemoryInstance;
     private static GenericDao<Service> serviceDaoMemoryInstance;
     private static GenericDao<TimeInterval> timeIntervalDaoMemoryInstance; // Aggiunto per TimeInterval
+    private static GenericDao<Room> roomDaoMemoryInstance;
 
     private static final String DATABASE = "database";
 
@@ -85,6 +81,19 @@ public class DaoFactory {
                 timeIntervalDaoMemoryInstance = new TimeIntervalDaoMemory(); // Implementazione per memoria
             }
             return timeIntervalDaoMemoryInstance;
+        }
+    }
+
+    public static GenericDao<Room> getRoomDao() {
+        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
+            Connection connection = DatabaseConnectionManager.getConnection();
+            return new RoomDaoDB(connection);
+        } else {
+            if (roomDaoMemoryInstance == null) {
+                roomDaoMemoryInstance = new RoomDaoMemory();
+            }
+            return roomDaoMemoryInstance;
         }
     }
 

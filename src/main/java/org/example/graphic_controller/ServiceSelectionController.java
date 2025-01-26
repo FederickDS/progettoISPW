@@ -13,7 +13,6 @@ import org.example.entity.Service;
 
 import java.util.logging.Logger;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ServiceSelectionController {
     private ServiceSelection serviceSelection;

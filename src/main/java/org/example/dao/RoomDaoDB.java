@@ -16,7 +16,6 @@ public class RoomDaoDB implements GenericDao<Room> {
     @Override
     public void create(Room room) {
         if (read(room.getRoomNumber()) != null) {
-            System.out.println("La stanza con il numero " + room.getRoomNumber() + " è già presente.");
             return;
         }
 
