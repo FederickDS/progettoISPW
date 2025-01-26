@@ -5,14 +5,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.application_controller.ValidateLogin;
+import org.example.entity.BaseModel;
 import org.example.entity.Client;
 import org.example.view.ServiceSelection;
 import org.example.entity.Activity;
 import org.example.entity.Service;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
@@ -45,39 +46,25 @@ public class ServiceSelectionController {
 
     public void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
-        List<Activity> selectedActivities = new ArrayList<>();
-        List<Service> selectedServices = new ArrayList<>();
 
-        // Itera sui nodi, eseguendo un cast sicuro a CheckBox
-        for (Node node : serviceSelection.getActivitySection().getChildren()) {
-            if (node instanceof CheckBox activityCheckBox && activityCheckBox.isSelected()) {
-                for (Activity activity : this.bookRoom.getAvailableActivities()) {
-                    if (activity.getName().equals(activityCheckBox.getText())) {
-                        selectedActivities.add(activity);
-                        logger.info(activity.getName());
-                        break; // Evita duplicati
-                    }
-                }
-            }
-        }
+        List<Activity> selectedActivities = getSelectedItems(serviceSelection.getActivitySection().getChildren(), this.bookRoom.getAvailableActivities());
+        List<Service> selectedServices = getSelectedItems(serviceSelection.getServiceSection().getChildren(), this.bookRoom.getAvailableServices());
 
-        for (Node node : serviceSelection.getServiceSection().getChildren()) {
-            if (node instanceof CheckBox serviceCheckBox && serviceCheckBox.isSelected()) {
-                for (Service service : this.bookRoom.getAvailableServices()) {
-                    if (service.getName().equals(serviceCheckBox.getText())) {
-                        selectedServices.add(service);
-                        logger.info(service.getName());
-                        break; // Evita duplicati
-                    }
-                }
-            }
-        }
-
-        //metodo per registrare attivita da salvare
+        // Metodo per registrare attività da salvare
         this.bookRoom.setServicesToReservation(selectedActivities, selectedServices);
-        //pagina successiva
+
+        // Navigazione alla pagina successiva
         navigationService.navigateToBookingRoom(this.navigationService, this.bookRoom);
     }
+
+    private <T extends BaseModel> List<T> getSelectedItems(List<Node> nodes, List<T> availableItems) {
+        return nodes.stream()
+                .filter(node -> node instanceof CheckBox checkBox && checkBox.isSelected())
+                .map(node -> (CheckBox) node)
+                .flatMap(checkBox -> availableItems.stream().filter(item -> item.getName().equals(checkBox.getText())).findFirst().stream())
+                .collect(Collectors.toList());
+    }
+
 
     public void handleCancel() {
         logger.info("Scelte annullate. Torna alla Home Page.");

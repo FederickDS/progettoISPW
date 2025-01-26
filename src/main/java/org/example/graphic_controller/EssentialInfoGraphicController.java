@@ -3,7 +3,6 @@ package org.example.graphic_controller;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.EssentialInfoController;
 import org.example.entity.Client;
-import org.example.entity.User;
 import org.example.view.EssentialInfoView;
 
 public class EssentialInfoGraphicController {
@@ -48,7 +47,7 @@ public class EssentialInfoGraphicController {
 
     private void navigateToNextPage() {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
-        if (nextPage.equalsIgnoreCase("homepage")) {
+        if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
             navigationService.navigateToServiceSelection(this.navigationService);
