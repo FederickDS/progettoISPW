@@ -3,13 +3,19 @@ package org.example.entity;
 import java.io.Serializable;
 
 // Classe che rappresenta una stanza
-class Room implements Serializable {
+public class Room implements Serializable {
     private int roomNumber;
     private int maxPeople;
     private int floor;
 
     public Room() {
         /*classe bean*/
+    }
+
+    public Room(int roomNumber, int maxPeople, int floor) {
+        this.roomNumber = roomNumber;
+        this.maxPeople = maxPeople;
+        this.floor = floor;
     }
 
     public int getRoomNumber() {
