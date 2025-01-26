@@ -15,11 +15,18 @@ public class ActivityDaoMemory implements GenericDao<Activity> {
 
     @Override
     public void create(Activity entity) {
-        activities.add(entity);
+        if (read(entity.getName()) == null) {
+            activities.add(entity);
+        }
     }
 
     @Override
-    public Activity read(String name) {
+    public Activity read(Object... keys) {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Invalid keys for reading Activity.");
+        }
+        String name = (String) keys[0];
+
         return activities.stream()
                 .filter(activity -> activity.getName().equalsIgnoreCase(name))
                 .findFirst()
@@ -36,12 +43,17 @@ public class ActivityDaoMemory implements GenericDao<Activity> {
     }
 
     @Override
-    public void delete(String name) {
+    public void delete(Object... keys) {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Invalid keys for deleting Activity.");
+        }
+        String name = (String) keys[0];
+
         activities.removeIf(activity -> activity.getName().equalsIgnoreCase(name));
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Activity> readAll() {
-        return new ArrayList<>(activities); // Restituisce una copia della lista
+        return new ArrayList<>(activities); // Returns a copy of the list
     }
 }

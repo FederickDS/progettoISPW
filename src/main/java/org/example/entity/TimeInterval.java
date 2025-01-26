@@ -1,34 +1,43 @@
 package org.example.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-// Classe che rappresenta un intervallo di tempo
-class TimeInterval implements Serializable {
-    private LocalDateTime start;
-    private LocalDateTime end;
+public class TimeInterval {
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String type; // Nuovo campo per il tipo di intervallo
 
-    public TimeInterval() {
+    public TimeInterval(LocalDate startDate, LocalDate endDate, String type) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.type = type;
     }
 
-    public TimeInterval(LocalDateTime start, LocalDateTime end) {
-        this.start = start;
-        this.end = end;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public LocalDateTime getStart() {
-        return start;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public void setStart(LocalDateTime start) {
-        this.start = start;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public LocalDateTime getEnd() {
-        return end;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isAvailable(LocalDate checkIn, LocalDate checkOut) {
+        return !checkIn.isBefore(startDate) && !checkOut.isAfter(endDate);
     }
 }

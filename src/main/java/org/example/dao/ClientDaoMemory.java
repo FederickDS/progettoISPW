@@ -27,7 +27,12 @@ public class ClientDaoMemory implements GenericDao<Client> {
     }
 
     @Override
-    public Client read(String email) throws SQLException {
+    public Client read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Chiave non valida per la ricerca del Client");
+        }
+
+        String email = (String) keys[0];
         return storage.stream()
                 .filter(client -> client.getEmail().equals(email))
                 .findFirst()
@@ -43,8 +48,13 @@ public class ClientDaoMemory implements GenericDao<Client> {
     }
 
     @Override
-    public void delete(String email) throws SQLException {
-        Client existingClient = read(email); // Verifica se esiste già
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Chiave non valida per l'eliminazione del Client");
+        }
+
+        String email = (String) keys[0];
+        Client existingClient = read(email);
         storage.remove(existingClient);
     }
 
@@ -52,8 +62,8 @@ public class ClientDaoMemory implements GenericDao<Client> {
         return storage.stream().noneMatch(client -> client.getEmail().equals(email));
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Client> readAll() {
-        return new ArrayList<>(storage); // Restituisce una copia della lista
+        return new ArrayList<>(storage);
     }
 }

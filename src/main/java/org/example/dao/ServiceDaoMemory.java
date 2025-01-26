@@ -19,7 +19,12 @@ public class ServiceDaoMemory implements GenericDao<Service> {
     }
 
     @Override
-    public Service read(String name) {
+    public Service read(Object... keys) {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Il metodo read accetta un solo parametro di tipo String.");
+        }
+        String name = (String) keys[0];
+
         return services.stream()
                 .filter(service -> service.getName().equalsIgnoreCase(name))
                 .findFirst()
@@ -36,11 +41,16 @@ public class ServiceDaoMemory implements GenericDao<Service> {
     }
 
     @Override
-    public void delete(String name) {
+    public void delete(Object... keys) {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Il metodo delete accetta un solo parametro di tipo String.");
+        }
+        String name = (String) keys[0];
+
         services.removeIf(service -> service.getName().equalsIgnoreCase(name));
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Service> readAll() {
         return new ArrayList<>(services); // Restituisce una copia della lista
     }

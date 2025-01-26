@@ -29,7 +29,12 @@ public class ActivityDaoDB implements GenericDao<Activity> {
     }
 
     @Override
-    public Activity read(String name) throws SQLException {
+    public Activity read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Invalid keys for reading Activity.");
+        }
+        String name = (String) keys[0];
+
         String query = "SELECT name, description, max_participants FROM Activities WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
@@ -58,7 +63,12 @@ public class ActivityDaoDB implements GenericDao<Activity> {
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Invalid keys for deleting Activity.");
+        }
+        String name = (String) keys[0];
+
         String query = "DELETE FROM Activities WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
@@ -66,7 +76,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
         }
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Activity> readAll() {
         List<Activity> activities = new ArrayList<>();
         String query = "SELECT name, description, max_participants FROM Activities";
@@ -79,8 +89,8 @@ public class ActivityDaoDB implements GenericDao<Activity> {
                         resultSet.getInt("max_participants")
                 ));
             }
-        }catch (SQLException e) {
-            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+        } catch (SQLException e) {
+            throw new DatabaseConfigurationException("Unable to retrieve activities list.", e);
         }
         return activities;
     }

@@ -3,10 +3,7 @@ package org.example.dao;
 import org.example.entity.Receptionist;
 import org.example.exception.DatabaseConfigurationException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +28,12 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
     }
 
     @Override
-    public Receptionist read(String email) throws SQLException {
+    public Receptionist read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Devi fornire un solo parametro di tipo String (email).");
+        }
+        String email = (String) keys[0];
+
         String sql = "SELECT first_name, last_name, email, phone_number, password FROM Receptionist WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -64,7 +66,12 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
     }
 
     @Override
-    public void delete(String email) throws SQLException {
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Devi fornire un solo parametro di tipo String (email).");
+        }
+        String email = (String) keys[0];
+
         String sql = "DELETE FROM Receptionist WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -72,7 +79,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
         }
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Receptionist> readAll() {
         List<Receptionist> receptionists = new ArrayList<>();
         String sql = "SELECT first_name, last_name, email, phone_number, password FROM Receptionist";
@@ -87,7 +94,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
                         rs.getString("password")
                 ));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
         }
         return receptionists;

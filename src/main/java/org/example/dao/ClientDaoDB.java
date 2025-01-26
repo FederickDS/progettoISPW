@@ -16,7 +16,6 @@ public class ClientDaoDB implements GenericDao<Client> {
 
     @Override
     public void create(Client client) throws SQLException {
-        // Controlla se il numero di telefono esiste già
         if (phoneNumberExists(client.getPhoneNumber())) {
             throw new SQLException("Il numero di telefono è già registrato");
         }
@@ -34,19 +33,23 @@ public class ClientDaoDB implements GenericDao<Client> {
         }
     }
 
-    // Metodo per verificare se un numero di telefono è già presente
     private boolean phoneNumberExists(String phoneNumber) throws SQLException {
         String sql = "SELECT 1 FROM Client WHERE phone_number = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, phoneNumber);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // Restituisce true se esiste almeno una riga
+                return rs.next();
             }
         }
     }
 
     @Override
-    public Client read(String email) throws SQLException {
+    public Client read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Chiave non valida per la ricerca del Client");
+        }
+
+        String email = (String) keys[0];
         String sql = "SELECT first_name, last_name, email, phone_number, password, birth_date, tax_code FROM Client WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -64,7 +67,7 @@ public class ClientDaoDB implements GenericDao<Client> {
                 }
             }
         }
-        return null; // Nessun client trovato
+        return null;
     }
 
     @Override
@@ -83,7 +86,12 @@ public class ClientDaoDB implements GenericDao<Client> {
     }
 
     @Override
-    public void delete(String email) throws SQLException {
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Chiave non valida per l'eliminazione del Client");
+        }
+
+        String email = (String) keys[0];
         String sql = "DELETE FROM Client WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -91,8 +99,8 @@ public class ClientDaoDB implements GenericDao<Client> {
         }
     }
 
-    // Nuovo metodo readAll
-    public List<Client> readAll(){
+    @Override
+    public List<Client> readAll() {
         List<Client> clients = new ArrayList<>();
         String sql = "SELECT first_name, last_name, email, phone_number, password, birth_date, tax_code FROM Client";
         try (PreparedStatement ps = connection.prepareStatement(sql);
@@ -108,7 +116,7 @@ public class ClientDaoDB implements GenericDao<Client> {
                         rs.getString("tax_code")
                 ));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
         }
         return clients;

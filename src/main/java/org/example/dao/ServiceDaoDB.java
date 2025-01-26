@@ -29,7 +29,12 @@ public class ServiceDaoDB implements GenericDao<Service> {
     }
 
     @Override
-    public Service read(String name) throws SQLException {
+    public Service read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Il metodo read accetta un solo parametro di tipo String.");
+        }
+        String name = (String) keys[0];
+
         String query = "SELECT name, description, max_participants FROM Services WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
@@ -58,7 +63,12 @@ public class ServiceDaoDB implements GenericDao<Service> {
     }
 
     @Override
-    public void delete(String name) throws SQLException {
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Il metodo delete accetta un solo parametro di tipo String.");
+        }
+        String name = (String) keys[0];
+
         String query = "DELETE FROM Services WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
@@ -66,7 +76,7 @@ public class ServiceDaoDB implements GenericDao<Service> {
         }
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Service> readAll() {
         List<Service> services = new ArrayList<>();
         String query = "SELECT name, description, max_participants FROM Services";
@@ -79,8 +89,8 @@ public class ServiceDaoDB implements GenericDao<Service> {
                         resultSet.getInt("max_participants")
                 ));
             }
-        }catch (SQLException e) {
-            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+        } catch (SQLException e) {
+            throw new DatabaseConfigurationException("Lista non recuperabile", e);
         }
         return services;
     }

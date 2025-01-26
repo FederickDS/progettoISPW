@@ -20,7 +20,12 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     }
 
     @Override
-    public Receptionist read(String email) throws SQLException {
+    public Receptionist read(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Devi fornire un solo parametro di tipo String (email).");
+        }
+        String email = (String) keys[0];
+
         return storage.stream()
                 .filter(receptionist -> receptionist.getEmail().equals(email))
                 .findFirst()
@@ -36,7 +41,12 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     }
 
     @Override
-    public void delete(String email) throws SQLException {
+    public void delete(Object... keys) throws SQLException {
+        if (keys.length != 1 || !(keys[0] instanceof String)) {
+            throw new IllegalArgumentException("Devi fornire un solo parametro di tipo String (email).");
+        }
+        String email = (String) keys[0];
+
         Receptionist existingReceptionist = read(email); // Verifica se esiste già
         storage.remove(existingReceptionist);
     }
@@ -45,7 +55,7 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
         return storage.stream().noneMatch(receptionist -> receptionist.getEmail().equals(email));
     }
 
-    // Nuovo metodo readAll
+    @Override
     public List<Receptionist> readAll() {
         return new ArrayList<>(storage); // Restituisce una copia della lista
     }
