@@ -60,9 +60,9 @@ public class ServiceSelectionController {
     private <T extends BaseModel> List<T> getSelectedItems(List<Node> nodes, List<T> availableItems) {
         return nodes.stream()
                 .filter(node -> node instanceof CheckBox checkBox && checkBox.isSelected())
-                .map(node -> (CheckBox) node)
+                .map(CheckBox.class::cast)  // Usa il riferimento al metodo per il cast
                 .flatMap(checkBox -> availableItems.stream().filter(item -> item.getName().equals(checkBox.getText())).findFirst().stream())
-                .collect(Collectors.toList());
+                .toList();  // Usa toList() invece di collect(Collectors.toList())
     }
 
 

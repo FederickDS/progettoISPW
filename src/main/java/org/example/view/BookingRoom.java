@@ -16,6 +16,7 @@ public class BookingRoom {
     private final Label checkInErrorLabel;
     private final Label checkOutErrorLabel;
     private final Label participantsErrorLabel;
+    private static final String ERROR_MESSAGE = "error-message";
 
     public BookingRoom() {
         // Layout di base
@@ -30,14 +31,14 @@ public class BookingRoom {
         checkInPicker = new DatePicker();
         checkInPicker.setPromptText("Seleziona la data di check-in");
         checkInErrorLabel = new Label(); // Messaggio di errore per check-in
-        checkInErrorLabel.getStyleClass().add("error-message"); // Inizialmente non occupa spazio
+        checkInErrorLabel.getStyleClass().add(ERROR_MESSAGE); // Inizialmente non occupa spazio
         checkInErrorLabel.setVisible(false); // Messaggio nascosto
 
         Label checkOutLabel = new Label("Data di check-out:");
         checkOutPicker = new DatePicker();
         checkOutPicker.setPromptText("Seleziona la data di check-out");
         checkOutErrorLabel = new Label(); // Messaggio di errore per check-out
-        checkOutErrorLabel.getStyleClass().add("error-message");
+        checkOutErrorLabel.getStyleClass().add(ERROR_MESSAGE);
         checkOutErrorLabel.setVisible(false); // Messaggio nascosto
 
         // Nuovo campo per numero di partecipanti
@@ -46,7 +47,7 @@ public class BookingRoom {
         participantsField.setPromptText("Numero di partecipanti");
         participantsField.setMaxWidth(200);
         participantsErrorLabel = new Label(); // Messaggio di errore per il numero di partecipanti
-        participantsErrorLabel.getStyleClass().add("error-message");
+        participantsErrorLabel.getStyleClass().add(ERROR_MESSAGE);
         participantsErrorLabel.setVisible(false); // Messaggio nascosto
 
         confirmButton = new Button("Conferma");

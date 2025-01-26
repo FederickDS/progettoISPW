@@ -1,8 +1,9 @@
 package org.example.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TimeInterval {
+public class TimeInterval implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
     private String type; // Nuovo campo per il tipo di intervallo

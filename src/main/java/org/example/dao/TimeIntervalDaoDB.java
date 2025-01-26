@@ -16,7 +16,6 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     @Override
     public void create(TimeInterval entity) {
         if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) != null) {
-            System.out.println("L'intervallo è già presente.");
             return;
         }
 
@@ -38,7 +37,7 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
         LocalDate endDate = (LocalDate) keys[1];
         String type = (String) keys[2];
 
-        String query = "SELECT * FROM time_intervals WHERE start_date = ? AND end_date = ? AND type = ?";
+        String query = "SELECT start_date, end_date, type FROM time_intervals WHERE start_date = ? AND end_date = ? AND type = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(startDate));
             stmt.setDate(2, Date.valueOf(endDate));
@@ -84,7 +83,7 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     @Override
     public List<TimeInterval> readAll() {
         List<TimeInterval> intervals = new ArrayList<>();
-        String query = "SELECT * FROM time_intervals";
+        String query = "SELECT start_date, end_date, type FROM time_intervals";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {

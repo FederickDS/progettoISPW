@@ -4,7 +4,10 @@ import org.example.dao.DaoFactory;
 import org.example.entity.Activity;
 import org.example.entity.Client;
 import org.example.entity.Service;
+import org.example.entity.TimeInterval;
+import org.example.exception.DatabaseConfigurationException;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +27,17 @@ public class BookRoom {
     }
 
     public boolean checkHoursAndSave(LocalDate checkIn, LocalDate checkOut) {
-        // se almeno una stanza tra quelle presenti nell'albergo e'disponibile, ritorna true
-        return true;
+        // Ottieni gli intervalli di tempo relativi ai "giorni di apertura"
+        List<TimeInterval> availableIntervals = DaoFactory.getTimeIntervalDao().readAll().stream()
+                .filter(interval -> "giorni di apertura".equals(interval.getType()))  // Filtro per tipo "giorni di apertura"
+                .toList();  // Usa toList() per raccogliere i risultati in una lista immutabile
+        // Controlla se l'intervallo scelto è valido
+        for (TimeInterval interval : availableIntervals) {
+            if (interval.isAvailable(checkIn, checkOut)) {
+                return true; // L'intervallo è valido
+            }
+        }
+        return false; // Intervallo non valido
     }
 
     public Client getFirstClient() {

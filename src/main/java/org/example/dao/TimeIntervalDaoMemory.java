@@ -16,7 +16,6 @@ public class TimeIntervalDaoMemory implements GenericDao<TimeInterval> {
     @Override
     public void create(TimeInterval entity) {
         if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) != null) {
-            System.out.println("L'intervallo è già presente.");
             return;
         }
         timeIntervals.add(entity);

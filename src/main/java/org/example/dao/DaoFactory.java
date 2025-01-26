@@ -5,6 +5,7 @@ import org.example.entity.Service;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.StartupSettingsEntity;
+import org.example.entity.TimeInterval;
 
 import java.sql.Connection;
 import java.util.List;
@@ -14,7 +15,8 @@ public class DaoFactory {
     private static ReceptionistDaoMemory receptionistDaoMemoryInstance;
     private static GenericDao<Activity> activityDaoMemoryInstance;
     private static GenericDao<Service> serviceDaoMemoryInstance;
-    //solving smell
+    private static GenericDao<TimeInterval> timeIntervalDaoMemoryInstance; // Aggiunto per TimeInterval
+
     private static final String DATABASE = "database";
 
     private DaoFactory() {
@@ -73,6 +75,19 @@ public class DaoFactory {
         }
     }
 
+    public static GenericDao<TimeInterval> getTimeIntervalDao() { // Metodo per TimeInterval
+        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
+            Connection connection = DatabaseConnectionManager.getConnection();
+            return new TimeIntervalDaoDB(connection); // Implementazione per DB
+        } else {
+            if (timeIntervalDaoMemoryInstance == null) {
+                timeIntervalDaoMemoryInstance = new TimeIntervalDaoMemory(); // Implementazione per memoria
+            }
+            return timeIntervalDaoMemoryInstance;
+        }
+    }
+
     // Nuovi metodi per ottenere liste di attività e servizi
     public static List<Activity> getAvailableActivities() {
         GenericDao<Activity> activityDao = getActivityDao();
@@ -82,5 +97,10 @@ public class DaoFactory {
     public static List<Service> getAvailableServices() {
         GenericDao<Service> serviceDao = getServiceDao();
         return serviceDao.readAll(); // Metodo da implementare nel DAO
+    }
+
+    public static List<TimeInterval> getAvailableTimeIntervals() { // Metodo per ottenere gli intervalli disponibili
+        GenericDao<TimeInterval> timeIntervalDao = getTimeIntervalDao();
+        return timeIntervalDao.readAll();
     }
 }
