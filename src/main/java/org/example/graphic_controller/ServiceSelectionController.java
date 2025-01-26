@@ -1,14 +1,17 @@
 package org.example.graphic_controller;
 
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
+import org.example.application_controller.ValidateLogin;
 import org.example.entity.Client;
 import org.example.entity.User;
 import org.example.view.ServiceSelection;
 import org.example.entity.Activity;
 import org.example.entity.Service;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.List;
 
@@ -25,7 +28,8 @@ public class ServiceSelectionController {
         this.serviceSelection = new ServiceSelection();
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
-        //this.bookRoom.addFirstClient((Client) newUser);
+        ValidateLogin login = new ValidateLogin();
+        this.bookRoom.addFirstClient((Client) login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(), "client"));
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni
@@ -42,10 +46,36 @@ public class ServiceSelectionController {
 
     public void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
-        // Salvataggio utente quando creiamo caso d'uso
-        //this.bookRoom.addFirstClient((Client) user);//minori controlli
+        List<Activity> selectedActivities = new ArrayList<>();
+        List<Service> selectedServices = new ArrayList<>();
+
+        // Itera sui nodi, eseguendo un cast sicuro a CheckBox
+        for (Node node : serviceSelection.getActivitySection().getChildren()) {
+            if (node instanceof CheckBox activityCheckBox && activityCheckBox.isSelected()) {
+                for (Activity activity : this.bookRoom.getAvailableActivities()) {
+                    if (activity.getName().equals(activityCheckBox.getText())) {
+                        selectedActivities.add(activity);
+                        logger.info(activity.getName());
+                        break; // Evita duplicati
+                    }
+                }
+            }
+        }
+
+        for (Node node : serviceSelection.getServiceSection().getChildren()) {
+            if (node instanceof CheckBox serviceCheckBox && serviceCheckBox.isSelected()) {
+                for (Service service : this.bookRoom.getAvailableServices()) {
+                    if (service.getName().equals(serviceCheckBox.getText())) {
+                        selectedServices.add(service);
+                        logger.info(service.getName());
+                        break; // Evita duplicati
+                    }
+                }
+            }
+        }
+
         //metodo per registrare attivita da salvare
-        this.bookRoom.setServicesToReservation();
+        this.bookRoom.setServicesToReservation(selectedActivities, selectedServices);
         //pagina successiva
         navigationService.navigateToBookingRoom(this.navigationService, this.bookRoom);
     }

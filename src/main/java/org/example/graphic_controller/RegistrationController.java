@@ -46,9 +46,7 @@ public class RegistrationController {
             return;
         }
         User user = appController.createUserFromInput(registrationView, navigationService);
-        //salvo le credenziali
-        SessionManager.getInstance().setCredentials(registrationView.getEmailField().getText(),registrationView.getPasswordField().getText(),registrationView.getType());
-        //controllo le credenziali siano corrette
+        //controllo le credenziali siano uniche nel database
         String result = appController.registerUser(user);
             switch (result) {
                 case "success" -> navigateToNextPage();
@@ -59,6 +57,8 @@ public class RegistrationController {
     }
 
     private void navigateToNextPage() {
+        //salvo le credenziali (sicuramente corrette dopo register user)
+        SessionManager.getInstance().setCredentials(registrationView.getEmailField().getText(),registrationView.getPasswordField().getText(),registrationView.getType());
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
             case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);

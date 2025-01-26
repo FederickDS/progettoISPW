@@ -11,13 +11,16 @@ import java.util.List;
 
 public class BookRoom {
     private List<Client> clientList = new ArrayList<>();
+    private List<Activity> selectedActivities = new ArrayList<>();
+    private List<Service> selectedServices = new ArrayList<>();
 
     public BookRoom() {
         //il costruttore non deve definire attributi
     }
 
-    public void setServicesToReservation() {
-        //ora metodo dummy
+    public void setServicesToReservation(List<Activity> activities, List<Service> services) {
+        this.selectedActivities = activities;
+        this.selectedServices = services;
     }
 
     public boolean checkHoursAndSave(LocalDate checkIn, LocalDate checkOut) {
@@ -47,5 +50,13 @@ public class BookRoom {
 
     public List<Service> getAvailableServices() {
         return DaoFactory.getAvailableServices();
+    }
+
+    public List<Activity> getSelectedActivities() {
+        return selectedActivities;
+    }
+
+    public List<Service> getSelectedServices() {
+        return selectedServices;
     }
 }

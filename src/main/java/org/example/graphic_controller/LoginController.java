@@ -42,7 +42,7 @@ public class LoginController {
 
     private void handleLogin() {
         String email = loginView.getEmailField().getText();
-        String password = loginView.getPasswordField().getText();
+        String password = navigationService.hashWithSHA256(loginView.getPasswordField().getText());
 
         if (email.isBlank() || password.isBlank()) {
             loginView.getErrorMessage().setVisible(true);
@@ -53,10 +53,11 @@ public class LoginController {
         ValidateLogin validateLogin = new ValidateLogin();
         String typeOfLogin = loginView.getType();
         try {
-            User user = validateLogin.validate(email, navigationService.hashWithSHA256(password), typeOfLogin);
+            User user = validateLogin.validate(email, password, typeOfLogin);
             if (user != null) {
                 logger.info("Login riuscito!");
-                navigateToNextPage(user);
+                SessionManager.getInstance().setCredentials(email,password,typeOfLogin);
+                navigateToNextPage();
             } else {
                 logger.warning("Login fallito. Credenziali non valide.");
                 loginView.getErrorMessage().setVisible(true);
@@ -67,7 +68,7 @@ public class LoginController {
         }
     }
 
-    private void navigateToNextPage(User user) {
+    private void navigateToNextPage() {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
         if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
