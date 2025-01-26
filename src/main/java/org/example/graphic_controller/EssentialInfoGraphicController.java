@@ -7,7 +7,7 @@ import org.example.entity.User;
 import org.example.view.EssentialInfoView;
 
 public class EssentialInfoGraphicController {
-    private EssentialInfoView essentialInfoView;
+    private final EssentialInfoView essentialInfoView;
     private final String previousPage;
     private final String nextPage;
     private final NavigationService navigationService;
@@ -38,13 +38,15 @@ public class EssentialInfoGraphicController {
 
         String result = appController.registerClient(client);
         if ("success".equals(result)) {
-            navigateToNextPage(client);
+            //salvo le credenziali (sicuramente corrette dopo register user)
+            SessionManager.getInstance().setCredentials(essentialInfoView.getEmailField().getText(),essentialInfoView.getPasswordField().getText(),essentialInfoView.getType());
+            navigateToNextPage();
         } else {
             essentialInfoView.showDatabaseError("Errore durante la registrazione. Riprova.");
         }
     }
 
-    private void navigateToNextPage(User user) {
+    private void navigateToNextPage() {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
         if (nextPage.equalsIgnoreCase("homepage")) {
             navigationService.navigateToHomePage(this.navigationService);

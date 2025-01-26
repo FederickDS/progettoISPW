@@ -6,7 +6,6 @@ import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.application_controller.ValidateLogin;
 import org.example.entity.Client;
-import org.example.entity.User;
 import org.example.view.ServiceSelection;
 import org.example.entity.Activity;
 import org.example.entity.Service;
@@ -29,7 +28,7 @@ public class ServiceSelectionController {
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
         ValidateLogin login = new ValidateLogin();
-        this.bookRoom.addFirstClient((Client) login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(), "client"));
+        this.bookRoom.addFirstClient((Client) login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(),SessionManager.getInstance().getType()));
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni

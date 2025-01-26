@@ -2,7 +2,6 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
-import org.example.entity.User;
 
 public interface NavigationService {
     void navigateToHomePage(NavigationService navigationService);

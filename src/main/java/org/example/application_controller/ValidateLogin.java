@@ -32,6 +32,11 @@ public class ValidateLogin {
                 if (receptionist != null && receptionist.getPassword().equals(password)) {
                     return receptionist;
                 }
+            } else if (userType.equalsIgnoreCase("essentialInfo")) {
+                Client client = clientDao.read(email);
+                if (client != null) {
+                    return client;
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING,"Errore durante la validazione dell'utente: ", e);

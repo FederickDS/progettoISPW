@@ -19,7 +19,7 @@ public class EssentialInfoView extends AbstractRegistrationView {
 
     @Override
     public String getType() {
-        return "client";
+        return "essentialInfo";
     }
 
     // Rimuoviamo i campi superflui della vista base
