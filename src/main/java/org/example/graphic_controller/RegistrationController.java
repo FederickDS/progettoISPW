@@ -46,19 +46,22 @@ public class RegistrationController {
             return;
         }
         User user = appController.createUserFromInput(registrationView, navigationService);
+        //salvo le credenziali
+        SessionManager.getInstance().setCredentials(registrationView.getEmailField().getText(),registrationView.getPasswordField().getText(),registrationView.getType());
+        //controllo le credenziali siano corrette
         String result = appController.registerUser(user);
             switch (result) {
-                case "success" -> navigateToNextPage(user);
+                case "success" -> navigateToNextPage();
                 case "error:phone_exists" -> registrationView.showPhoneNumberError("Il numero di telefono è già registrato.");
                 case "error:database_error" -> registrationView.showDatabaseError("Errore durante la registrazione. Riprova più tardi.");
                 default -> registrationView.showDatabaseError("Errore sconosciuto.");
         }
     }
 
-    private void navigateToNextPage(User newUser) {
+    private void navigateToNextPage() {
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
-            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService, newUser);
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
             default -> logger.warning("Pagina successiva non definita");
         }
     }

@@ -72,7 +72,7 @@ public class LoginController {
         if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
-            navigationService.navigateToServiceSelection(this.navigationService, user);
+            navigationService.navigateToServiceSelection(this.navigationService);
         }
     }
 

@@ -34,8 +34,8 @@ public class NavigationManager implements NavigationService {
     }
 
     @Override
-    public void navigateToServiceSelection(NavigationService navigationService, User newUser) {
-        ServiceSelectionController controller = new ServiceSelectionController(navigationService, newUser);
+    public void navigateToServiceSelection(NavigationService navigationService) {
+        ServiceSelectionController controller = new ServiceSelectionController(navigationService);
         this.display(controller.getRoot(), "Selezione Servizi");
     }
 

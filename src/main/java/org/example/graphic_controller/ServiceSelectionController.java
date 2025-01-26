@@ -16,18 +16,16 @@ public class ServiceSelectionController {
     private ServiceSelection serviceSelection;
     private final NavigationService navigationService;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final User user;
     private final BookRoom bookRoom;
     //aggiunta servizi dinamici
 
-    public ServiceSelectionController(NavigationService navigationService, User newUser) {
+    public ServiceSelectionController(NavigationService navigationService) {
         this.navigationService = navigationService;
-        this.user = newUser;
         // Determina quale view caricare in base alle impostazioni
         this.serviceSelection = new ServiceSelection();
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
-        this.bookRoom.addFirstClient((Client) newUser);
+        //this.bookRoom.addFirstClient((Client) newUser);
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni
@@ -45,7 +43,7 @@ public class ServiceSelectionController {
     public void handleConfirm() {
         logger.info("Scelte confermate. Procedi con le azioni successive.");
         // Salvataggio utente quando creiamo caso d'uso
-        this.bookRoom.addFirstClient((Client) user);//minori controlli
+        //this.bookRoom.addFirstClient((Client) user);//minori controlli
         //metodo per registrare attivita da salvare
         this.bookRoom.setServicesToReservation();
         //pagina successiva

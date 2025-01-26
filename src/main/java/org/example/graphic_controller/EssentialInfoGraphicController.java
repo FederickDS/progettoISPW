@@ -49,7 +49,7 @@ public class EssentialInfoGraphicController {
         if (nextPage.equalsIgnoreCase("homepage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
-            navigationService.navigateToServiceSelection(this.navigationService, user);
+            navigationService.navigateToServiceSelection(this.navigationService);
         }
     }
 
