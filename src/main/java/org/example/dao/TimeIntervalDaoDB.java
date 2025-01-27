@@ -1,12 +1,12 @@
 package org.example.dao;
 
-import org.example.entity.TimeInterval;
+import org.example.entity.DailyTimeInterval;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
+public class TimeIntervalDaoDB implements GenericDao<DailyTimeInterval> {
     private final Connection connection;
 
     public TimeIntervalDaoDB(Connection connection) {
@@ -14,12 +14,12 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public void create(TimeInterval entity) {
+    public void create(DailyTimeInterval entity) {
         if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) != null) {
             return;
         }
 
-        String insertQuery = "INSERT INTO time_intervals (start_date, end_date, type) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO DailyTimeInterval (start_date, end_date, type) VALUES (?, ?, ?)";
         try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
             insertStmt.setDate(1, Date.valueOf(entity.getStartDate()));
             insertStmt.setDate(2, Date.valueOf(entity.getEndDate()));
@@ -31,20 +31,20 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public TimeInterval read(Object... keys) {
+    public DailyTimeInterval read(Object... keys) {
         if (keys.length != 3) return null;
         LocalDate startDate = (LocalDate) keys[0];
         LocalDate endDate = (LocalDate) keys[1];
         String type = (String) keys[2];
 
-        String query = "SELECT start_date, end_date, type FROM time_intervals WHERE start_date = ? AND end_date = ? AND type = ?";
+        String query = "SELECT start_date, end_date, type FROM DailyTimeInterval WHERE start_date = ? AND end_date = ? AND type = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(startDate));
             stmt.setDate(2, Date.valueOf(endDate));
             stmt.setString(3, type);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new TimeInterval(
+                return new DailyTimeInterval(
                         rs.getDate("start_date").toLocalDate(),
                         rs.getDate("end_date").toLocalDate(),
                         rs.getString("type")
@@ -57,7 +57,7 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public void update(TimeInterval entity) {
+    public void update(DailyTimeInterval entity) {
         delete(entity.getStartDate(), entity.getEndDate(), entity.getType());
         create(entity);
     }
@@ -69,7 +69,7 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
         LocalDate endDate = (LocalDate) keys[1];
         String type = (String) keys[2];
 
-        String query = "DELETE FROM time_intervals WHERE start_date = ? AND end_date = ? AND type = ?";
+        String query = "DELETE FROM DailyTimeInterval WHERE start_date = ? AND end_date = ? AND type = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(startDate));
             stmt.setDate(2, Date.valueOf(endDate));
@@ -81,13 +81,13 @@ public class TimeIntervalDaoDB implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public List<TimeInterval> readAll() {
-        List<TimeInterval> intervals = new ArrayList<>();
-        String query = "SELECT start_date, end_date, type FROM time_intervals";
+    public List<DailyTimeInterval> readAll() {
+        List<DailyTimeInterval> intervals = new ArrayList<>();
+        String query = "SELECT start_date, end_date, type FROM DailyTimeInterval";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                intervals.add(new TimeInterval(
+                intervals.add(new DailyTimeInterval(
                         rs.getDate("start_date").toLocalDate(),
                         rs.getDate("end_date").toLocalDate(),
                         rs.getString("type")

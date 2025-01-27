@@ -5,7 +5,7 @@ import java.util.List;
 
 // Classe che rappresenta una prenotazione
 class Reservation implements Serializable {
-    private TimeInterval timetable;
+    private DailyTimeInterval timetable;
     private List<Service> freeServices;
     private List<Activity> freeActivities;
     private Room room;
@@ -13,11 +13,11 @@ class Reservation implements Serializable {
 
     public Reservation() {/*classe bean*/}
 
-    public TimeInterval getTimetable() {
+    public DailyTimeInterval getTimetable() {
         return timetable;
     }
 
-    public void setTimetable(TimeInterval timetable) {
+    public void setTimetable(DailyTimeInterval timetable) {
         this.timetable = timetable;
     }
 

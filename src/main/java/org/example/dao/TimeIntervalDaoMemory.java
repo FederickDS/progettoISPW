@@ -1,34 +1,34 @@
 package org.example.dao;
 
-import org.example.entity.TimeInterval;
+import org.example.entity.DailyTimeInterval;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeIntervalDaoMemory implements GenericDao<TimeInterval> {
-    private final List<TimeInterval> timeIntervals = new ArrayList<>();
+public class TimeIntervalDaoMemory implements GenericDao<DailyTimeInterval> {
+    private final List<DailyTimeInterval> dailyTimeIntervals = new ArrayList<>();
 
     public TimeIntervalDaoMemory() {
-        timeIntervals.add(new TimeInterval(LocalDate.of(2025, 6, 1), LocalDate.of(2025, 9, 30), "giorni di apertura"));
-        timeIntervals.add(new TimeInterval(LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 15), "giorni di apertura"));
+        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 6, 1), LocalDate.of(2025, 9, 30), "giorni di apertura"));
+        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 15), "giorni di apertura"));
     }
 
     @Override
-    public void create(TimeInterval entity) {
+    public void create(DailyTimeInterval entity) {
         if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) != null) {
             return;
         }
-        timeIntervals.add(entity);
+        dailyTimeIntervals.add(entity);
     }
 
     @Override
-    public TimeInterval read(Object... keys) {
+    public DailyTimeInterval read(Object... keys) {
         if (keys.length != 3) return null;
         LocalDate startDate = (LocalDate) keys[0];
         LocalDate endDate = (LocalDate) keys[1];
         String type = (String) keys[2];
 
-        for (TimeInterval interval : timeIntervals) {
+        for (DailyTimeInterval interval : dailyTimeIntervals) {
             if (interval.getStartDate().equals(startDate) &&
                     interval.getEndDate().equals(endDate) &&
                     interval.getType().equals(type)) {
@@ -39,7 +39,7 @@ public class TimeIntervalDaoMemory implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public void update(TimeInterval entity) {
+    public void update(DailyTimeInterval entity) {
         delete(entity.getStartDate(), entity.getEndDate(), entity.getType());
         create(entity);
     }
@@ -51,7 +51,7 @@ public class TimeIntervalDaoMemory implements GenericDao<TimeInterval> {
         LocalDate endDate = (LocalDate) keys[1];
         String type = (String) keys[2];
 
-        timeIntervals.removeIf(interval ->
+        dailyTimeIntervals.removeIf(interval ->
                 interval.getStartDate().equals(startDate) &&
                         interval.getEndDate().equals(endDate) &&
                         interval.getType().equals(type)
@@ -59,7 +59,7 @@ public class TimeIntervalDaoMemory implements GenericDao<TimeInterval> {
     }
 
     @Override
-    public List<TimeInterval> readAll() {
-        return new ArrayList<>(timeIntervals);
+    public List<DailyTimeInterval> readAll() {
+        return new ArrayList<>(dailyTimeIntervals);
     }
 }

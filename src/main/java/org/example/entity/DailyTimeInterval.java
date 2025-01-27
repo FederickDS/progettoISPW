@@ -3,12 +3,12 @@ package org.example.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TimeInterval implements Serializable {
+public class DailyTimeInterval implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
     private String type; // Nuovo campo per il tipo di intervallo
 
-    public TimeInterval(LocalDate startDate, LocalDate endDate, String type) {
+    public DailyTimeInterval(LocalDate startDate, LocalDate endDate, String type) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = type;
