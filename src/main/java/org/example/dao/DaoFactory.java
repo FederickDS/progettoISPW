@@ -75,10 +75,10 @@ public class DaoFactory {
         String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
-            return new TimeIntervalDaoDB(connection); // Implementazione per DB
+            return new DailyTimeIntervalDaoDB(connection); // Implementazione per DB
         } else {
             if (timeIntervalDaoMemoryInstance == null) {
-                timeIntervalDaoMemoryInstance = new TimeIntervalDaoMemory(); // Implementazione per memoria
+                timeIntervalDaoMemoryInstance = new DailyTimeIntervalDaoMemory(); // Implementazione per memoria
             }
             return timeIntervalDaoMemoryInstance;
         }

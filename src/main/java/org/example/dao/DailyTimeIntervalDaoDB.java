@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeIntervalDaoDB implements GenericDao<DailyTimeInterval> {
+public class DailyTimeIntervalDaoDB implements GenericDao<DailyTimeInterval> {
     private final Connection connection;
 
-    public TimeIntervalDaoDB(Connection connection) {
+    public DailyTimeIntervalDaoDB(Connection connection) {
         this.connection = connection;
     }
 

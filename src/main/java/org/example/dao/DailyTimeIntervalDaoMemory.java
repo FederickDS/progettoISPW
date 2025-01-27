@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeIntervalDaoMemory implements GenericDao<DailyTimeInterval> {
+public class DailyTimeIntervalDaoMemory implements GenericDao<DailyTimeInterval> {
     private final List<DailyTimeInterval> dailyTimeIntervals = new ArrayList<>();
 
-    public TimeIntervalDaoMemory() {
-        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 6, 1), LocalDate.of(2025, 9, 30), "giorni di apertura"));
-        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 15), "giorni di apertura"));
+    public DailyTimeIntervalDaoMemory() {
+        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 6, 1), LocalDate.of(2025, 9, 30), "opening"));
+        dailyTimeIntervals.add(new DailyTimeInterval(LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 15), "opening"));
     }
 
     @Override

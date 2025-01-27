@@ -27,7 +27,7 @@ public class BookRoom {
     public boolean checkHoursAndSave(LocalDate checkIn, LocalDate checkOut) {
         // Ottieni gli intervalli di tempo relativi ai "giorni di apertura"
         List<DailyTimeInterval> availableIntervals = DaoFactory.getTimeIntervalDao().readAll().stream()
-                .filter(interval -> "giorni di apertura".equals(interval.getType()))  // Filtro per tipo "giorni di apertura"
+                .filter(interval -> "opening".equals(interval.getType()))  // Filtro per tipo "giorni di apertura"
                 .toList();  // Usa toList() per raccogliere i risultati in una lista immutabile
         // Controlla se l'intervallo scelto è valido
         for (DailyTimeInterval interval : availableIntervals) {
