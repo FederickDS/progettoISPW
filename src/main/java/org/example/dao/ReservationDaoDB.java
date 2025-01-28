@@ -10,16 +10,18 @@ import org.example.entity.Client;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReservationDaoDB implements GenericDao<Reservation> {
     private final Connection connection;
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public ReservationDaoDB(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Reservation reservation) throws SQLException {
+    public void create(Reservation reservation){
         String insertReservation = "INSERT INTO Reservation (room_number, timetable_start_date, timetable_end_date, timetable_type) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(insertReservation, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, reservation.getRoom().getRoomNumber());
@@ -27,16 +29,31 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setDate(3, Date.valueOf(reservation.getTimetable().getEndDate()));
             stmt.setString(4, reservation.getTimetable().getType());
 
+            DailyTimeInterval timetable = reservation.getTimetable();
+            DaoFactory.getTimeIntervalDao().create(timetable);//se non esiste, la crea
+
             int affectedRows = stmt.executeUpdate();
+            System.out.println("Righe modificate: " + affectedRows);
 
             if (affectedRows > 0) {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int reservationId = generatedKeys.getInt(1);
+                        System.out.println("ID Prenotazione generato: " + reservationId);
                         insertRelatedEntities(reservationId, reservation);
+                    } else {
+                        System.out.println("Nessun ID generato, possibile errore.");
                     }
+                } catch (SQLException e) {
+                    logger.severe("Aggiunta elementi prenotazione fallita: " + e.getMessage());
+                    e.printStackTrace();
                 }
+            } else {
+                System.out.println("Nessuna riga è stata modificata, verifica i dati inseriti.");
             }
+        } catch (SQLException e) {
+            logger.severe("Prenotazione fallita: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -103,9 +120,9 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
         // Mappa DailyTimeInterval
         DailyTimeInterval timetable = new DailyTimeInterval(
-                rs.getDate("timetable_start_date").toLocalDate(),
-                rs.getDate("timetable_end_date").toLocalDate(),
-                rs.getString("timetable_type")
+                rs.getDate("start_date").toLocalDate(),
+                rs.getDate("end_date").toLocalDate(),
+                rs.getString("type")
         );
         reservation.setTimetable(timetable);
 
