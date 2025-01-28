@@ -15,6 +15,7 @@ import org.example.exception.HashingException;
 public class NavigationManager implements NavigationService {
     private Stage stage;
     private final Logger logger = Logger.getLogger(NavigationManager.class.getName());
+    private static BookingRoomController bookingRoomController;
 
     public NavigationManager(Stage stage) {
         this.stage = stage;
@@ -44,7 +45,12 @@ public class NavigationManager implements NavigationService {
     }
 
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
-        BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
+        BookingRoomController controller;
+        if(bookRoom==null){
+            controller = bookingRoomController;
+        }else{
+            controller = new BookingRoomController(navigationService, bookRoom);
+        }
         this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
@@ -115,6 +121,7 @@ public class NavigationManager implements NavigationService {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(navigationService);
             case "NotImplemented" -> navigationService.navigateToNotImplemented(navigationService,previousPage);
+            case "BookingRoomController" -> navigationService.navigateToBookingRoom(navigationService,null);
             default -> logger.warning("Pagina precedente sconosciuta");
         }
     }

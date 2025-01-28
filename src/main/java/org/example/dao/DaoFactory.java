@@ -12,6 +12,7 @@ public class DaoFactory {
     private static GenericDao<Service> serviceDaoMemoryInstance;
     private static GenericDao<DailyTimeInterval> timeIntervalDaoMemoryInstance; // Aggiunto per TimeInterval
     private static GenericDao<Room> roomDaoMemoryInstance;
+    private static GenericDao<Reservation> reservationDaoMemoryInstance;
 
     private static final String DATABASE = "database";
 
@@ -111,5 +112,18 @@ public class DaoFactory {
     public static List<DailyTimeInterval> getAvailableTimeIntervals() { // Metodo per ottenere gli intervalli disponibili
         GenericDao<DailyTimeInterval> timeIntervalDao = getTimeIntervalDao();
         return timeIntervalDao.readAll();
+    }
+
+    public static GenericDao<Reservation> getReservationDao() {
+        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
+        if (DATABASE.equalsIgnoreCase(storageOption)) {
+            Connection connection = DatabaseConnectionManager.getConnection();
+            return new ReservationDaoDB(connection);
+        } else {
+            if (reservationDaoMemoryInstance == null) {
+                reservationDaoMemoryInstance = new ReservationDaoMemory();
+            }
+            return reservationDaoMemoryInstance;
+        }
     }
 }

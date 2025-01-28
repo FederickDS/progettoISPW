@@ -11,6 +11,7 @@ public class BookingRoomController {
     private final Logger logger = Logger.getLogger(getClass().getName());
     private BookRoom bookRoom;
     private final NavigationService navigationService;
+    private static final String PAGE_REFERENCE = "BookingRoomController";
 
     public BookingRoomController(NavigationService navigationService, BookRoom bookRoom) {
         this.navigationService = navigationService;
@@ -34,25 +35,39 @@ public class BookingRoomController {
         // Recupera le date selezionate (fare in bookRoom)
         var checkInDate = bookingRoom.getCheckInDate();
         var checkOutDate = bookingRoom.getCheckOutDate();
+        var numberOfParticipants = bookingRoom.getParticipants();
 
-        if (checkInDate == null || checkOutDate == null) {
-            logger.warning("Date non valide. Selezionare entrambe le date.");
+        if(!bookRoom.checkCompatibleData(bookingRoom)){
             return;
         }
 
-        if (checkInDate.isAfter(checkOutDate)) {
-            logger.warning("La data di check-in deve precedere la data di check-out.");
-        }
         // Salva la prenotazione (con bookRoom)
-        if(!this.bookRoom.checkHoursAndSave(checkInDate,checkOutDate)){
-            logger.warning("L'intervallo selezionato non è disponibile. Selezioni un nuovo intervallo");
+        if(!this.bookRoom.checkHours(checkInDate,checkOutDate)){
+            logger.info("ci entra?");
+            bookingRoom.setCheckInError("L'intervallo selezionato include giorni in cui l'hotel è chiuso.");
+            return;
         }
-        // Passa alla pagina successiva
+        //trova la stanza
+        int roomNumber = this.bookRoom.selectRoom(checkInDate,checkOutDate,numberOfParticipants);
+        if(roomNumber==-1){
+            bookingRoom.setCheckInError("L'intervallo selezionato è occupato da altre stanze.");
+            return;
+        }
+        //numero di stanza valido, salviamo tutto
+        bookRoom.saveReservation(roomNumber, checkInDate, checkOutDate);
+
+        //dovrei controllare database e cambiare pagina, metto quella fake
+        navigateToNextPage();
     }
 
     private void handleCancel() {
         logger.info("Prenotazione annullata. Torna alla Home Page.");
         navigationService.navigateToServiceSelection(this.navigationService);
+    }
+
+    private void navigateToNextPage() {
+        // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
+        navigationService.navigateToNotImplemented(this.navigationService,PAGE_REFERENCE);
     }
 
     public VBox getRoot(){

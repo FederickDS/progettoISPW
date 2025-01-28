@@ -144,10 +144,7 @@ public class UserRegistrationController {
     }
 
     public boolean checkAllCredentials(AbstractRegistrationView registrationView) {
-        boolean result = true;
-        if(!checkBasicCredentials(registrationView)){
-            result = false;
-        }
+        boolean result = checkBasicCredentials(registrationView);
         if(!checkSpecificCredentials(registrationView)){
             result = false;
         }

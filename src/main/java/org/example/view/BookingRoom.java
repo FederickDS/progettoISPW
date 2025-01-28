@@ -92,6 +92,12 @@ public class BookingRoom {
         return root;
     }
 
+    public void hideAllErrors() {
+        checkInErrorLabel.setVisible(false);
+        checkOutErrorLabel.setVisible(false);
+        participantsErrorLabel.setVisible(false);
+    }
+
     // Metodi per gestire la visualizzazione degli errori
     public void setCheckInError(String message) {
         checkInErrorLabel.setText(message);
