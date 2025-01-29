@@ -11,7 +11,6 @@ public class BookingRoomController {
     private final Logger logger = Logger.getLogger(getClass().getName());
     private BookRoom bookRoom;
     private final NavigationService navigationService;
-    private static final String PAGE_REFERENCE = "BookingRoomController";
 
     public BookingRoomController(NavigationService navigationService, BookRoom bookRoom) {
         this.navigationService = navigationService;
@@ -67,7 +66,7 @@ public class BookingRoomController {
 
     private void navigateToNextPage() {
         // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
-        navigationService.navigateToNotImplemented(this.navigationService,PAGE_REFERENCE);
+        navigationService.navigateToReservationPayment(this.navigationService,this.bookRoom);
     }
 
     public VBox getRoot(){

@@ -1,6 +1,10 @@
 package org.example.entity;
 
+import org.example.exception.HashingException;
+
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public abstract class User implements Serializable {
     private String firstName;
@@ -63,4 +67,28 @@ public abstract class User implements Serializable {
 
     // Metodo astratto da implementare nelle sottoclassi
     public abstract String getUserType();
+
+    public String hashWithSHA256(String input){
+        try {
+            // Crea un'istanza di MessageDigest per SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Calcola l'hash della stringa
+            byte[] encodedHash = digest.digest(input.getBytes());
+
+            // Converti i byte dell'hash in una stringa esadecimale
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new HashingException("Errore: Algoritmo SHA-256 non disponibile", e);
+        }
+    }
+
 }

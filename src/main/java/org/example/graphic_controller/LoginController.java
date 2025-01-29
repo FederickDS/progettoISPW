@@ -42,7 +42,7 @@ public class LoginController {
 
     private void handleLogin() {
         String email = loginView.getEmailField().getText();
-        String password = navigationService.hashWithSHA256(loginView.getPasswordField().getText());
+        String password = loginView.getPasswordField().getText();
 
         if (email.isBlank() || password.isBlank()) {
             loginView.getErrorMessage().setVisible(true);

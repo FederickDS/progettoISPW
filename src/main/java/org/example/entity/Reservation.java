@@ -3,6 +3,8 @@ package org.example.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 // Classe che rappresenta una prenotazione
@@ -126,6 +128,14 @@ public class Reservation implements Serializable {
 
         // Arrotondamento a due cifre decimali
         this.price = totalPrice.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public String getPaymentDeadline() {
+        LocalDate today = LocalDate.now();
+        long daysRemaining = ChronoUnit.DAYS.between(today, getTimetable().getStartDate());
+
+        long deadline = Math.min(daysRemaining, 7); // Mostra massimo 7 giorni
+        return deadline > 0 ? deadline + " giorni rimanenti" : "Scadenza superata";
     }
 
     public void printReservationDetails() {

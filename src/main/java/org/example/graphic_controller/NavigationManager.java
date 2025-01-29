@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 import org.example.application_controller.BookRoom;
+import org.example.entity.Reservation;
 import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
@@ -56,6 +57,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
+    public void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom) {
+        ReservationPaymentController controller = new ReservationPaymentController(navigationService, bookRoom);
+        this.display(controller.getRoot(), "Pagamento prenotazione");
+    }
+
     public void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String typeOfLogin) {
         LoginController controller = new LoginController(navigationService, previousPage, nextPage, typeOfLogin);
         this.display(controller.getRoot(), "Login");
@@ -87,29 +93,6 @@ public class NavigationManager implements NavigationService {
             stage.show();
         } catch (Exception e) {
             logger.warning("Errore durante il caricamento della vista: " + e.getMessage());
-        }
-    }
-
-    public String hashWithSHA256(String input){
-        try {
-            // Crea un'istanza di MessageDigest per SHA-256
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // Calcola l'hash della stringa
-            byte[] encodedHash = digest.digest(input.getBytes());
-
-            // Converti i byte dell'hash in una stringa esadecimale
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : encodedHash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new HashingException("Errore: Algoritmo SHA-256 non disponibile", e);
         }
     }
 

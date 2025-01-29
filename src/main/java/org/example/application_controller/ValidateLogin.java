@@ -24,12 +24,12 @@ public class ValidateLogin {
         try {
             if (userType.equalsIgnoreCase("client")) {
                 Client client = clientDao.read(email);
-                if (client != null && client.getPassword().equals(password)) {
+                if (client != null && client.getPassword().equals(client.hashWithSHA256(password))) {
                     return client;
                 }
             } else if (userType.equalsIgnoreCase("receptionist")) {
                 Receptionist receptionist = receptionistDao.read(email);
-                if (receptionist != null && receptionist.getPassword().equals(password)) {
+                if (receptionist != null && receptionist.getPassword().equals(receptionist.hashWithSHA256(password))) {
                     return receptionist;
                 }
             } else if (userType.equalsIgnoreCase("essentialInfo")) {

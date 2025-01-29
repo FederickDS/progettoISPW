@@ -1,5 +1,7 @@
 package org.example.application_controller;
 
+import org.example.adapter.ModelBeanFactory;
+import org.example.bean.PaymentBean;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
 import org.example.view.BookingRoom;
@@ -19,6 +21,7 @@ public class BookRoom {
     private static final String CHECK_INTERVALS = "opening";
     private static final int MAX_NUMBER_OF_PARTICIPANTS = 5;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private Reservation reservation;
 
     public BookRoom() {
         //il costruttore non deve definire attributi
@@ -146,6 +149,7 @@ public class BookRoom {
             DailyTimeInterval timetable = newReservation.getTimetable();
             DaoFactory.getTimeIntervalDao().create(timetable);//se non esiste, la crea
             DaoFactory.getReservationDao().create(newReservation);
+            this.reservation = newReservation;
         }catch (SQLException e){
             logger.info("prenotazione non riuscita");
         }
@@ -182,5 +186,9 @@ public class BookRoom {
 
     public List<Service> getSelectedServices() {
         return selectedServices;
+    }
+
+    public PaymentBean getReservationBean() {
+        return ModelBeanFactory.toBean(this.reservation);
     }
 }
