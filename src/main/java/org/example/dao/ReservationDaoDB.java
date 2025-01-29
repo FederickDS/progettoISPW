@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class ReservationDaoDB implements GenericDao<Reservation> {
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private final String RESERVATION_ID = "reservation_id";
 
     public ReservationDaoDB(Connection connection) {
         this.connection = connection;
@@ -28,9 +29,6 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setDate(2, Date.valueOf(reservation.getTimetable().getStartDate()));
             stmt.setDate(3, Date.valueOf(reservation.getTimetable().getEndDate()));
             stmt.setString(4, reservation.getTimetable().getType());
-
-            DailyTimeInterval timetable = reservation.getTimetable();
-            DaoFactory.getTimeIntervalDao().create(timetable);//se non esiste, la crea
 
             int affectedRows = stmt.executeUpdate();
             System.out.println("Righe modificate: " + affectedRows);
@@ -120,9 +118,9 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
         // Mappa DailyTimeInterval
         DailyTimeInterval timetable = new DailyTimeInterval(
-                rs.getDate("start_date").toLocalDate(),
-                rs.getDate("end_date").toLocalDate(),
-                rs.getString("type")
+                rs.getDate("timetable_start_date").toLocalDate(),
+                rs.getDate("timetable_end_date").toLocalDate(),
+                rs.getString("timetable_type")
         );
         reservation.setTimetable(timetable);
 
@@ -132,15 +130,15 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
         reservation.setRoom(room);
 
         // Recupera e mappa i servizi associati alla prenotazione
-        List<Service> services = getServicesForReservation(rs.getInt("reservation_id"));
+        List<Service> services = getServicesForReservation(rs.getInt(RESERVATION_ID));
         reservation.setFreeServices(services);
 
         // Recupera e mappa le attività associate alla prenotazione
-        List<Activity> activities = getActivitiesForReservation(rs.getInt("reservation_id"));
+        List<Activity> activities = getActivitiesForReservation(rs.getInt(RESERVATION_ID));
         reservation.setFreeActivities(activities);
 
         // Recupera e mappa i clienti associati alla prenotazione
-        List<Client> clients = getClientsForReservation(rs.getInt("reservation_id"));
+        List<Client> clients = getClientsForReservation(rs.getInt(RESERVATION_ID));
         reservation.setClients(clients);
 
         return reservation;
@@ -153,7 +151,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Service service = DaoFactory.getServiceDao().read(rs.getInt("service_id"));
+                Service service = DaoFactory.getServiceDao().read(rs.getString("service_name"));
                 services.add(service);
             }
         }
@@ -167,7 +165,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Activity activity = DaoFactory.getActivityDao().read(rs.getInt("activity_id"));
+                Activity activity = DaoFactory.getActivityDao().read(rs.getString("activity_name"));
                 activities.add(activity);
             }
         }
@@ -246,9 +244,9 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Reservation reservation = mapToReservation(rs);
-                reservation.setFreeServices(getServicesForReservation(rs.getInt("reservation_id")));
-                reservation.setFreeActivities(getActivitiesForReservation(rs.getInt("reservation_id")));
-                reservation.setClients(getClientsForReservation(rs.getInt("reservation_id")));
+                reservation.setFreeServices(getServicesForReservation(rs.getInt(RESERVATION_ID)));
+                reservation.setFreeActivities(getActivitiesForReservation(rs.getInt(RESERVATION_ID)));
+                reservation.setClients(getClientsForReservation(rs.getInt(RESERVATION_ID)));
                 reservations.add(reservation);
             }
         } catch (SQLException e) {

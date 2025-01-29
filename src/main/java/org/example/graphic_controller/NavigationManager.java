@@ -45,11 +45,13 @@ public class NavigationManager implements NavigationService {
     }
 
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
+        System.out.println(bookRoom);
         BookingRoomController controller;
         if(bookRoom==null){
             controller = bookingRoomController;
         }else{
             controller = new BookingRoomController(navigationService, bookRoom);
+            bookingRoomController = controller;
         }
         this.display(controller.getRoot(), "Prenotazione Camera");
     }

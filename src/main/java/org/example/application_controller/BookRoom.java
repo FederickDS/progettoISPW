@@ -55,19 +55,20 @@ public class BookRoom {
         List<Reservation> reservations = DaoFactory.getReservationDao().readAll();
 
         // Crea una lista di stanze occupate nell'intervallo richiesto
-        Set<Room> occupiedRooms = new HashSet<>();
+        Set<Integer> occupiedRoomNumbers = new HashSet<>();
         for (Reservation reservation : reservations) {
             DailyTimeInterval reservationInterval = reservation.getTimetable();
-            if (!reservationInterval.isAvailable(checkIn, checkOut)) { // La stanza è occupata in questo intervallo
-                occupiedRooms.add(reservation.getRoom());
+            System.out.println(reservationInterval);
+            if (reservationInterval != null && reservationInterval.overlapsWith(checkIn, checkOut)) {
+                occupiedRoomNumbers.add(reservation.getRoom().getRoomNumber());
             }
         }
+        System.out.println(occupiedRoomNumbers);
 
         // Cerca una stanza libera con il numero di posti richiesto
         for (Room room : rooms) {
-            if (!occupiedRooms.contains(room) && room.getMaxPeople() == participantsNumber) {
-
-                return room.getRoomNumber(); // Appena ne troviamo una, restituiamo il numero della stanza
+            if (!occupiedRoomNumbers.contains(room.getRoomNumber()) && room.getMaxPeople() == participantsNumber) {
+                return room.getRoomNumber(); // Ritorna appena trova una stanza disponibile
             }
         }
 
@@ -103,9 +104,17 @@ public class BookRoom {
             isCompatible = false;
         }
 
-        if (checkInDate.isAfter(checkOutDate)) {
-            bookingRoom.setCheckInError("Metti una data precedente al check out");
-            isCompatible = false;
+        try {
+            if (checkInDate.isAfter(checkOutDate)) {
+                bookingRoom.setCheckInError("Metti una data precedente al check out");
+                isCompatible = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(checkInDate == null){
+                isCompatible = false;
+            }
         }
         return isCompatible;
     }
@@ -131,6 +140,9 @@ public class BookRoom {
         newReservation.printReservationDetails();
         // Salvataggio nel database tramite il DAO
         try {
+            //potrebbe non esistere il timetable
+            DailyTimeInterval timetable = newReservation.getTimetable();
+            DaoFactory.getTimeIntervalDao().create(timetable);//se non esiste, la crea
             DaoFactory.getReservationDao().create(newReservation);
         }catch (SQLException e){
             logger.info("prenotazione non riuscita");

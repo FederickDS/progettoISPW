@@ -39,6 +39,13 @@ public class DailyTimeInterval implements Serializable {
     }
 
     public boolean isAvailable(LocalDate checkIn, LocalDate checkOut) {
-        return !checkIn.isBefore(startDate) && !checkOut.isAfter(endDate);
+        boolean checkInAfterOrEqual = checkIn.isAfter(startDate) || checkIn.isEqual(startDate);
+        boolean checkOutBeforeOrEqual = checkOut.isBefore(endDate) || checkOut.isEqual(endDate);
+        return (checkInAfterOrEqual && checkOutBeforeOrEqual);//intervalli separati
     }
+
+    public boolean overlapsWith(LocalDate start, LocalDate end) {
+        return !(end.isBefore(this.startDate) || start.isAfter(this.endDate));
+    }
+
 }
