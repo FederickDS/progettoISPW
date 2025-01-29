@@ -58,7 +58,6 @@ public class RegistrationController {
 
     private void navigateToNextPage() {
         //salvo le credenziali (sicuramente corrette dopo register user)
-        SessionManager.getInstance().setCredentials(registrationView.getEmailField().getText(),registrationView.getPasswordField().getText(),registrationView.getType());
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
             case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);

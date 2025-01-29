@@ -6,7 +6,9 @@ import org.example.entity.DailyTimeInterval;
 import org.example.entity.Service;
 import org.example.entity.Activity;
 import org.example.entity.Client;
+import org.example.entity.ReservationStatus;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,15 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     }
 
     @Override
-    public void create(Reservation reservation){
-        String insertReservation = "INSERT INTO Reservation (room_number, timetable_start_date, timetable_end_date, timetable_type) VALUES (?, ?, ?, ?)";
+    public void create(Reservation reservation) {
+        String insertReservation = "INSERT INTO Reservation (room_number, timetable_start_date, timetable_end_date, timetable_type, price, status) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(insertReservation, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, reservation.getRoom().getRoomNumber());
             stmt.setDate(2, Date.valueOf(reservation.getTimetable().getStartDate()));
             stmt.setDate(3, Date.valueOf(reservation.getTimetable().getEndDate()));
             stmt.setString(4, reservation.getTimetable().getType());
+            stmt.setBigDecimal(5, reservation.getPrice());
+            stmt.setString(6, reservation.getStatus().name());  // Enum -> String
 
             int affectedRows = stmt.executeUpdate();
             System.out.println("Righe modificate: " + affectedRows);
@@ -129,6 +133,10 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
         room.setRoomNumber(rs.getInt("room_number"));
         reservation.setRoom(room);
 
+        // Mappa prezzo e stato
+        reservation.setPrice(rs.getBigDecimal("price"));
+        reservation.setStatus(ReservationStatus.valueOf(rs.getString("status")));  // Enum -> String
+
         // Recupera e mappa i servizi associati alla prenotazione
         List<Service> services = getServicesForReservation(rs.getInt(RESERVATION_ID));
         reservation.setFreeServices(services);
@@ -188,13 +196,15 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
     @Override
     public void update(Reservation reservation) throws SQLException {
-        String updateReservation = "UPDATE Reservation SET room_number = ?, timetable_start_date = ?, timetable_end_date = ?, timetable_type = ? WHERE reservation_id = ?";
+        String updateReservation = "UPDATE Reservation SET room_number = ?, timetable_start_date = ?, timetable_end_date = ?, timetable_type = ?, price = ?, status = ? WHERE reservation_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(updateReservation)) {
             stmt.setInt(1, reservation.getRoom().getRoomNumber());
             stmt.setDate(2, Date.valueOf(reservation.getTimetable().getStartDate()));
             stmt.setDate(3, Date.valueOf(reservation.getTimetable().getEndDate()));
             stmt.setString(4, reservation.getTimetable().getType());
-            stmt.setInt(5, reservation.getReservationId());
+            stmt.setBigDecimal(5, reservation.getPrice());
+            stmt.setString(6, reservation.getStatus().name());  // Enum -> String
+            stmt.setInt(7, reservation.getReservationId());
             stmt.executeUpdate();
         }
 

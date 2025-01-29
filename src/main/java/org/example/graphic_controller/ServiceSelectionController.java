@@ -28,6 +28,7 @@ public class ServiceSelectionController {
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
         ValidateLogin login = new ValidateLogin();
+        System.out.println(login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(),SessionManager.getInstance().getType()));
         this.bookRoom.addFirstClient((Client) login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(),SessionManager.getInstance().getType()));
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();

@@ -137,6 +137,8 @@ public class BookRoom {
         }catch (SQLException e){
             logger.info("data invalida");
         }
+        //calcolo prezzo
+        newReservation.calculatePrice();
         newReservation.printReservationDetails();
         // Salvataggio nel database tramite il DAO
         try {

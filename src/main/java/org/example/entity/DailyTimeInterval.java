@@ -2,6 +2,7 @@ package org.example.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class DailyTimeInterval implements Serializable {
     private LocalDate startDate;
@@ -46,6 +47,10 @@ public class DailyTimeInterval implements Serializable {
 
     public boolean overlapsWith(LocalDate start, LocalDate end) {
         return !(end.isBefore(this.startDate) || start.isAfter(this.endDate));
+    }
+
+    public long getNumberOfDays() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
 }

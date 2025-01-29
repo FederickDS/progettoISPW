@@ -6,6 +6,7 @@ import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 import org.example.graphic_controller.NavigationService;
+import org.example.graphic_controller.SessionManager;
 import org.example.view.ClientRegistrationView;
 import org.example.view.ReceptionistRegistrationView;
 import org.example.view.AbstractRegistrationView;
@@ -33,10 +34,12 @@ public class UserRegistrationController {
         try {
             if (user instanceof Client client) {
                 clientDao.create(client);
+                SessionManager.getInstance().setCredentials(client.getEmail(),client.getPassword(),client.getUserType());
                 logger.info("Client registrato con successo: " + client.getEmail());
                 return "success";
             } else if (user instanceof Receptionist receptionist) {
                 receptionistDao.create(receptionist);
+                SessionManager.getInstance().setCredentials(receptionist.getEmail(),receptionist.getPassword(),receptionist.getUserType());
                 logger.info("Receptionist registrato con successo: " + receptionist.getEmail());
                 return "success";
             } else {
