@@ -1,13 +1,15 @@
 package org.example.adapter;
 
 import org.example.bean.PaymentBean;
+import org.example.bean.UserRegistrationBean;
 import org.example.entity.Reservation;
+import org.example.view.AbstractRegistrationView;
 
 import java.math.BigDecimal;
 
 // Classe centrale che mantiene i riferimenti a tutti gli adapter
 public class ModelBeanFactory {
-    public static PaymentBean toBean(Reservation reservation) {
+    public static PaymentBean toPaymentBean(Reservation reservation) {
         if (reservation == null || reservation.getRoom() == null) {
             throw new IllegalArgumentException("La prenotazione e la stanza non possono essere null.");
         }
@@ -20,6 +22,10 @@ public class ModelBeanFactory {
     }
     public Reservation convertToEntity(PaymentBean bean) {
         throw new UnsupportedOperationException("La conversione inversa non è supportata direttamente.");
+    }
+
+    public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
+        return new UserRegistrationBean(registrationView);
     }
 
 }

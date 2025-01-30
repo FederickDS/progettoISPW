@@ -1,6 +1,8 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
+import org.example.adapter.ModelBeanFactory;
+import org.example.bean.UserRegistrationBean;
 import org.example.entity.User;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.ClientRegistrationView;
@@ -42,12 +44,13 @@ public class RegistrationController {
 
     private void handleRegistration() {
         UserRegistrationController appController = new UserRegistrationController();
-        if(!appController.checkAllCredentials(registrationView)){
+        //al posto di controllare le credenziali in questo modo, faccio fare il controllo con la classe bean
+        UserRegistrationBean userRegistrationBean = ModelBeanFactory.getUserRegistrationBean(registrationView);
+        if(!userRegistrationBean.validateAllFields(registrationView)){
             return;
         }
-        User user = appController.createUserFromInput(registrationView, navigationService);
         //controllo le credenziali siano uniche nel database
-        String result = appController.registerUser(user);
+        String result = appController.registerUser(userRegistrationBean);
             switch (result) {
                 case "success" -> navigateToNextPage();
                 case "error:phone_exists" -> registrationView.showPhoneNumberError("Il numero di telefono è già registrato.");

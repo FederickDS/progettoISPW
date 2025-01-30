@@ -189,6 +189,6 @@ public class BookRoom {
     }
 
     public PaymentBean getReservationBean() {
-        return ModelBeanFactory.toBean(this.reservation);
+        return ModelBeanFactory.toPaymentBean(this.reservation);
     }
 }
