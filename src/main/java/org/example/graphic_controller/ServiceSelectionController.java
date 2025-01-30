@@ -8,6 +8,7 @@ import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
 import org.example.entity.BaseModel;
 import org.example.entity.Client;
+import org.example.factory.ModelBeanFactory;
 import org.example.view.ServiceSelection;
 import org.example.entity.Activity;
 import org.example.entity.Service;
@@ -29,7 +30,7 @@ public class ServiceSelectionController {
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
         ValidateLogin login = new ValidateLogin();
-        this.bookRoom.addFirstClient((Client) login.validate(loadLoginBean()));
+        this.bookRoom.addFirstClient((Client) login.validate(ModelBeanFactory.loadLoginBean()));
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni
@@ -89,14 +90,6 @@ public class ServiceSelectionController {
             CheckBox serviceCheckBox = new CheckBox(service.getName());
             serviceSelection.getServiceSection().getChildren().add(serviceCheckBox);
         }
-    }
-
-    private LoginBean loadLoginBean(){
-        LoginBean loginBean = new LoginBean();
-        loginBean.setEmail(SessionManager.getInstance().getEmail());
-        loginBean.setPassword(SessionManager.getInstance().getPassword());
-        loginBean.setUserType(SessionManager.getInstance().getType());
-        return loginBean;
     }
 
 }

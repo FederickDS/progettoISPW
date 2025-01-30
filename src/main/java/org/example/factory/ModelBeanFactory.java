@@ -4,6 +4,7 @@ import org.example.bean.LoginBean;
 import org.example.bean.PaymentBean;
 import org.example.bean.UserRegistrationBean;
 import org.example.entity.Reservation;
+import org.example.graphic_controller.SessionManager;
 import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
 
@@ -33,6 +34,17 @@ public class ModelBeanFactory {
     public static LoginBean getLoginBean(AbstractLoginView loginView) {
         LoginBean loginBean = new LoginBean();
         loginBean.populateFromView(loginView);
+        return loginBean;
+    }
+
+    public static LoginBean loadLoginBean(){
+        if (SessionManager.getInstance().getEmail() == null) {
+            return null;
+        }
+        LoginBean loginBean = new LoginBean();
+        loginBean.setEmail(SessionManager.getInstance().getEmail());
+        loginBean.setPassword(SessionManager.getInstance().getPassword());
+        loginBean.setUserType(SessionManager.getInstance().getType());
         return loginBean;
     }
 

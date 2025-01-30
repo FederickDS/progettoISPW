@@ -23,6 +23,9 @@ public class ValidateLogin {
 
     public User validate(LoginBean loginBean) {
         try {
+            if(loginBean==null){
+                return null;
+            }
             String email = loginBean.getEmail();
             String password = loginBean.getPassword();
             String userType = loginBean.getUserType();

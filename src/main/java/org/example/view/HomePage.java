@@ -9,7 +9,7 @@ public class HomePage {
     private final Button bookRoomButton;
     private final Button bookActivityButton;
     private final Button loginButton;
-
+    private final Button receptionistAccessButton;
 
     public HomePage() {
         // Inizializzazione layout
@@ -25,19 +25,23 @@ public class HomePage {
         bookRoomButton = new Button("Prenota Stanza");
         bookActivityButton = new Button("Prenota Attività");
         loginButton = new Button("Accedi");
+        receptionistAccessButton = new Button("Accesso per Receptionist");
 
         // Aggiungi alla root
-        root.getChildren().addAll(title, description, bookRoomButton, bookActivityButton, loginButton);
+        root.getChildren().addAll(title, description, bookRoomButton, bookActivityButton, loginButton, receptionistAccessButton);
     }
 
     public Button getBookRoomButton() {
         return bookRoomButton;
     }
-    public Button getbookActivityButton() {
+    public Button getBookActivityButton() {
         return bookActivityButton;
     }
     public Button getloginButton() {
         return loginButton;
     }
-    public VBox getRoot() {return root;}
+    public Button getReceptionistAccessButton() {
+        return receptionistAccessButton;
+    }
+    public VBox getRoot() { return root; }
 }

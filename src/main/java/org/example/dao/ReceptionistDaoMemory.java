@@ -1,6 +1,8 @@
 package org.example.dao;
 
+import org.example.application_controller.ValidateLogin;
 import org.example.entity.Receptionist;
+import org.example.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +11,13 @@ import java.util.List;
 public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     private final List<Receptionist> storage = new ArrayList<>();
     private static final String MESSAGE = "Receptionist not found";
+
+    public ReceptionistDaoMemory() {
+        // Aggiunta di receptionist predefiniti
+        storage.add(new Receptionist("Admin", "User", "admin@hotel.com", "1234567890",  User.hashWithSHA256("admin123")));
+        storage.add(new Receptionist("John", "Doe", "john.doe@hotel.com", "0987654321", User.hashWithSHA256("password")));
+        storage.add(new Receptionist("Jane", "Smith", "jane.smith@hotel.com", "1122334455", User.hashWithSHA256("securepass")));
+    }
 
     @Override
     public void create(Receptionist receptionist) throws SQLException {

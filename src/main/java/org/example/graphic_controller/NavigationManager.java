@@ -12,7 +12,6 @@ public class NavigationManager implements NavigationService {
     private String interfaceOption = "color";
     private Stage stage;
     private final Logger logger = Logger.getLogger(NavigationManager.class.getName());
-    private static BookingRoomController bookingRoomController;
 
     public NavigationManager(Stage stage) {
         this.stage = stage;
@@ -42,14 +41,7 @@ public class NavigationManager implements NavigationService {
     }
 
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
-        System.out.println(bookRoom);
-        BookingRoomController controller;
-        if(bookRoom==null){
-            controller = bookingRoomController;
-        }else{
-            controller = new BookingRoomController(navigationService, bookRoom);
-            bookingRoomController = controller;
-        }
+        BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
         this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
