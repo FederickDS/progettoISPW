@@ -3,17 +3,13 @@ package org.example.graphic_controller;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 import org.example.application_controller.BookRoom;
-import org.example.entity.Reservation;
-import org.example.entity.StartupSettingsEntity;
 
 import javafx.scene.layout.VBox;
-import org.example.exception.HashingException;
 
 public class NavigationManager implements NavigationService {
+    private String interfaceOption = "color";
     private Stage stage;
     private final Logger logger = Logger.getLogger(NavigationManager.class.getName());
     private static BookingRoomController bookingRoomController;
@@ -86,7 +82,7 @@ public class NavigationManager implements NavigationService {
         try {
             Scene scene = new Scene(root);
             scene.getStylesheets().clear();
-            String styleCSS = StartupSettingsEntity.getInstance().getCSSStyle();
+            String styleCSS = getCSSStyle();
             scene.getStylesheets().add(getClass().getResource(styleCSS).toExternalForm());
             stage.setScene(scene);
             stage.setTitle(title);
@@ -111,8 +107,21 @@ public class NavigationManager implements NavigationService {
         }
     }
 
+    public void setInterfaceOption(String interfaceOption) {
+        this.interfaceOption = interfaceOption;
+    }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public String getInterfaceOption() {
+        return this.interfaceOption;
+    }
+
+    public String getCSSStyle(){
+        String cssFile;
+        if(this.interfaceOption.equals("color")){
+            cssFile = "/style/color-mode.css";
+        }else{
+            cssFile = "/style/bw-mode.css";
+        }
+        return cssFile;
     }
 }

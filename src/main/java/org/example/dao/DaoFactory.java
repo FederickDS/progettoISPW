@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class DaoFactory {
+    private static String storageOption = "stateless";
     private static ClientDaoMemory clientDaoMemoryInstance;
     private static ReceptionistDaoMemory receptionistDaoMemoryInstance;
     private static GenericDao<Activity> activityDaoMemoryInstance;
@@ -21,7 +22,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Client> getClientDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ClientDaoDB(connection);
@@ -34,7 +34,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Receptionist> getReceptionistDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ReceptionistDaoDB(connection);
@@ -47,7 +46,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Activity> getActivityDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ActivityDaoDB(connection);
@@ -60,7 +58,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Service> getServiceDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ServiceDaoDB(connection);
@@ -73,7 +70,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<DailyTimeInterval> getTimeIntervalDao() { // Metodo per TimeInterval
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new DailyTimeIntervalDaoDB(connection); // Implementazione per DB
@@ -86,7 +82,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Room> getRoomDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new RoomDaoDB(connection);
@@ -115,7 +110,6 @@ public class DaoFactory {
     }
 
     public static GenericDao<Reservation> getReservationDao() {
-        String storageOption = StartupSettingsEntity.getInstance().getStorageOption();
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ReservationDaoDB(connection);
@@ -124,6 +118,13 @@ public class DaoFactory {
                 reservationDaoMemoryInstance = new ReservationDaoMemory();
             }
             return reservationDaoMemoryInstance;
+        }
+    }
+
+    public static void setStorageOption(String option) {
+        if (option != null && !option.isEmpty()) {
+            storageOption = option;
+            System.out.println(storageOption);
         }
     }
 }

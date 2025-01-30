@@ -1,7 +1,7 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
-import org.example.application_controller.StartupSettingsSaving;
+import org.example.dao.DaoFactory;
 import org.example.view.StartupSettingsView;
 
 public class StartupSettingsController {
@@ -42,10 +42,10 @@ public class StartupSettingsController {
             return;
         }
 
-        // Salvataggio delle impostazioni nell'entità
-        StartupSettingsSaving settingsSaving = new StartupSettingsSaving();
-        settingsSaving.saveSettings(storageOption, interfaceOption);
-
+        // Salvataggio interfaccia
+        navigationService.setInterfaceOption(interfaceOption);
+        //Salvataggio opzione
+        DaoFactory.setStorageOption(storageOption);
         // Passaggio del controllo a HomePageController
         navigationService.navigateToHomePage(this.navigationService);
     }

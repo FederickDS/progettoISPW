@@ -53,7 +53,9 @@ public class LoginController {
         ValidateLogin validateLogin = new ValidateLogin();
         String typeOfLogin = loginView.getType();
         try {
-            User user = validateLogin.validate(email, password, typeOfLogin);
+            logger.info(typeOfLogin);
+            logger.info(validateLogin.hashWithSHA256(password));
+            User user = validateLogin.validate(email, validateLogin.hashWithSHA256(password), typeOfLogin);
             if (user != null) {
                 logger.info("Login riuscito!");
                 SessionManager.getInstance().setCredentials(email,password,typeOfLogin);

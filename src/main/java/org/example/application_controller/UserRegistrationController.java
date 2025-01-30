@@ -64,7 +64,7 @@ public class UserRegistrationController {
             newClient.setLastName(clientView.getLastNameField().getText());
             newClient.setEmail(clientView.getEmailField().getText());
             newClient.setPhoneNumber(clientView.getPhoneNumberField().getText());
-            newClient.setPassword(registrationView.getPasswordField().getText());
+            newClient.setPassword(User.hashWithSHA256(registrationView.getPasswordField().getText()));
             // Conversione della data di nascita
             String birthDateText = clientView.getBirthDateField().getText();
             try {
@@ -82,7 +82,7 @@ public class UserRegistrationController {
             newReceptionist.setLastName(receptionistView.getLastNameField().getText());
             newReceptionist.setEmail(receptionistView.getEmailField().getText());
             newReceptionist.setPhoneNumber(receptionistView.getPhoneNumberField().getText());
-            newReceptionist.setPassword(registrationView.getPasswordField().getText());
+            newReceptionist.setPassword(User.hashWithSHA256(registrationView.getPasswordField().getText()));
             return newReceptionist;
         }else{
             return null;

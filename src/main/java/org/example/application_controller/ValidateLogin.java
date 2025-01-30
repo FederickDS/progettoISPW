@@ -24,12 +24,12 @@ public class ValidateLogin {
         try {
             if (userType.equalsIgnoreCase("client")) {
                 Client client = clientDao.read(email);
-                if (client != null && client.getPassword().equals(client.hashWithSHA256(password))) {
+                if (client != null && client.getPassword().equals(password)) {
                     return client;
                 }
             } else if (userType.equalsIgnoreCase("receptionist")) {
                 Receptionist receptionist = receptionistDao.read(email);
-                if (receptionist != null && receptionist.getPassword().equals(receptionist.hashWithSHA256(password))) {
+                if (receptionist != null && receptionist.getPassword().equals(password)) {
                     return receptionist;
                 }
             } else if (userType.equalsIgnoreCase("essentialInfo")) {
@@ -42,5 +42,9 @@ public class ValidateLogin {
             logger.log(Level.WARNING,"Errore durante la validazione dell'utente: ", e);
         }
         return null; // Login fallito
+    }
+
+    public String hashWithSHA256(String password) {
+        return User.hashWithSHA256(password);
     }
 }

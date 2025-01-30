@@ -68,7 +68,7 @@ public abstract class User implements Serializable {
     // Metodo astratto da implementare nelle sottoclassi
     public abstract String getUserType();
 
-    public String hashWithSHA256(String input){
+    public static String hashWithSHA256(String input){
         try {
             // Crea un'istanza di MessageDigest per SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

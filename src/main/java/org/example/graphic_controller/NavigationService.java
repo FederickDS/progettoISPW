@@ -16,4 +16,5 @@ public interface NavigationService {
     void navigateBack(String previousPage, NavigationService navigationService);
     void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom);
     void display(VBox root, String title);
+    void setInterfaceOption(String interfaceOption);
     }
