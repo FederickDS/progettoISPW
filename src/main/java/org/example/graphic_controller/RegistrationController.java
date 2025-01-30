@@ -1,9 +1,8 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
-import org.example.adapter.ModelBeanFactory;
+import org.example.factory.ModelBeanFactory;
 import org.example.bean.UserRegistrationBean;
-import org.example.entity.User;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.ClientRegistrationView;
 import org.example.view.ReceptionistRegistrationView;

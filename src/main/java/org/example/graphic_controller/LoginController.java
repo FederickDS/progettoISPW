@@ -1,8 +1,9 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
+import org.example.factory.ModelBeanFactory;
 import org.example.application_controller.ValidateLogin;
-import org.example.entity.User;
+import org.example.bean.LoginBean;
 import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
 import org.example.view.ReceptionistLoginView;
@@ -41,24 +42,21 @@ public class LoginController {
     }
 
     private void handleLogin() {
-        String email = loginView.getEmailField().getText();
-        String password = loginView.getPasswordField().getText();
+        LoginBean loginBean = ModelBeanFactory.getLoginBean(loginView);
 
-        if (email.isBlank() || password.isBlank()) {
-            loginView.getErrorMessage().setVisible(true);
-            loginView.getErrorMessage().setManaged(true);
+        if (!loginBean.ValidateFields(loginView)) {
             return;
         }
-
+        System.out.println(loginBean);
         ValidateLogin validateLogin = new ValidateLogin();
-        String typeOfLogin = loginView.getType();
+        String typeOfLogin = loginBean.getUserType();
         try {
             logger.info(typeOfLogin);
-            logger.info(validateLogin.hashWithSHA256(password));
-            User user = validateLogin.validate(email, validateLogin.hashWithSHA256(password), typeOfLogin);
-            if (user != null) {
+            logger.info(validateLogin.hashWithSHA256(loginBean.getPassword()));
+            loginBean.setPassword(validateLogin.hashWithSHA256(loginBean.getPassword()));
+            if (validateLogin.validate(loginBean) != null) {
                 logger.info("Login riuscito!");
-                SessionManager.getInstance().setCredentials(email,password,typeOfLogin);
+                SessionManager.getInstance().setCredentials(loginBean);
                 navigateToNextPage();
             } else {
                 logger.warning("Login fallito. Credenziali non valide.");
@@ -75,6 +73,7 @@ public class LoginController {
         if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
+            System.out.println("NAVIGATE TO NEXT PAGE");
             navigationService.navigateToServiceSelection(this.navigationService);
         }
     }

@@ -1,8 +1,10 @@
-package org.example.adapter;
+package org.example.factory;
 
+import org.example.bean.LoginBean;
 import org.example.bean.PaymentBean;
 import org.example.bean.UserRegistrationBean;
 import org.example.entity.Reservation;
+import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
 
 import java.math.BigDecimal;
@@ -26,6 +28,12 @@ public class ModelBeanFactory {
 
     public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
         return new UserRegistrationBean(registrationView);
+    }
+
+    public static LoginBean getLoginBean(AbstractLoginView loginView) {
+        LoginBean loginBean = new LoginBean();
+        loginBean.populateFromView(loginView);
+        return loginBean;
     }
 
 }

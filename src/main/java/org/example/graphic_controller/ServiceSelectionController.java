@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.application_controller.ValidateLogin;
+import org.example.bean.LoginBean;
 import org.example.entity.BaseModel;
 import org.example.entity.Client;
 import org.example.view.ServiceSelection;
@@ -28,8 +29,7 @@ public class ServiceSelectionController {
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
         ValidateLogin login = new ValidateLogin();
-        System.out.println(login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(),SessionManager.getInstance().getType()));
-        this.bookRoom.addFirstClient((Client) login.validate(SessionManager.getInstance().getEmail(),SessionManager.getInstance().getPassword(),SessionManager.getInstance().getType()));
+        this.bookRoom.addFirstClient((Client) login.validate(loadLoginBean()));
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni
@@ -89,6 +89,14 @@ public class ServiceSelectionController {
             CheckBox serviceCheckBox = new CheckBox(service.getName());
             serviceSelection.getServiceSection().getChildren().add(serviceCheckBox);
         }
+    }
+
+    private LoginBean loadLoginBean(){
+        LoginBean loginBean = new LoginBean();
+        loginBean.setEmail(SessionManager.getInstance().getEmail());
+        loginBean.setPassword(SessionManager.getInstance().getPassword());
+        loginBean.setUserType(SessionManager.getInstance().getType());
+        return loginBean;
     }
 
 }

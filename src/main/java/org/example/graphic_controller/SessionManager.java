@@ -1,5 +1,7 @@
 package org.example.graphic_controller;
 
+import org.example.bean.LoginBean;
+
 public class SessionManager {
     private static SessionManager instance;
     private String email;
@@ -20,6 +22,13 @@ public class SessionManager {
         this.password = password;
         this.type = type;
     }
+
+    public void setCredentials(LoginBean loginBean) {
+        this.email = loginBean.getEmail();
+        this.password = loginBean.getPassword();
+        this.type = loginBean.getUserType();
+    }
+
 
     public String getEmail() {
         return email;

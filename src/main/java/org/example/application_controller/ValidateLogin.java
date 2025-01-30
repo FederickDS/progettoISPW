@@ -1,5 +1,6 @@
 package org.example.application_controller;
 
+import org.example.bean.LoginBean;
 import org.example.dao.GenericDao;
 import org.example.dao.DaoFactory;
 import org.example.entity.Client;
@@ -20,8 +21,12 @@ public class ValidateLogin {
         this.receptionistDao = DaoFactory.getReceptionistDao();
     }
 
-    public User validate(String email, String password, String userType) {
+    public User validate(LoginBean loginBean) {
         try {
+            String email = loginBean.getEmail();
+            String password = loginBean.getPassword();
+            String userType = loginBean.getUserType();
+
             if (userType.equalsIgnoreCase("client")) {
                 Client client = clientDao.read(email);
                 if (client != null && client.getPassword().equals(password)) {
@@ -39,7 +44,7 @@ public class ValidateLogin {
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.WARNING,"Errore durante la validazione dell'utente: ", e);
+            logger.log(Level.WARNING, "Errore durante la validazione dell'utente: ", e);
         }
         return null; // Login fallito
     }

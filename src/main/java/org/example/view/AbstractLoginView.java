@@ -11,7 +11,9 @@ public abstract class AbstractLoginView {
     private VBox root;
     private Label titleLabel;
     private TextField emailField;
+    private Label emailErrorLabel;
     private PasswordField passwordField;
+    private Label passwordErrorLabel;
     private Button loginButton;
     private Button cancelButton;
     private Text errorMessage;
@@ -25,19 +27,22 @@ public abstract class AbstractLoginView {
         //risolve code smell
         String button ="button";
 
-
         titleLabel = new Label(getTitleText());
         titleLabel.getStyleClass().add("label");
 
         emailField = new TextField();
         emailField.setPromptText("Email");
+        emailErrorLabel = new Label("Inserisci un'email valida");
+        emailErrorLabel.setVisible(false);
 
         passwordField = new PasswordField();
         passwordField.setPromptText("Password");
+        passwordErrorLabel = new Label("La password non può essere vuota");
+        passwordErrorLabel.setVisible(false);
 
         this.errorMessage = new Text("Email o password non corrispondono a un account");
-        this.errorMessage.setVisible(false); // Non visibile inizialmente
-        this.errorMessage.setManaged(false); // Non occupa spazio nel layout
+        this.errorMessage.setVisible(false);
+        this.errorMessage.setManaged(false);
 
         loginButton = new Button("Conferma");
         loginButton.getStyleClass().add(button);
@@ -45,34 +50,38 @@ public abstract class AbstractLoginView {
         cancelButton = new Button("Annulla");
         cancelButton.getStyleClass().add(button);
 
-        // Aggiunta del prompt per la registrazione
         registrationPrompt = new Text("Se non ti sei mai prenotato, puoi registrarti.");
         registrationPrompt.getStyleClass().add("registration-prompt");
 
-        // Aggiunta del pulsante di registrazione
         registerButton = new Button("Registrati");
         registerButton.getStyleClass().add(button);
 
-        root.getChildren().addAll(titleLabel, emailField, passwordField, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
+        root.getChildren().addAll(titleLabel, emailField, emailErrorLabel, passwordField, passwordErrorLabel, errorMessage, loginButton, cancelButton, registrationPrompt, registerButton);
     }
 
     protected abstract String getTitleText();
     public abstract String getType();
 
+    public void hideErrorMessages() {
+        emailErrorLabel.setVisible(false);
+        passwordErrorLabel.setVisible(false);
+        errorMessage.setVisible(false);
+    }
+
+    public void showEmailError() {
+        emailErrorLabel.setVisible(true);
+    }
+
+    public void showPasswordError() {
+        passwordErrorLabel.setVisible(true);
+    }
+
     public TextField getEmailField() {
         return emailField;
     }
 
-    public void setEmailField(TextField emailField) {
-        this.emailField = emailField;
-    }
-
     public PasswordField getPasswordField() {
         return passwordField;
-    }
-
-    public void setPasswordField(PasswordField passwordField) {
-        this.passwordField = passwordField;
     }
 
     public Button getLoginButton() {

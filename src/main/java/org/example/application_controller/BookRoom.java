@@ -1,6 +1,6 @@
 package org.example.application_controller;
 
-import org.example.adapter.ModelBeanFactory;
+import org.example.factory.ModelBeanFactory;
 import org.example.bean.PaymentBean;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
