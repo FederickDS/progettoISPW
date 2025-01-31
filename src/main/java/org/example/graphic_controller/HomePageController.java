@@ -47,14 +47,17 @@ public class HomePageController<T> {
             chp.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection(navigationService));
             chp.getBookActivityButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
             chp.getUserInfoButton().setOnAction(e -> navigationService.navigateToCustomerView(navigationService));
-            chp.getLogoutButton().setOnAction(e -> {
-                SessionManager.getInstance().clearSession();
-                navigationService.navigateToHomePage(navigationService);
-            });
+            chp.getLogoutButton().setOnAction(e -> goToOriginalHomePage());
         } else if (homePage instanceof ReceptionistHomePage rhp) {
-            rhp.getManageBookingsButton().setOnAction(e -> navigationService.navigateToHomePage(navigationService));
-            rhp.getManageActivitiesButton().setOnAction(e -> navigationService.navigateToHomePage(navigationService));
+            rhp.getManageBookingsButton().setOnAction(e -> navigationService.navigateToReceptionistView(navigationService));
+            rhp.getManageActivitiesButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
+            rhp.getLogoutButton().setOnAction(e -> goToOriginalHomePage());
         }
+    }
+
+    public void goToOriginalHomePage() {
+        SessionManager.getInstance().clearSession();
+        navigationService.navigateToHomePage(navigationService);
     }
 
     public VBox getRoot(){

@@ -77,6 +77,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
     }
 
+    public void navigateToReceptionistView(NavigationService navigationService){
+        ReceptionistViewController controller = new ReceptionistViewController(navigationService);
+        this.display(controller.getRoot(), "Dati di tutte le prenotazioni");
+    }
+
     public void display(VBox root, String title) {
         try {
             Scene scene = new Scene(root);

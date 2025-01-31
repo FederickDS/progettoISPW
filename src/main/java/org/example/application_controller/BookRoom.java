@@ -9,6 +9,7 @@ import org.example.dao.DaoFactory;
 import org.example.entity.*;
 import org.example.graphic_controller.SessionManager;
 import org.example.view.BookingRoom;
+import org.example.entity.ReservationStatus;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class BookRoom {
     private List<Client> clientList = new ArrayList<>();
@@ -223,6 +225,29 @@ public class BookRoom {
             return true;
         } catch (SQLException e) {
             logger.severe("Errore durante l'aggiornamento del cliente: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public List<BeanReservationDetails> getAllReservations() {
+        return DaoFactory.getReservationDao().readAll().stream()
+                .filter(reservation -> reservation.getStatus() == ReservationStatus.PENDING)
+                .map(ModelBeanFactory::getBeanReservationDetails)
+                .collect(Collectors.toList());
+    }
+
+    public boolean confirmReservation(int reservationId) {
+        try {
+            Reservation reservation = DaoFactory.getReservationDao().read(reservationId);
+            if (reservation == null) {
+                logger.warning("Prenotazione non trovata: " + reservationId);
+                return false;
+            }
+            reservation.setStatus(ReservationStatus.BOOKED);
+            DaoFactory.getReservationDao().update(reservation);
+            return true;
+        } catch (SQLException e) {
+            logger.severe("Errore durante la conferma della prenotazione: " + e.getMessage());
             return false;
         }
     }
