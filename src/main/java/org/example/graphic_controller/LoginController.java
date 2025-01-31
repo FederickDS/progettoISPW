@@ -49,13 +49,12 @@ public class LoginController {
             return;
         }
         System.out.println(loginBean);
-        ValidateLogin validateLogin = new ValidateLogin();
         String typeOfLogin = loginBean.getUserType();
         try {
             logger.info(typeOfLogin);
             logger.info(ApplicationFacade.encrypt(loginBean.getPassword()));
             loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
-            if (validateLogin.validate(loginBean) != null) {
+            if (ApplicationFacade.checkLoginStatus() != null) {
                 logger.info("Login riuscito!");
                 SessionManager.getInstance().setCredentials(loginBean);
                 navigateToNextPage();
