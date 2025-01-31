@@ -73,7 +73,7 @@ public class NavigationManager implements NavigationService {
 
     @Override
     public void navigateToCustomerView(NavigationService navigationService){
-        CustomerViewController controller = new CustomerViewController();
+        CustomerViewController controller = new CustomerViewController(navigationService);
         this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
     }
 

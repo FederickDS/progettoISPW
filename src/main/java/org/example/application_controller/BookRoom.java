@@ -7,6 +7,7 @@ import org.example.factory.ModelBeanFactory;
 import org.example.bean.PaymentBean;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
+import org.example.graphic_controller.SessionManager;
 import org.example.view.BookingRoom;
 
 import java.sql.SQLException;
@@ -193,6 +194,37 @@ public class BookRoom {
         }
         List<BeanReservationDetails> receptionistDetails = getReservationForClient(clientDetails.getEmail());
         return new BeanClientEReservationDetails(clientDetails, receptionistDetails);
+    }
+
+    public boolean updateClientDetails(BeanClientDetails clientDetails) {
+        try {
+            // Recupera il cliente attuale dal database
+            Client existingClient = DaoFactory.getClientDao().read(clientDetails.getEmail());
+            if (existingClient == null) {
+                logger.warning("Cliente non trovato: " + clientDetails.getEmail());
+                return false;
+            }
+
+            // Aggiorna la password
+            if (clientDetails.getPassword() != null && !clientDetails.getPassword().isEmpty()) {
+                existingClient.setPassword(clientDetails.getPassword());
+            }
+
+            // Salva le modifiche nel database
+            DaoFactory.getClientDao().update(existingClient);
+
+            // Aggiorna i dati in sessione
+            SessionManager.getInstance().setCredentials(
+                    clientDetails.getEmail(),
+                    clientDetails.getPassword() != null ? clientDetails.getPassword() : SessionManager.getInstance().getPassword(),
+                    "client"
+            );
+
+            return true;
+        } catch (SQLException e) {
+            logger.severe("Errore durante l'aggiornamento del cliente: " + e.getMessage());
+            return false;
+        }
     }
 
 

@@ -10,6 +10,7 @@ public class BeanClientDetails implements Serializable {
     private String phoneNumber;
     private LocalDate birthDate;
     private String taxCode;
+    private String password;
 
     public BeanClientDetails() {}
 
@@ -68,5 +69,13 @@ public class BeanClientDetails implements Serializable {
 
     public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -3,6 +3,7 @@ package org.example.view;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class CustomerView {
@@ -12,9 +13,13 @@ public class CustomerView {
     private VBox reservationsContainer;
     private VBox passwordBox;
     private PasswordField oldPasswordField;
+    private Text oldPasswordError;
     private PasswordField newPasswordField;
     private PasswordField confirmPasswordField;
+    private Text newPasswordError;
     private Button changePasswordButton;
+    private Button backButton;
+    private static final String FX_STYLE = "-fx-font-size: 18px; -fx-font-weight: bold;";
 
     public CustomerView() {
         root = new VBox(20);
@@ -23,20 +28,13 @@ public class CustomerView {
 
         // Sezione dati cliente
         Label titleLabel = new Label("Dati Cliente");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        titleLabel.setStyle(FX_STYLE);
 
-        Label nameLabel = new Label("Nome: ");
-        Label surnameLabel = new Label("Cognome: ");
-        Label birthDateLabel = new Label("Data di Nascita: ");
-        Label fiscalCodeLabel = new Label("Codice Fiscale: ");
-        Label emailLabel = new Label("Email: " );
-        Label phoneLabel = new Label("Telefono: ");
-
-        this.customerInfoBox = new VBox(5, titleLabel, nameLabel, surnameLabel, birthDateLabel, fiscalCodeLabel, emailLabel, phoneLabel);
+        this.customerInfoBox = new VBox(5, titleLabel);
 
         // Sezione prenotazioni
         Label reservationsLabel = new Label("Prenotazioni");
-        reservationsLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        reservationsLabel.setStyle(FX_STYLE);
 
         reservationsBox = new VBox(5);
 
@@ -45,10 +43,12 @@ public class CustomerView {
 
         // Sezione cambio password
         Label passwordLabel = new Label("Modifica Password");
-        passwordLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        passwordLabel.setStyle(FX_STYLE);
 
         oldPasswordField = new PasswordField();
         oldPasswordField.setPromptText("Vecchia Password");
+
+        oldPasswordError = new Text("Password diversa da quella attuale");
 
         newPasswordField = new PasswordField();
         newPasswordField.setPromptText("Nuova Password");
@@ -56,18 +56,44 @@ public class CustomerView {
         confirmPasswordField = new PasswordField();
         confirmPasswordField.setPromptText("Conferma Nuova Password");
 
+        newPasswordError = new Text("Mettere la stessa password come conferma, tra gli 8 e i 16 caratteri");
+
         changePasswordButton = new Button("Cambia Password");
 
-        this.passwordBox = new VBox(5, passwordLabel, newPasswordField, confirmPasswordField, changePasswordButton);
+        this.passwordBox = new VBox(5, passwordLabel, oldPasswordField, oldPasswordError, newPasswordField, confirmPasswordField, newPasswordError, changePasswordButton);
         passwordBox.setVisible(false); // Inizialmente nascosto
 
         Button showPasswordFieldsButton = new Button("Modifica Password");
-        showPasswordFieldsButton.setOnAction(e -> passwordBox.setVisible(true));
+        showPasswordFieldsButton.setOnAction(e -> showFirstPasswordBox());
 
         VBox passwordContainer = new VBox(10, showPasswordFieldsButton, passwordBox);
 
+        backButton = new Button("Indietro");
+
         // Struttura principale
-        root.getChildren().addAll(customerInfoBox, reservationsContainer, passwordContainer);
+        root.getChildren().addAll(customerInfoBox, reservationsContainer, passwordContainer,backButton);
+    }
+
+    public void showFirstPasswordBox(){
+        passwordBox.setVisible(true);
+        oldPasswordError.setVisible(false);
+        newPasswordError.setVisible(false);
+    }
+
+    public void hideAllErrors(){
+        oldPasswordError.setVisible(false);
+        newPasswordError.setVisible(false);
+    }
+
+    public void showOldPasswordError(){
+        oldPasswordError.setVisible(true);
+    }
+
+    public void showNewPasswordError(String message){
+        if(!message.isEmpty() && !message.isBlank()){
+            newPasswordError.setText(message);
+        }
+        newPasswordError.setVisible(true);
     }
 
     public VBox getRoot(){
@@ -100,5 +126,9 @@ public class CustomerView {
 
     public Button getChangePasswordButton() {
         return changePasswordButton;
+    }
+
+    public Button getBackButton() {
+        return backButton;
     }
 }
