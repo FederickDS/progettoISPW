@@ -7,6 +7,7 @@ public class ReceptionistHomePage {
     private final VBox root;
     private final Button manageBookingsButton;
     private final Button manageActivitiesButton;
+    private final Button logoutButton;
 
     public ReceptionistHomePage() {
         // Inizializzazione layout
@@ -15,8 +16,9 @@ public class ReceptionistHomePage {
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
         manageBookingsButton = new Button("Gestione Prenotazioni");
         manageActivitiesButton = new Button("Gestione Attività");
+        logoutButton = new Button("Logout");
 
-        root.getChildren().addAll(manageBookingsButton, manageActivitiesButton);
+        root.getChildren().addAll(manageBookingsButton, manageActivitiesButton, logoutButton);
     }
 
     public VBox getRoot() {
@@ -29,5 +31,9 @@ public class ReceptionistHomePage {
 
     public Button getManageActivitiesButton() {
         return manageActivitiesButton;
+    }
+
+    public Button getLogoutButton() {
+        return logoutButton;
     }
 }
