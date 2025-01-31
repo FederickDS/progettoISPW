@@ -26,48 +26,52 @@ public class CustomerView {
         root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
-        Label titleLabel = new Label("I tuoi dati");
+        // Sezione dati cliente
+        Label titleLabel = new Label("Dati Cliente");
         titleLabel.setStyle(FX_STYLE);
 
-        // Sezione dati cliente
-        Label clientLabel = new Label("Dati Cliente");
-        clientLabel.setStyle(FX_STYLE);
-        this.customerInfoBox = new VBox(5, clientLabel);
+        this.customerInfoBox = new VBox(5, titleLabel);
 
         // Sezione prenotazioni
         Label reservationsLabel = new Label("Prenotazioni");
         reservationsLabel.setStyle(FX_STYLE);
+
         reservationsBox = new VBox(5);
+
         this.reservationsContainer = new VBox(10, reservationsLabel, reservationsBox);
         reservationsContainer.setPadding(new Insets(10, 0, 10, 0));
 
         // Sezione cambio password
         Label passwordLabel = new Label("Modifica Password");
         passwordLabel.setStyle(FX_STYLE);
+
         oldPasswordField = new PasswordField();
         oldPasswordField.setPromptText("Vecchia Password");
+
         oldPasswordError = new Text("Password diversa da quella attuale");
+
         newPasswordField = new PasswordField();
         newPasswordField.setPromptText("Nuova Password");
+
         confirmPasswordField = new PasswordField();
         confirmPasswordField.setPromptText("Conferma Nuova Password");
+
         newPasswordError = new Text("Mettere la stessa password come conferma, tra gli 8 e i 16 caratteri");
+
         changePasswordButton = new Button("Cambia Password");
+
         this.passwordBox = new VBox(5, passwordLabel, oldPasswordField, oldPasswordError, newPasswordField, confirmPasswordField, newPasswordError, changePasswordButton);
-        passwordBox.setVisible(false);
+        passwordBox.setVisible(false); // Inizialmente nascosto
+
         Button showPasswordFieldsButton = new Button("Modifica Password");
         showPasswordFieldsButton.setOnAction(e -> showFirstPasswordBox());
+
         VBox passwordContainer = new VBox(10, showPasswordFieldsButton, passwordBox);
 
         backButton = new Button("Indietro");
 
-        // Contenitore principale con scrollbar
-        VBox contentBox = new VBox(20, customerInfoBox, reservationsContainer, passwordContainer);
-        ScrollPane scrollPane = new ScrollPane(contentBox);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(600);
-
-        root.getChildren().addAll(titleLabel,scrollPane, backButton);
+        // Struttura principale
+        root.getChildren().addAll(customerInfoBox, reservationsContainer, passwordContainer,backButton);
     }
 
     public void showFirstPasswordBox(){
