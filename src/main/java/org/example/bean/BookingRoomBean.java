@@ -10,6 +10,7 @@ public class BookingRoomBean {
     private LocalDate checkIn;
     private LocalDate checkOut;
     private int participantsNumber;
+    private int roomNumber;
     private static final Logger logger = Logger.getLogger(BookingRoomBean.class.getName());
 
     public BookingRoomBean() {
@@ -84,5 +85,12 @@ public class BookingRoomBean {
     }
     public void setCheckOut(LocalDate checkOut) {
         this.checkOut = checkOut;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 }

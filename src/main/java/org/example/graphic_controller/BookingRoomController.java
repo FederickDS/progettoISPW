@@ -2,6 +2,8 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
+import org.example.bean.BookingRoomBean;
+import org.example.factory.ModelBeanFactory;
 import org.example.view.BookingRoom;
 
 import java.util.logging.Logger;
@@ -31,29 +33,27 @@ public class BookingRoomController {
     private void handleConfirm() {
         logger.info("Prenotazione confermata.");
 
-        // Recupera le date selezionate (fare in bookRoom)
-        var checkInDate = bookingRoom.getCheckInDate();
-        var checkOutDate = bookingRoom.getCheckOutDate();
-        var numberOfParticipants = bookingRoom.getParticipants();
+        BookingRoomBean bookingRoomBean = ModelBeanFactory.setBookingRoomBean(bookingRoom);
 
-        if(!bookRoom.checkCompatibleData(bookingRoom)){
+        if(!bookingRoomBean.checkCompatibleData(bookingRoom)) {
             return;
         }
 
         // Salva la prenotazione (con bookRoom)
-        if(!this.bookRoom.checkHours(checkInDate,checkOutDate)){
+        if(!this.bookRoom.checkHours(bookingRoomBean)){
             logger.info("ci entra?");
             bookingRoom.setCheckInError("L'intervallo selezionato include giorni in cui l'hotel è chiuso.");
             return;
         }
         //trova la stanza
-        int roomNumber = this.bookRoom.selectRoom(checkInDate,checkOutDate,numberOfParticipants);
+        int roomNumber = this.bookRoom.selectRoom(bookingRoomBean);
         if(roomNumber==-1){
             bookingRoom.setCheckInError("L'intervallo selezionato è occupato da altre stanze.");
             return;
         }
+        bookingRoomBean.setRoomNumber(roomNumber);
         //numero di stanza valido, salviamo tutto
-        bookRoom.saveReservation(roomNumber, checkInDate, checkOutDate);
+        bookRoom.saveReservation(bookingRoomBean);
 
         //dovrei controllare database e cambiare pagina, metto quella fake
         navigateToNextPage();

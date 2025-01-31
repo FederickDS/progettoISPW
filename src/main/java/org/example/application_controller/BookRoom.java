@@ -1,10 +1,7 @@
 package org.example.application_controller;
 
-import org.example.bean.BeanClientDetails;
-import org.example.bean.BeanClientEReservationDetails;
-import org.example.bean.BeanReservationDetails;
+import org.example.bean.*;
 import org.example.factory.ModelBeanFactory;
-import org.example.bean.PaymentBean;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
 import org.example.graphic_controller.SessionManager;
@@ -38,7 +35,9 @@ public class BookRoom {
         this.selectedServices = services;
     }
 
-    public boolean checkHours(LocalDate checkIn, LocalDate checkOut) {
+    public boolean checkHours(BookingRoomBean bookingRoomBean) {
+        LocalDate checkIn = bookingRoomBean.getCheckIn();
+        LocalDate checkOut = bookingRoomBean.getCheckOut();
         // Ottieni gli intervalli di tempo relativi ai "giorni di apertura"
         List<DailyTimeInterval> availableIntervals = DaoFactory.getTimeIntervalDao().readAll().stream()
                 .filter(interval -> CHECK_INTERVALS.equals(interval.getType())) // Filtro per "giorni di apertura"
@@ -54,7 +53,10 @@ public class BookRoom {
         return false; // Nessun intervallo valido trovato
     }
 
-    public int selectRoom(LocalDate checkIn, LocalDate checkOut, int participantsNumber) {
+    public int selectRoom(BookingRoomBean bookingRoomBean) {
+        LocalDate checkIn = bookingRoomBean.getCheckIn();
+        LocalDate checkOut = bookingRoomBean.getCheckOut();
+        int participantsNumber = bookingRoomBean.getParticipantsNumber();
         int result = -1;
 
         // Ottieni tutte le stanze disponibili
@@ -125,7 +127,10 @@ public class BookRoom {
         return isCompatible;
     }
 
-    public void saveReservation(int roomNumber, LocalDate checkIn, LocalDate checkOut) {
+    public void saveReservation(BookingRoomBean bookingRoomBean) {
+        LocalDate checkIn = bookingRoomBean.getCheckIn();
+        LocalDate checkOut = bookingRoomBean.getCheckOut();
+        int roomNumber = bookingRoomBean.getRoomNumber();
         // Creazione dell'intervallo di tempo della prenotazione
         DailyTimeInterval reservationInterval = new DailyTimeInterval(checkIn, checkOut, "reservation");
 
