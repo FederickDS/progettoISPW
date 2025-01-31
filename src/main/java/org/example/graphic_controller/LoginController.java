@@ -54,7 +54,7 @@ public class LoginController {
             logger.info(typeOfLogin);
             logger.info(ApplicationFacade.encrypt(loginBean.getPassword()));
             loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
-            if (ApplicationFacade.checkLoginStatus() != null) {
+            if (ApplicationFacade.isLoginValid(loginBean)) {
                 logger.info("Login riuscito!");
                 SessionManager.getInstance().setCredentials(loginBean);
                 navigateToNextPage();

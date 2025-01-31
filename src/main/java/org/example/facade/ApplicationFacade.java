@@ -66,4 +66,9 @@ public class ApplicationFacade {
         ValidateLogin login = new ValidateLogin();
         return login.validate(ModelBeanFactory.loadLoginBean());
     }
+
+    public static boolean isLoginValid(LoginBean loginBean){
+        ValidateLogin validateLogin = new ValidateLogin();
+        return validateLogin.validate(loginBean) != null;
+    }
 }
