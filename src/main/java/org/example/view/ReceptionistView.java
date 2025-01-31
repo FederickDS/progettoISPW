@@ -29,13 +29,13 @@ public class ReceptionistView {
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(600);
 
-        this.reservationsContainer = new VBox(10, reservationsLabel, scrollPane);
+        this.reservationsContainer = new VBox(10, scrollPane);
         reservationsContainer.setPadding(new Insets(10, 0, 10, 0));
 
         backButton = new Button("Indietro");
 
         // Struttura principale
-        root.getChildren().addAll(reservationsContainer, backButton);
+        root.getChildren().addAll(reservationsLabel,reservationsContainer, backButton);
     }
 
     public VBox getRoot() {
