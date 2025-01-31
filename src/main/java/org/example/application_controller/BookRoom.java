@@ -96,6 +96,7 @@ public class BookRoom {
         if(checkInDate == null){
             bookingRoom.setCheckInError("Scegli una data per il check in");
             isCompatible = false;
+            return isCompatible;
         }
 
         if (checkOutDate == null) {
@@ -118,12 +119,8 @@ public class BookRoom {
                 bookingRoom.setCheckInError("Metti una data precedente al check out");
                 isCompatible = false;
             }
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
-        }finally {
-            if(checkInDate == null){
-                isCompatible = false;
-            }
         }
         return isCompatible;
     }

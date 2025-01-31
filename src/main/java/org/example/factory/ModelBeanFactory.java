@@ -8,6 +8,7 @@ import org.example.entity.User;
 import org.example.graphic_controller.SessionManager;
 import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
+import org.example.view.BookingRoom;
 
 import java.math.BigDecimal;
 import java.util.stream.Collectors;
@@ -85,6 +86,12 @@ public class ModelBeanFactory {
         );
 
         return beanReservationDetails;
+    }
+
+    public static BookingRoomBean setBookingRoomBean(BookingRoom bookingRoom){
+        BookingRoomBean bookingRoomBean = new BookingRoomBean();
+        bookingRoomBean.populateView(bookingRoom);
+        return bookingRoomBean;
     }
 
 }

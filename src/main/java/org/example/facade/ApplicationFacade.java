@@ -2,10 +2,12 @@ package org.example.facade;
 
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
+import org.example.entity.Room;
 import org.example.entity.User;
 import org.example.dao.DaoFactory;
 import org.example.factory.ModelBeanFactory;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import java.sql.SQLException;
@@ -70,5 +72,16 @@ public class ApplicationFacade {
     public static boolean isLoginValid(LoginBean loginBean){
         ValidateLogin validateLogin = new ValidateLogin();
         return validateLogin.validate(loginBean) != null;
+    }
+
+    public static int getMaxNumberOfParticipants(){
+        List<Room> rooms = DaoFactory.getRoomDao().readAll();
+        int max = 0;
+        for (Room room : rooms) {
+            if(max < room.getMaxPeople()){
+                max = room.getMaxPeople();
+            }
+        }
+        return max;
     }
 }
