@@ -120,6 +120,8 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     private Reservation mapToReservation(ResultSet rs) throws SQLException {
         Reservation reservation = new Reservation();
 
+        // Imposta l'ID della prenotazione
+        reservation.setReservationId(rs.getInt("reservation_id"));
         // Mappa DailyTimeInterval
         DailyTimeInterval timetable = new DailyTimeInterval(
                 rs.getDate("timetable_start_date").toLocalDate(),

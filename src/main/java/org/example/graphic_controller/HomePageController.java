@@ -46,7 +46,7 @@ public class HomePageController<T> {
         } else if (homePage instanceof ClientHomePage chp) {
             chp.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection(navigationService));
             chp.getBookActivityButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
-            chp.getUserInfoButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
+            chp.getUserInfoButton().setOnAction(e -> navigationService.navigateToCustomerView(navigationService));
             chp.getLogoutButton().setOnAction(e -> {
                 SessionManager.getInstance().clearSession();
                 navigationService.navigateToHomePage(navigationService);

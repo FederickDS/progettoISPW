@@ -1,14 +1,16 @@
 package org.example.factory;
 
-import org.example.bean.LoginBean;
-import org.example.bean.PaymentBean;
-import org.example.bean.UserRegistrationBean;
+import org.example.bean.*;
+import org.example.entity.BaseModel;
+import org.example.entity.Client;
 import org.example.entity.Reservation;
+import org.example.entity.User;
 import org.example.graphic_controller.SessionManager;
 import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
 
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
 
 // Classe centrale che mantiene i riferimenti a tutti gli adapter
 public class ModelBeanFactory {
@@ -46,6 +48,42 @@ public class ModelBeanFactory {
         loginBean.setPassword(SessionManager.getInstance().getPassword());
         loginBean.setUserType(SessionManager.getInstance().getType());
         return loginBean;
+    }
+
+    public static BeanClientDetails getBeanClientDetails(Client client) {
+        BeanClientDetails beanClientDetails = new BeanClientDetails();
+        beanClientDetails.setBirthDate(client.getBirthDate());
+        beanClientDetails.setEmail(client.getEmail());
+        beanClientDetails.setFirstName(client.getFirstName());
+        beanClientDetails.setLastName(client.getLastName());
+        beanClientDetails.setPhoneNumber(client.getPhoneNumber());
+        beanClientDetails.setFirstName(client.getTaxCode());
+        beanClientDetails.setTaxCode(client.getTaxCode());
+        return beanClientDetails;
+    }
+
+    public static BeanReservationDetails getBeanReservationDetails(Reservation reservation) {
+        BeanReservationDetails beanReservationDetails = new BeanReservationDetails();
+        System.out.println(reservation.getReservationId());
+        beanReservationDetails.setReservationId(reservation.getReservationId());
+        beanReservationDetails.setTimetable(reservation.getTimetable());
+        beanReservationDetails.setRoomNumber(reservation.getRoom().getRoomNumber());
+        beanReservationDetails.setPrice(reservation.getPrice());
+        beanReservationDetails.setStatus(reservation.getStatus().toString());
+
+        beanReservationDetails.setFreeServices(
+                reservation.getFreeServices().stream().map(BaseModel::getName).collect(Collectors.toList())
+        );
+
+        beanReservationDetails.setFreeActivities(
+                reservation.getFreeActivities().stream().map(BaseModel::getName).collect(Collectors.toList())
+        );
+
+        beanReservationDetails.setClientEmails(
+                reservation.getClients().stream().map(User::getEmail).collect(Collectors.toList())
+        );
+
+        return beanReservationDetails;
     }
 
 }

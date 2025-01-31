@@ -1,5 +1,8 @@
 package org.example.application_controller;
 
+import org.example.bean.BeanClientDetails;
+import org.example.bean.BeanClientEReservationDetails;
+import org.example.bean.BeanReservationDetails;
 import org.example.factory.ModelBeanFactory;
 import org.example.bean.PaymentBean;
 import org.example.dao.DaoFactory;
@@ -153,6 +156,43 @@ public class BookRoom {
         }catch (SQLException e){
             logger.info("prenotazione non riuscita");
         }
+    }
+
+    public BeanClientDetails getClientDetails() {
+        try {
+            ValidateLogin validateLogin = new ValidateLogin();
+            validateLogin.validate(ModelBeanFactory.loadLoginBean());
+
+            Client client = DaoFactory.getClientDao().read(ModelBeanFactory.loadLoginBean().getEmail());
+            if (client == null) {
+                return null;
+            }
+            return ModelBeanFactory.getBeanClientDetails(client);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<BeanReservationDetails> getReservationForClient(String clientEmail) {
+        List<Reservation> allReservations = DaoFactory.getReservationDao().readAll();
+        List<BeanReservationDetails> relevantReservations = new ArrayList<>();
+
+        for (Reservation reservation : allReservations) {
+            if (reservation.getClients().stream().anyMatch(client -> client.getEmail().equals(clientEmail))) {
+                relevantReservations.add(ModelBeanFactory.getBeanReservationDetails(reservation));
+            }
+        }
+        return relevantReservations;
+    }
+
+    public BeanClientEReservationDetails getClientAndReceptionistDetails() {
+        BeanClientDetails clientDetails = getClientDetails();
+        if (clientDetails == null) {
+            return null;
+        }
+        List<BeanReservationDetails> receptionistDetails = getReservationForClient(clientDetails.getEmail());
+        return new BeanClientEReservationDetails(clientDetails, receptionistDetails);
     }
 
 

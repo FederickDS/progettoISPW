@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.example.application_controller.BookRoom;
 
 import javafx.scene.layout.VBox;
+import org.example.view.CustomerView;
 
 public class NavigationManager implements NavigationService {
     private String interfaceOption = "color";
@@ -68,6 +69,12 @@ public class NavigationManager implements NavigationService {
     public void navigateToNotImplemented(NavigationService navigationService, String previousPage){
         NotImplementedController controller = new NotImplementedController(navigationService, previousPage);
         this.display(controller.getRoot(), "Non implementato (come impostare titolo)");
+    }
+
+    @Override
+    public void navigateToCustomerView(NavigationService navigationService){
+        CustomerViewController controller = new CustomerViewController();
+        this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
     }
 
     public void display(VBox root, String title) {
