@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import org.example.application_controller.BookRoom;
 
 import javafx.scene.layout.VBox;
-import org.example.view.CustomerView;
 
 public class NavigationManager implements NavigationService {
     private String interfaceOption = "color";

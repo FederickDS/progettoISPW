@@ -7,6 +7,7 @@ import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 import org.example.graphic_controller.SessionManager;
+import org.example.facade.ApplicationFacade;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -60,7 +61,7 @@ public class UserRegistrationController {
             newClient.setLastName(userRegistrationBean.getLastName());
             newClient.setEmail(userRegistrationBean.getEmail());
             newClient.setPhoneNumber(userRegistrationBean.getPhoneNumber());
-            newClient.setPassword(User.hashWithSHA256(userRegistrationBean.getPassword()));
+            newClient.setPassword(ApplicationFacade.encrypt(userRegistrationBean.getPassword()));
             newClient.setBirthDate(userRegistrationBean.getBirthDate());
             newClient.setTaxCode(userRegistrationBean.getTaxCode());
             return newClient;
@@ -70,7 +71,7 @@ public class UserRegistrationController {
             newReceptionist.setLastName(userRegistrationBean.getLastName());
             newReceptionist.setEmail(userRegistrationBean.getEmail());
             newReceptionist.setPhoneNumber(userRegistrationBean.getPhoneNumber());
-            newReceptionist.setPassword(User.hashWithSHA256(userRegistrationBean.getPassword()));
+            newReceptionist.setPassword(ApplicationFacade.encrypt(userRegistrationBean.getPassword()));
             return newReceptionist;
         }
         return null;

@@ -1,9 +1,7 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
-import org.example.application_controller.ValidateLogin;
-import org.example.bean.LoginBean;
-import org.example.factory.ModelBeanFactory;
+import org.example.facade.ApplicationFacade;
 import org.example.view.ClientHomePage;
 import org.example.view.HomePage;
 import org.example.view.ReceptionistHomePage;
@@ -14,6 +12,7 @@ public class HomePageController<T> {
     private static final String HOME_PAGE = "HomePage";
     private static final String CLIENT = "client";
     private static final String RECEPTIONIST = "receptionist";
+    private static final String ESSENTIAL_INFO = "essentialInfo";
 
     public HomePageController(NavigationService navigationService) {
         this.navigationService = navigationService;
@@ -21,17 +20,12 @@ public class HomePageController<T> {
     }
 
     private void determineHomePage() {
-        LoginBean loginBean = ModelBeanFactory.loadLoginBean();
-        ValidateLogin validateLogin = new ValidateLogin();
-        if (validateLogin.validate(loginBean) == null) { //credenziali errate o nulle
+        String loginStatus = ApplicationFacade.checkLoginStatus();
+        if (loginStatus == null || loginStatus.equalsIgnoreCase(ESSENTIAL_INFO)) { //credenziali errate o nulle
             homePage = (T) new HomePage();
-        } else if (CLIENT.equalsIgnoreCase(loginBean.getUserType())) {
-            System.out.println(loginBean.getUserType());
-            System.out.println(loginBean.getPassword());
+        } else if (CLIENT.equalsIgnoreCase(loginStatus)) {
             homePage = (T) new ClientHomePage();
-        } else if (RECEPTIONIST.equalsIgnoreCase(loginBean.getUserType())) {
-            System.out.println(loginBean.getUserType());
-            System.out.println(loginBean.getPassword());
+        } else if (RECEPTIONIST.equalsIgnoreCase(loginStatus)) {
             homePage = (T) new ReceptionistHomePage();
         }
         addEventHandlers(homePage);

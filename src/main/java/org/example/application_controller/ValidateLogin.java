@@ -51,8 +51,4 @@ public class ValidateLogin {
         }
         return null; // Login fallito
     }
-
-    public String hashWithSHA256(String password) {
-        return User.hashWithSHA256(password);
-    }
 }

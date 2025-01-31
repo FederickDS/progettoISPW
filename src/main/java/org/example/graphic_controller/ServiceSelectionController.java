@@ -4,11 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
-import org.example.application_controller.ValidateLogin;
-import org.example.bean.LoginBean;
 import org.example.entity.BaseModel;
 import org.example.entity.Client;
-import org.example.factory.ModelBeanFactory;
+import org.example.facade.ApplicationFacade;
 import org.example.view.ServiceSelection;
 import org.example.entity.Activity;
 import org.example.entity.Service;
@@ -29,8 +27,7 @@ public class ServiceSelectionController {
         this.serviceSelection = new ServiceSelection();
         //crea bookRoom (inizia caso d'uso)
         this.bookRoom = new BookRoom();
-        ValidateLogin login = new ValidateLogin();
-        this.bookRoom.addFirstClient((Client) login.validate(ModelBeanFactory.loadLoginBean()));
+        this.bookRoom.addFirstClient((Client) ApplicationFacade.getUserFromLogin());
         // Popola la View con attività e servizi
         loadAvailableActivitiesAndServices();
         // Aggiungi gestione eventi per i bottoni

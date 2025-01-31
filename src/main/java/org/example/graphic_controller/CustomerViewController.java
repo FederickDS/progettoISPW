@@ -2,11 +2,10 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
-import org.example.application_controller.ValidateLogin;
 import org.example.bean.BeanClientEReservationDetails;
 import org.example.bean.BeanClientDetails;
 import org.example.bean.BeanReservationDetails;
-import org.example.entity.User;
+import org.example.facade.ApplicationFacade;
 import org.example.view.CustomerView;
 
 import java.util.List;
@@ -32,8 +31,7 @@ public class CustomerViewController {
     }
 
     private void changeClientPassword(){
-        ValidateLogin validateLogin = new ValidateLogin();
-        String oldPassword = validateLogin.hashWithSHA256(customerView.getOldPasswordField().getText());
+        String oldPassword = ApplicationFacade.encrypt(customerView.getOldPasswordField().getText());
         String newPassword = customerView.getNewPasswordField().getText();
         String confirmPassword = customerView.getConfirmPasswordField().getText();
         String passwordBean = beanClientDetails.getPassword();//SHA256
@@ -41,7 +39,7 @@ public class CustomerViewController {
         if(!ckeckPassword(oldPassword, newPassword, confirmPassword, passwordBean)){
             return;
         }
-        this.beanClientDetails.setPassword(validateLogin.hashWithSHA256(newPassword));
+        this.beanClientDetails.setPassword(ApplicationFacade.encrypt(newPassword));
         if(this.bookRoom.updateClientDetails(this.beanClientDetails)){
             customerView.showNewPasswordError("Salvataggio password riuscito!");
         }else{

@@ -1,6 +1,7 @@
 package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
+import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
@@ -52,8 +53,8 @@ public class LoginController {
         String typeOfLogin = loginBean.getUserType();
         try {
             logger.info(typeOfLogin);
-            logger.info(validateLogin.hashWithSHA256(loginBean.getPassword()));
-            loginBean.setPassword(validateLogin.hashWithSHA256(loginBean.getPassword()));
+            logger.info(ApplicationFacade.encrypt(loginBean.getPassword()));
+            loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
             if (validateLogin.validate(loginBean) != null) {
                 logger.info("Login riuscito!");
                 SessionManager.getInstance().setCredentials(loginBean);
