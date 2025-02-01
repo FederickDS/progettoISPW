@@ -68,14 +68,12 @@ public class BookRoom {
 
         // Crea una lista di stanze occupate nell'intervallo richiesto
         Set<Integer> occupiedRoomNumbers = new HashSet<>();
-        for (Reservation reservation : reservations) {
-            DailyTimeInterval reservationInterval = reservation.getTimetable();
-            System.out.println(reservationInterval);
+        for (Reservation singleReservation : reservations) {
+            DailyTimeInterval reservationInterval = singleReservation.getTimetable();
             if (reservationInterval != null && reservationInterval.overlapsWith(checkIn, checkOut)) {
-                occupiedRoomNumbers.add(reservation.getRoom().getRoomNumber());
+                occupiedRoomNumbers.add(singleReservation.getRoom().getRoomNumber());
             }
         }
-        System.out.println(occupiedRoomNumbers);
 
         // Cerca una stanza libera con il numero di posti richiesto
         for (Room room : rooms) {
@@ -244,7 +242,7 @@ public class BookRoom {
         try {
             Reservation reservation = DaoFactory.getReservationDao().read(reservationId);
             if (reservation == null) {
-                logger.warning("Prenotazione non trovata: " + reservationId);
+                logger.info("Prenotazione non trovata: " + reservationId);
                 return false;
             }
             reservation.setStatus(ReservationStatus.BOOKED);
