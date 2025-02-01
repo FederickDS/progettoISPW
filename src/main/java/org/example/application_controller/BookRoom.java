@@ -149,7 +149,6 @@ public class BookRoom {
         }
         //calcolo prezzo
         newReservation.calculatePrice();
-        newReservation.printReservationDetails();
         // Salvataggio nel database tramite il DAO
         try {
             //potrebbe non esistere il timetable
