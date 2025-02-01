@@ -27,6 +27,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     @Override
     public void create(Reservation reservation) {
         String insertReservation = "INSERT INTO Reservation (room_number, timetable_start_date, timetable_end_date, timetable_type, price, status) VALUES (?, ?, ?, ?, ?, ?)";
+
         try (PreparedStatement stmt = connection.prepareStatement(insertReservation, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, reservation.getRoom().getRoomNumber());
             stmt.setDate(2, Date.valueOf(reservation.getTimetable().getStartDate()));
@@ -36,27 +37,27 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setString(6, reservation.getStatus().name());  // Enum -> String
 
             int affectedRows = stmt.executeUpdate();
-            System.out.println("Righe modificate: " + affectedRows);
 
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int reservationId = generatedKeys.getInt(1);
-                        System.out.println("ID Prenotazione generato: " + reservationId);
-                        insertRelatedEntities(reservationId, reservation);
-                    } else {
-                        System.out.println("Nessun ID generato, possibile errore.");
-                    }
-                } catch (SQLException e) {
-                    logger.severe("Aggiunta elementi prenotazione fallita: " + e.getMessage());
-                    e.printStackTrace();
-                }
+                handleGeneratedKeys(stmt, reservation);
             } else {
-                System.out.println("Nessuna riga è stata modificata, verifica i dati inseriti.");
+                logger.info("Nessuna riga è stata modificata, verifica i dati inseriti.");
             }
         } catch (SQLException e) {
             logger.severe("Prenotazione fallita: " + e.getMessage());
-            e.printStackTrace();
+        }
+    }
+
+    private void handleGeneratedKeys(PreparedStatement stmt, Reservation reservation) {
+        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                int reservationId = generatedKeys.getInt(1);
+                insertRelatedEntities(reservationId, reservation);
+            } else {
+                logger.info("Nessun ID generato, possibile errore.");
+            }
+        } catch (SQLException e) {
+            logger.severe("Aggiunta elementi prenotazione fallita: " + e.getMessage());
         }
     }
 
