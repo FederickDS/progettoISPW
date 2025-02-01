@@ -5,7 +5,7 @@ import org.example.entity.*;
 import java.sql.Connection;
 import java.util.List;
 
-public class DaoFactory {
+public class DaoFactory implements DaoFactoryInterface{
     private static String storageOption = "stateless";
     private static ClientDaoMemory clientDaoMemoryInstance;
     private static ReceptionistDaoMemory receptionistDaoMemoryInstance;
@@ -17,11 +17,11 @@ public class DaoFactory {
 
     private static final String DATABASE = "database";
 
-    private DaoFactory() {
+    public DaoFactory() {
         // Costruttore privato per nascondere quello pubblico implicito
     }
 
-    public static GenericDao<Client> getClientDao() {
+    public GenericDao<Client> getClientDao() {
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ClientDaoDB(connection);
@@ -45,7 +45,7 @@ public class DaoFactory {
         }
     }
 
-    public static GenericDao<Activity> getActivityDao() {
+    public GenericDao<Activity> getActivityDao() {
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ActivityDaoDB(connection);
@@ -57,7 +57,7 @@ public class DaoFactory {
         }
     }
 
-    public static GenericDao<Service> getServiceDao() {
+    public GenericDao<Service> getServiceDao() {
         if (DATABASE.equalsIgnoreCase(storageOption)) {
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ServiceDaoDB(connection);
@@ -95,12 +95,14 @@ public class DaoFactory {
 
     // Nuovi metodi per ottenere liste di attività e servizi
     public static List<Activity> getAvailableActivities() {
-        GenericDao<Activity> activityDao = getActivityDao();
+        DaoFactory daoFactory = new DaoFactory();
+        GenericDao<Activity> activityDao = daoFactory.getActivityDao();
         return activityDao.readAll(); // Metodo da implementare nel DAO
     }
 
     public static List<Service> getAvailableServices() {
-        GenericDao<Service> serviceDao = getServiceDao();
+        DaoFactory daoFactory = new DaoFactory();
+        GenericDao<Service> serviceDao = daoFactory.getServiceDao();
         return serviceDao.readAll(); // Metodo da implementare nel DAO
     }
 
@@ -111,8 +113,9 @@ public class DaoFactory {
 
     public static GenericDao<Reservation> getReservationDao() {
         if (DATABASE.equalsIgnoreCase(storageOption)) {
+            DaoFactory daoFactory = new DaoFactory();
             Connection connection = DatabaseConnectionManager.getConnection();
-            return new ReservationDaoDB(connection);
+            return new ReservationDaoDB(connection,daoFactory);
         } else {
             if (reservationDaoMemoryInstance == null) {
                 reservationDaoMemoryInstance = new ReservationDaoMemory();
@@ -124,7 +127,6 @@ public class DaoFactory {
     public static void setStorageOption(String option) {
         if (option != null && !option.isEmpty()) {
             storageOption = option;
-            System.out.println(storageOption);
         }
     }
 }

@@ -17,7 +17,8 @@ public class ValidateLogin {
     private final Logger logger = Logger.getLogger(ValidateLogin.class.getName());
 
     public ValidateLogin() {
-        this.clientDao = DaoFactory.getClientDao();
+        DaoFactory daoFactory = new DaoFactory();
+        this.clientDao = daoFactory.getClientDao();
         this.receptionistDao = DaoFactory.getReceptionistDao();
     }
 

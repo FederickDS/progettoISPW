@@ -21,7 +21,8 @@ public class UserRegistrationController {
 
     public UserRegistrationController() {
         // Ottenere i DAO utilizzando DaoFactory
-        this.clientDao = DaoFactory.getClientDao();
+        DaoFactory daoFactory = new DaoFactory();
+        this.clientDao = daoFactory.getClientDao();
         this.receptionistDao = DaoFactory.getReceptionistDao();
     }
 

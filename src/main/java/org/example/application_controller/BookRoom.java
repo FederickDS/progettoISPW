@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class BookRoom {
     private List<Client> clientList = new ArrayList<>();
@@ -166,8 +165,8 @@ public class BookRoom {
         try {
             ValidateLogin validateLogin = new ValidateLogin();
             validateLogin.validate(ModelBeanFactory.loadLoginBean());
-
-            Client client = DaoFactory.getClientDao().read(ModelBeanFactory.loadLoginBean().getEmail());
+            DaoFactory daoFactory = new DaoFactory();
+            Client client = daoFactory.getClientDao().read(ModelBeanFactory.loadLoginBean().getEmail());
             if (client == null) {
                 return null;
             }
@@ -202,7 +201,8 @@ public class BookRoom {
     public boolean updateClientDetails(BeanClientDetails clientDetails) {
         try {
             // Recupera il cliente attuale dal database
-            Client existingClient = DaoFactory.getClientDao().read(clientDetails.getEmail());
+            DaoFactory daoFactory = new DaoFactory();
+            Client existingClient = daoFactory.getClientDao().read(clientDetails.getEmail());
             if (existingClient == null) {
                 logger.warning("Cliente non trovato: " + clientDetails.getEmail());
                 return false;
@@ -214,7 +214,7 @@ public class BookRoom {
             }
 
             // Salva le modifiche nel database
-            DaoFactory.getClientDao().update(existingClient);
+            daoFactory.getClientDao().update(existingClient);
 
             // Aggiorna i dati in sessione
             SessionManager.getInstance().setCredentials(

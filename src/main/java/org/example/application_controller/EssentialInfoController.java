@@ -15,7 +15,8 @@ public class EssentialInfoController {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     public EssentialInfoController() {
-        this.clientDao = DaoFactory.getClientDao();
+        DaoFactory daoFactory = new DaoFactory();
+        this.clientDao = daoFactory.getClientDao();
     }
 
     public boolean checkFields(EssentialInfoView view) {

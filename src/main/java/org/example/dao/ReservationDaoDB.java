@@ -16,9 +16,11 @@ import java.util.logging.Logger;
 public class ReservationDaoDB implements GenericDao<Reservation> {
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private final DaoFactoryInterface daoFactoryInterface;
     private static final String RESERVATION_ID = "reservation_id";
 
-    public ReservationDaoDB(Connection connection) {
+    public ReservationDaoDB(Connection connection, DaoFactoryInterface daoFactory) {
+        this.daoFactoryInterface = daoFactory;
         this.connection = connection;
     }
 
@@ -160,7 +162,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Service service = DaoFactory.getServiceDao().read(rs.getString("service_name"));
+                Service service = daoFactoryInterface.getServiceDao().read(rs.getString("service_name"));
                 services.add(service);
             }
         }
@@ -174,7 +176,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Activity activity = DaoFactory.getActivityDao().read(rs.getString("activity_name"));
+                Activity activity = daoFactoryInterface.getActivityDao().read(rs.getString("activity_name"));
                 activities.add(activity);
             }
         }
@@ -188,7 +190,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Client client = DaoFactory.getClientDao().read(rs.getString("client_email"));
+                Client client = daoFactoryInterface.getClientDao().read(rs.getString("client_email"));
                 clients.add(client);
             }
         }
