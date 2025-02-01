@@ -182,9 +182,9 @@ public class BookRoom {
         List<Reservation> allReservations = DaoFactory.getReservationDao().readAll();
         List<BeanReservationDetails> relevantReservations = new ArrayList<>();
 
-        for (Reservation reservation : allReservations) {
-            if (reservation.getClients().stream().anyMatch(client -> client.getEmail().equals(clientEmail))) {
-                relevantReservations.add(ModelBeanFactory.getBeanReservationDetails(reservation));
+        for (Reservation singleReservation : allReservations) {
+            if (singleReservation.getClients().stream().anyMatch(client -> client.getEmail().equals(clientEmail))) {
+                relevantReservations.add(ModelBeanFactory.getBeanReservationDetails(singleReservation));
             }
         }
         return relevantReservations;
@@ -232,19 +232,19 @@ public class BookRoom {
 
     public List<BeanReservationDetails> getAllReservations() {
         return DaoFactory.getReservationDao().readAll().stream()
-                .filter(reservation -> reservation.getStatus() == ReservationStatus.PENDING)
+                .filter(singleReservation -> singleReservation.getStatus() == ReservationStatus.PENDING)
                 .map(ModelBeanFactory::getBeanReservationDetails)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public boolean confirmReservation(int reservationId) {
         try {
-            Reservation reservation = DaoFactory.getReservationDao().read(reservationId);
-            if (reservation == null) {
+            Reservation singleReservation = DaoFactory.getReservationDao().read(reservationId);
+            if (singleReservation == null) {
                 return false;
             }
-            reservation.setStatus(ReservationStatus.BOOKED);
-            DaoFactory.getReservationDao().update(reservation);
+            singleReservation.setStatus(ReservationStatus.BOOKED);
+            DaoFactory.getReservationDao().update(singleReservation);
             return true;
         } catch (SQLException e) {
             logger.severe("Errore durante la conferma della prenotazione: " + e.getMessage());
