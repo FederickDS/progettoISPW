@@ -8,7 +8,6 @@ import org.example.entity.Activity;
 import org.example.entity.Client;
 import org.example.entity.ReservationStatus;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
 public class ReservationDaoDB implements GenericDao<Reservation> {
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final String RESERVATION_ID = "reservation_id";
+    private static final String RESERVATION_ID = "reservation_id";
 
     public ReservationDaoDB(Connection connection) {
         this.connection = connection;

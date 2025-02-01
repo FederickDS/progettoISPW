@@ -3,7 +3,6 @@ package org.example.graphic_controller;
 import javafx.scene.layout.VBox;
 import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
-import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
 import org.example.view.AbstractLoginView;
 import org.example.view.ClientLoginView;
@@ -45,7 +44,7 @@ public class LoginController {
     private void handleLogin() {
         LoginBean loginBean = ModelBeanFactory.getLoginBean(loginView);
 
-        if (!loginBean.ValidateFields(loginView)) {
+        if (!loginBean.validateFields(loginView)) {
             return;
         }
         System.out.println(loginBean);

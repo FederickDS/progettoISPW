@@ -16,7 +16,9 @@ public class BeanReservationDetails implements Serializable {
     private BigDecimal price;
     private String status;
 
-    public BeanReservationDetails() {}
+    public BeanReservationDetails() {
+        //classe bean
+    }
 
     public int getReservationId() {
         return reservationId;

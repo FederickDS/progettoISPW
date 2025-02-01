@@ -7,7 +7,9 @@ public class BeanClientEReservationDetails implements Serializable {
     private BeanClientDetails clientDetails;
     private List<BeanReservationDetails> reservationDetails;
 
-    public BeanClientEReservationDetails() {}
+    public BeanClientEReservationDetails() {
+        //classe bean
+    }
 
     public BeanClientEReservationDetails(BeanClientDetails clientDetails, List<BeanReservationDetails> reservationDetails) {
         this.clientDetails = clientDetails;

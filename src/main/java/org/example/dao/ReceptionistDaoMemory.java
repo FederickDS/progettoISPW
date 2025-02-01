@@ -1,6 +1,5 @@
 package org.example.dao;
 
-import org.example.application_controller.ValidateLogin;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
 

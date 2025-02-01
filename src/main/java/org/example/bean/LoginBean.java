@@ -21,7 +21,7 @@ public class LoginBean {
         this.userType = loginView.getType();
     }
 
-    public boolean ValidateFields(AbstractLoginView loginView) {
+    public boolean validateFields(AbstractLoginView loginView) {
         boolean valid = true;
         loginView.hideErrorMessages();
         if (email.isBlank() || !Pattern.matches(EMAIL_REGEX, email)) {
