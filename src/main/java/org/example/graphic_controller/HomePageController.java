@@ -55,12 +55,12 @@ public class HomePageController<T> {
     }
 
     public VBox getRoot(){
-        if(homePage instanceof HomePage){
-            return ((HomePage) homePage).getRoot();
-        }else if(homePage instanceof ClientHomePage){
-            return ((ClientHomePage) homePage).getRoot();
-        }else if(homePage instanceof ReceptionistHomePage){
-            return ((ReceptionistHomePage) homePage).getRoot();
+        if(this.homePage instanceof HomePage hereHomePage){
+            return hereHomePage.getRoot();
+        }else if(this.homePage instanceof ClientHomePage hereCLientHomePage){
+            return hereCLientHomePage.getRoot();
+        }else if(this.homePage instanceof ReceptionistHomePage hereReceptionistHomePage){
+            return hereReceptionistHomePage.getRoot();
         }
         return null;
     }

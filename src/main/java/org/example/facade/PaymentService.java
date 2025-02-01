@@ -6,6 +6,10 @@ import java.util.logging.Logger;
 public class PaymentService {
     private static final Logger logger = Logger.getLogger(PaymentService.class.getName());
 
+    private PaymentService(){
+        //privato, nasconde costruttore pubblico
+    }
+
     /**
      * Simula un pagamento e restituisce un esito positivo o negativo.
      * @param cardNumber Numero della carta di credito.

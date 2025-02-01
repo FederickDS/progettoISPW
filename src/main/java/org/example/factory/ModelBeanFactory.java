@@ -12,7 +12,6 @@ import org.example.view.AbstractRegistrationView;
 import org.example.view.BookingRoom;
 
 import java.math.RoundingMode;
-import java.util.stream.Collectors;
 
 // Classe centrale che mantiene i riferimenti a tutti gli adapter
 public class ModelBeanFactory {

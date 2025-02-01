@@ -68,7 +68,6 @@ public class CustomerViewController {
     private void loadClientAndReservations() {
         BeanClientEReservationDetails details = bookRoom.getClientAndReceptionistDetails();
         if (details == null) {
-            System.out.println("Errore nel caricamento dei dati del cliente.");
             return;
         }
         this.beanClientDetails = details.getClientDetails();//per modificare la password
