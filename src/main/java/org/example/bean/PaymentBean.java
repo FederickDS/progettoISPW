@@ -6,13 +6,15 @@ public class PaymentBean implements Serializable {
     private int roomNumber;
     private String price;
     private String paymentDeadline;
+    private int reservationID;
 
     public PaymentBean() {}
 
-    public PaymentBean(int roomNumber, String price, String paymentDeadline) {
+    public PaymentBean(int roomNumber, String price, String paymentDeadline, int reservationID) {
         this.roomNumber = roomNumber;
         this.price = price;
         this.paymentDeadline = paymentDeadline;
+        this.reservationID = reservationID;
     }
 
     public int getRoomNumber() {
@@ -37,5 +39,12 @@ public class PaymentBean implements Serializable {
 
     public void setPaymentDeadline(String paymentDeadline) {
         this.paymentDeadline = paymentDeadline;
+    }
+
+    public int getReservationID() {
+        return reservationID;
+    }
+    public void setReservationID(int reservationID) {
+        this.reservationID = reservationID;
     }
 }

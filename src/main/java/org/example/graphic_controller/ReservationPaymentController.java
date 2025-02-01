@@ -1,49 +1,56 @@
 package org.example.graphic_controller;
 
-import javafx.application.HostServices;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.bean.PaymentBean;
+import org.example.facade.ApplicationFacade;
 import org.example.view.ReservationPaymentView;
 
-import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ReservationPaymentController {
     private final ReservationPaymentView reservationPaymentView;
     private final NavigationService navigationService; // Servizio di navigazione
-    private static HostServices hostServices;
+    private static boolean payment = false;
+    private final PaymentBean bean;
+    private static final Logger logger = Logger.getLogger(ReservationPaymentController.class.getName());
 
     public ReservationPaymentController(NavigationService navigationService, BookRoom bookRoom) {
         this.navigationService = navigationService;
         this.reservationPaymentView = new ReservationPaymentView();
 
-        PaymentBean bean = bookRoom.getReservationBean();
+        this.bean = bookRoom.getReservationBean();
         reservationPaymentView.setReservationData(bean);
 
         addEventHandlers();
     }
 
     private void addEventHandlers() {
-        // Gestione del pagamento tramite bonifico
-        reservationPaymentView.getBankTransferButton().setOnAction(e -> handleBankTransfer());
-
-        // Gestione del pagamento tramite PayPal
-        reservationPaymentView.getPaymentService().setOnAction(e -> handlePaypalPayment());
-
-        // Gestione della navigazione alla Home
+        reservationPaymentView.getConfirmPaymentButton().setOnAction(e -> handleInAppPayment());
         reservationPaymentView.getHomeButton().setOnAction(e -> navigateToHome());
     }
 
-    private void handleBankTransfer() {
-        // Mostra i dettagli per l'invio del bonifico
-        System.out.println("Inserisci i dettagli del bonifico.");
-    }
+    private void handleInAppPayment() {
+        if(payment) {
+            reservationPaymentView.setErrorMessage("Il pagamento è già andato a buon fine.");
+            return;
+        }
+        String cardNumber = reservationPaymentView.getCardNumber();
+        String cardHolder = reservationPaymentView.getCardHolder();
+        String cvv = reservationPaymentView.getCVV();
 
-    private void handlePaypalPayment() {
-        try {
-            Runtime.getRuntime().exec("xdg-open https://www.paypal.com");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (cardNumber.isEmpty() || cardHolder.isEmpty() || cvv.isEmpty()) {
+            reservationPaymentView.setErrorMessage("Errore: tutti i campi devono essere compilati.");
+            return;
+        }
+
+        boolean success = ApplicationFacade.processPayment(cardNumber, cvv, bean.getPrice()); // Simulazione pagamento
+        if (success) {
+            reservationPaymentView.setErrorMessage("Pagamento avvenuto con successo!");
+            ApplicationFacade.sendGenericEmail("cliente@email.com", "Ricevuta Pagamento",
+                    "Grazie per il pagamento! La transazione è stata completata.");
+        } else {
+            reservationPaymentView.setErrorMessage("Pagamento fallito");
         }
     }
 

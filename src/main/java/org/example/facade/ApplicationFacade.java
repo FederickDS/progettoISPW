@@ -109,7 +109,17 @@ public class ApplicationFacade {
         EmailService.sendEmail(SessionManager.getInstance().getEmail(), subject, body);
     }
 
-    public static boolean processPayment(String cardNumber, double amount){
-        return PaymentService.processPayment(cardNumber, amount, "euro");
+    public static void sendGenericEmail(String toEmail, String subject, String body){
+        EmailService.sendEmail(toEmail, subject, body);
+    }
+
+    public static boolean processPayment(String cardNumber, String CVV, String amount){
+        char symbol = amount.charAt(0);
+        if(symbol == '€'){
+            return PaymentService.processPayment(cardNumber, amount, "EUR",CVV);
+        }else if (symbol == '$'){
+            return PaymentService.processPayment(cardNumber, amount, "USD",CVV);
+        }
+        return false;
     }
 }

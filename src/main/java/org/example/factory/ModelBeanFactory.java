@@ -23,8 +23,9 @@ public class ModelBeanFactory {
         int roomNumber = reservation.getRoom().getRoomNumber();
         String price = reservation.getPrice() != null ? "€" + reservation.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP) : "Non calcolato";
         String paymentDeadline = reservation.getPaymentDeadline();
+        int reservatonID = reservation.getReservationId();
 
-        return new PaymentBean(roomNumber, price, paymentDeadline);
+        return new PaymentBean(roomNumber, price, paymentDeadline, reservatonID);
     }
 
     public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
