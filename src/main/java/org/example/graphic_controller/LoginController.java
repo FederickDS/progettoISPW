@@ -47,11 +47,9 @@ public class LoginController {
         if (!loginBean.validateFields(loginView)) {
             return;
         }
-        System.out.println(loginBean);
         String typeOfLogin = loginBean.getUserType();
         try {
             logger.info(typeOfLogin);
-            logger.info(ApplicationFacade.encrypt(loginBean.getPassword()));
             loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
             if (ApplicationFacade.isLoginValid(loginBean)) {
                 logger.info("Login riuscito!");
@@ -72,7 +70,6 @@ public class LoginController {
         if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
-            System.out.println("NAVIGATE TO NEXT PAGE");
             navigationService.navigateToServiceSelection(this.navigationService);
         }
     }

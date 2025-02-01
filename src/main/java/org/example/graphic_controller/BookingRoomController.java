@@ -4,7 +4,6 @@ import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.bean.BookingRoomBean;
 import org.example.facade.ApplicationFacade;
-import org.example.facade.ApplicationFacadeInterface;
 import org.example.factory.ModelBeanFactory;
 import org.example.view.BookingRoom;
 
