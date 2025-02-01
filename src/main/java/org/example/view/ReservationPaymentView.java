@@ -11,24 +11,25 @@ public class ReservationPaymentView {
     private final Label priceLabel;
     private final Label paymentDeadlineLabel;
     private final Button bankTransferButton;
-    private final Button paypalButton;
+    private final Button paymentService;
     private final Label homeLabel;
     private final Button homeButton; // Nuovo bottone per tornare alla home
 
     public ReservationPaymentView() {
         root = new VBox(15);
         root.setPrefSize(1280, 720);
+        Label titleLabel = new Label("Prenotazione completata! Le è stata inviata un'email di conferma.");
         // Dati da passare dinamicamente
         roomLabel = new Label();
         priceLabel = new Label();
         paymentDeadlineLabel = new Label();
 
         bankTransferButton = new Button("Invia Bonifico");
-        paypalButton = new Button("Paga con PayPal");
+        paymentService = new Button("Paga dall'applicazione");
         homeLabel = new Label("Può sempre vedere i dati per il pagamento dalla sua area riservata");
         homeButton = new Button("Torna alla Home"); // Pulsante per la home
 
-        root.getChildren().addAll(roomLabel, priceLabel, paymentDeadlineLabel, bankTransferButton, paypalButton, homeLabel, homeButton);
+        root.getChildren().addAll(titleLabel,roomLabel, priceLabel, paymentDeadlineLabel, bankTransferButton, paymentService, homeLabel, homeButton);
     }
 
     public void setReservationData(PaymentBean paymentBean) {
@@ -47,8 +48,8 @@ public class ReservationPaymentView {
         return bankTransferButton;
     }
 
-    public Button getPaypalButton() {
-        return paypalButton;
+    public Button getPaymentService() {
+        return paymentService;
     }
 
     public Button getHomeButton() { // Getter per il nuovo bottone

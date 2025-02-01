@@ -109,7 +109,7 @@ public class ApplicationFacade {
         EmailService.sendEmail(SessionManager.getInstance().getEmail(), subject, body);
     }
 
-    public static boolean processPayment(String cardNumber, double amount, String currency){
-        return PaymentService.processPayment(cardNumber, amount, currency);
+    public static boolean processPayment(String cardNumber, double amount){
+        return PaymentService.processPayment(cardNumber, amount, "euro");
     }
 }

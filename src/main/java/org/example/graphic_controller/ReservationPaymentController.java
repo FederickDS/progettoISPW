@@ -28,7 +28,7 @@ public class ReservationPaymentController {
         reservationPaymentView.getBankTransferButton().setOnAction(e -> handleBankTransfer());
 
         // Gestione del pagamento tramite PayPal
-        reservationPaymentView.getPaypalButton().setOnAction(e -> handlePaypalPayment());
+        reservationPaymentView.getPaymentService().setOnAction(e -> handlePaypalPayment());
 
         // Gestione della navigazione alla Home
         reservationPaymentView.getHomeButton().setOnAction(e -> navigateToHome());
