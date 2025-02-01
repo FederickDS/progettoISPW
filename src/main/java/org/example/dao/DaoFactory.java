@@ -27,10 +27,14 @@ public class DaoFactory implements DaoFactoryInterface{
             return new ClientDaoDB(connection);
         } else {
             if (clientDaoMemoryInstance == null) {
-                clientDaoMemoryInstance = new ClientDaoMemory();
+                clientDaoMemoryInstance = createClientMemoryInstance();
             }
             return clientDaoMemoryInstance;
         }
+    }
+
+    public static ClientDaoMemory createClientMemoryInstance(){
+        return new ClientDaoMemory();
     }
 
     public static GenericDao<Receptionist> getReceptionistDao() {
@@ -51,10 +55,14 @@ public class DaoFactory implements DaoFactoryInterface{
             return new ActivityDaoDB(connection);
         } else {
             if (activityDaoMemoryInstance == null) {
-                activityDaoMemoryInstance = new ActivityDaoMemory();
+                activityDaoMemoryInstance = createActivityMemoryInstance();
             }
             return activityDaoMemoryInstance;
         }
+    }
+
+    public static ActivityDaoMemory createActivityMemoryInstance(){
+        return new ActivityDaoMemory();
     }
 
     public GenericDao<Service> getServiceDao() {
@@ -63,10 +71,13 @@ public class DaoFactory implements DaoFactoryInterface{
             return new ServiceDaoDB(connection);
         } else {
             if (serviceDaoMemoryInstance == null) {
-                serviceDaoMemoryInstance = new ServiceDaoMemory();
+                serviceDaoMemoryInstance = createServiceMemoryInstance();
             }
             return serviceDaoMemoryInstance;
         }
+    }
+    public static ServiceDaoMemory createServiceMemoryInstance(){
+        return new ServiceDaoMemory();
     }
 
     public static GenericDao<DailyTimeInterval> getTimeIntervalDao() { // Metodo per TimeInterval
