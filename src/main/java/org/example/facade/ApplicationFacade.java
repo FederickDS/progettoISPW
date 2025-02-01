@@ -1,6 +1,5 @@
 package org.example.facade;
 
-import javafx.application.Application;
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
 import org.example.entity.Reservation;

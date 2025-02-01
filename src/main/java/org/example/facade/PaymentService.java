@@ -1,5 +1,6 @@
 package org.example.facade;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PaymentService {
@@ -12,11 +13,11 @@ public class PaymentService {
      * @param currency Valuta (es. EUR, USD).
      * @return `true` se il pagamento ha avuto successo, `false` se fallisce.
      */
-    public static boolean processPayment(String cardNumber, String amount, String currency, String CVV) {
+    public static boolean processPayment(String cardNumber, String amount, String currency, String cvv) {
         logger.info("Simulazione pagamento...");
-        logger.info("Numero carta: **** **** **** " + cardNumber.substring(cardNumber.length() - 4));
-        logger.info("Controllo data di scadenza..." + CVV);
-        logger.info("Importo: " + amount + " " + currency);
+        logger.log(Level.INFO, "Numero carta: **** **** **** {0}", cardNumber.substring(cardNumber.length() - 4));
+        logger.log(Level.INFO, "Controllo data di scadenza... {0}", cvv);
+        logger.log(Level.INFO, "Importo: {0} {1}", new Object[]{amount, currency});
 
         // Simuliamo una probabilità di successo del 90%
         return Math.random() < 0.9;
