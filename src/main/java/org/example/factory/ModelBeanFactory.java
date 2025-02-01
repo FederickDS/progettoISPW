@@ -26,9 +26,6 @@ public class ModelBeanFactory {
 
         return new PaymentBean(roomNumber, price, paymentDeadline);
     }
-    public Reservation convertToEntity(PaymentBean bean) {
-        throw new UnsupportedOperationException("La conversione inversa non è supportata direttamente.");
-    }
 
     public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
         return new UserRegistrationBean(registrationView);
