@@ -34,9 +34,9 @@ public class ReservationPaymentView {
 
         Label beneficiary = new Label("Beneficiario: Hotel Marittimo");
 
-        Label IBAN = new Label("IBAN: IT60X0542811101000000123456");
+        Label iban = new Label("IBAN: IT60X0542811101000000123456");
 
-        Label BIC_SWIFT = new Label("BIC/SWIFT: BPPIITRRXXX");
+        Label bicSwift = new Label("BIC/SWIFT: BPPIITRRXXX");
 
         reason = new Label("Causale per il bonifico: Prenotazione #");
         Label paymentService = new Label("Oppure paga adesso dall'applicazione");
@@ -60,7 +60,7 @@ public class ReservationPaymentView {
 
 
         root.getChildren().addAll(titleLabel, roomLabel, priceLabel, paymentDeadlineLabel,
-                infoBankTransfer, beneficiary, IBAN, BIC_SWIFT, reason, paymentService,
+                infoBankTransfer, beneficiary, iban, bicSwift, reason, paymentService,
                 cardNumberField, cardHolderField, cvvField, errorMessage,confirmPaymentButton, emailLabel, homeButton);
         errorMessage.setVisible(false);
     }

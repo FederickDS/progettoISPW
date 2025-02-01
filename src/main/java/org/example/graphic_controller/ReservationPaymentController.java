@@ -6,14 +6,12 @@ import org.example.bean.PaymentBean;
 import org.example.facade.ApplicationFacade;
 import org.example.view.ReservationPaymentView;
 
-import java.util.logging.Logger;
 
 public class ReservationPaymentController {
     private final ReservationPaymentView reservationPaymentView;
     private final NavigationService navigationService; // Servizio di navigazione
     private static boolean payment = false;
     private final PaymentBean bean;
-    private static final Logger logger = Logger.getLogger(ReservationPaymentController.class.getName());
 
     public ReservationPaymentController(NavigationService navigationService, BookRoom bookRoom) {
         this.navigationService = navigationService;
@@ -49,6 +47,7 @@ public class ReservationPaymentController {
             reservationPaymentView.setErrorMessage("Pagamento avvenuto con successo!");
             ApplicationFacade.sendGenericEmail("cliente@email.com", "Ricevuta Pagamento",
                     "Grazie per il pagamento! La transazione è stata completata.");
+            payment = true;
         } else {
             reservationPaymentView.setErrorMessage("Pagamento fallito");
         }
