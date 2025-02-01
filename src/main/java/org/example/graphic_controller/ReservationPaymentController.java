@@ -10,7 +10,7 @@ import org.example.view.ReservationPaymentView;
 public class ReservationPaymentController {
     private final ReservationPaymentView reservationPaymentView;
     private final NavigationService navigationService; // Servizio di navigazione
-    private static boolean payment = false;
+    private boolean payment = false;
     private final PaymentBean bean;
 
     public ReservationPaymentController(NavigationService navigationService, BookRoom bookRoom) {

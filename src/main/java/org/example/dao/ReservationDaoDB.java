@@ -70,33 +70,43 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     private void insertServices(int reservationId, List<Service> services) throws SQLException {
         String insertService = "INSERT INTO ReservationService (reservation_id, service_name) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(insertService)) {
+            stmt.setInt(1, reservationId); // Spostato fuori dal loop
+
             for (Service service : services) {
-                stmt.setInt(1, reservationId);
                 stmt.setString(2, service.getName());
-                stmt.executeUpdate();
+                stmt.addBatch(); // Aggiunge la query al batch
             }
+
+            stmt.executeBatch(); // Esegue tutte le query in una sola operazione
         }
     }
+
 
     private void insertActivities(int reservationId, List<Activity> activities) throws SQLException {
         String insertActivity = "INSERT INTO ReservationActivity (reservation_id, activity_name) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(insertActivity)) {
+            stmt.setInt(1, reservationId); // Spostato fuori dal loop
+
             for (Activity activity : activities) {
-                stmt.setInt(1, reservationId);
                 stmt.setString(2, activity.getName());
-                stmt.executeUpdate();
+                stmt.addBatch(); // Aggiunge al batch
             }
+
+            stmt.executeBatch(); // Esegue tutte le operazioni in un'unica chiamata
         }
     }
 
     private void insertClients(int reservationId, List<Client> clients) throws SQLException {
         String insertClient = "INSERT INTO ReservationClient (reservation_id, client_email) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(insertClient)) {
+            stmt.setInt(1, reservationId); // Spostato fuori dal loop
+
             for (Client client : clients) {
-                stmt.setInt(1, reservationId);
                 stmt.setString(2, client.getEmail());
-                stmt.executeUpdate();
+                stmt.addBatch(); // Aggiunge al batch
             }
+
+            stmt.executeBatch(); // Esegue tutte le operazioni in un'unica chiamata
         }
     }
 
