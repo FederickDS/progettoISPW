@@ -84,4 +84,12 @@ public class ApplicationFacade {
         }
         return max;
     }
+
+    public static void sendEmail(String destination, String subject, String body){
+        EmailService.sendEmail(destination, subject, body);
+    }
+
+    public static boolean processPayment(String cardNumber, double amount, String currency){
+        return PaymentService.processPayment(cardNumber, amount, currency);
+    }
 }
