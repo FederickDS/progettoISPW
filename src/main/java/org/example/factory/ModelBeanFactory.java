@@ -57,7 +57,6 @@ public class ModelBeanFactory {
         beanClientDetails.setFirstName(client.getFirstName());
         beanClientDetails.setLastName(client.getLastName());
         beanClientDetails.setPhoneNumber(client.getPhoneNumber());
-        beanClientDetails.setFirstName(client.getTaxCode());
         beanClientDetails.setTaxCode(client.getTaxCode());
         beanClientDetails.setPassword(client.getPassword());
         return beanClientDetails;

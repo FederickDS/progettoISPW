@@ -120,7 +120,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
         Reservation reservation = new Reservation();
 
         // Imposta l'ID della prenotazione
-        reservation.setReservationId(rs.getInt("reservation_id"));
+        reservation.setReservationId(rs.getInt(RESERVATION_ID));
         // Mappa DailyTimeInterval
         DailyTimeInterval timetable = new DailyTimeInterval(
                 rs.getDate("timetable_start_date").toLocalDate(),
