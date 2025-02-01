@@ -55,10 +55,7 @@ public class ReceptionistViewController {
     private void confirmReservation(int reservationId) {
         boolean success = bookRoom.confirmReservation(reservationId);
         if (success) {
-            System.out.println("Prenotazione " + reservationId + " confermata con successo.");
             loadReservations(); // Ricarica la lista dopo la conferma
-        } else {
-            System.out.println("Errore nella conferma della prenotazione " + reservationId);
         }
     }
 
