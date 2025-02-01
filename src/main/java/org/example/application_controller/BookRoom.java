@@ -1,6 +1,7 @@
 package org.example.application_controller;
 
 import org.example.bean.*;
+import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
@@ -158,6 +159,7 @@ public class BookRoom {
             DaoFactory.getTimeIntervalDao().create(timetable);//se non esiste, la crea
             DaoFactory.getReservationDao().create(newReservation);
             this.reservation = newReservation;
+            ApplicationFacade.sendReservationEmail(newReservation);
         }catch (SQLException e){
             logger.info("prenotazione non riuscita");
         }

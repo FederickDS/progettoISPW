@@ -2,10 +2,12 @@ package org.example.facade;
 
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
+import org.example.entity.Reservation;
 import org.example.entity.Room;
 import org.example.entity.User;
 import org.example.dao.DaoFactory;
 import org.example.factory.ModelBeanFactory;
+import org.example.graphic_controller.SessionManager;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -85,8 +87,26 @@ public class ApplicationFacade {
         return max;
     }
 
-    public static void sendEmail(String destination, String subject, String body){
-        EmailService.sendEmail(destination, subject, body);
+    public static void sendReservationEmail(Reservation reservation){
+        LoginBean loginBean = ModelBeanFactory.loadLoginBean();
+        ValidateLogin validateLogin = new ValidateLogin();
+        User user = validateLogin.validate(loginBean);
+
+        String subject = "Conferma Prenotazione #" + reservation.getReservationId();
+
+        String body = "Gentile " + user.getFirstName() + " " + user.getLastName() + ",\n\n"
+                + "La tua prenotazione è stata confermata con successo.\n\n"
+                + "Dettagli della prenotazione:\n"
+                + "ID: " + reservation.getReservationId() + "\n"
+                + "Data: " + reservation.getTimetable().getStartDate() + "\n"
+                + "Data check out: " + reservation.getTimetable().getEndDate() + "\n"
+                + "Importo: " + reservation.getPrice() + " EUR\n\n"
+                + "Per qualsiasi domanda, contattaci al nostro servizio clienti.\n\n"
+                + "Cordiali saluti,\n"
+                + "Reception";
+
+
+        EmailService.sendEmail(SessionManager.getInstance().getEmail(), subject, body);
     }
 
     public static boolean processPayment(String cardNumber, double amount, String currency){
