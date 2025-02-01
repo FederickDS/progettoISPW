@@ -10,7 +10,7 @@ import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.BookingRoom;
 
-import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Collectors;
 
 // Classe centrale che mantiene i riferimenti a tutti gli adapter
@@ -21,7 +21,7 @@ public class ModelBeanFactory {
         }
 
         int roomNumber = reservation.getRoom().getRoomNumber();
-        String price = reservation.getPrice() != null ? "€" + reservation.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP) : "Non calcolato";
+        String price = reservation.getPrice() != null ? "€" + reservation.getPrice().setScale(2, RoundingMode.HALF_UP) : "Non calcolato";
         String paymentDeadline = reservation.getPaymentDeadline();
         int reservatonID = reservation.getReservationId();
 

@@ -106,16 +106,16 @@ public class Reservation implements Serializable {
         long numberOfDays = timetable.getNumberOfDays();
 
         // Prezzo base per giorno basato su capacità e piano della stanza
-        BigDecimal basePricePerDay = BigDecimal.valueOf(room.getMaxPeople() * 50 + room.getFloor() * 10);
+        BigDecimal basePricePerDay = BigDecimal.valueOf(room.getMaxPeople() * 50L + room.getFloor() * 10L);
 
         // Prezzo aggiuntivo per servizi e attività gratuiti
         BigDecimal addedServicePrice = BigDecimal.ZERO;
 
         if (freeServices != null) {
-            addedServicePrice = addedServicePrice.add(BigDecimal.valueOf(freeServices.size() * 5));
+            addedServicePrice = addedServicePrice.add(BigDecimal.valueOf(freeServices.size() * 5L));
         }
         if (freeActivities != null) {
-            addedServicePrice = addedServicePrice.add(BigDecimal.valueOf(freeActivities.size() * 10));
+            addedServicePrice = addedServicePrice.add(BigDecimal.valueOf(freeActivities.size() * 10L));
         }
 
         // Calcolo del prezzo totale
