@@ -114,7 +114,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     public Reservation read(Object... keys) throws SQLException {
         int reservationId = (int) keys[0];  // Assumendo che la chiave primaria sia un id
 
-        String selectReservation = "SELECT * FROM Reservation WHERE reservation_id = ?";
+        String selectReservation = "SELECT reservation_id, room_number, timetable_start_date, timetable_end_date, timetable_type, status, price FROM Reservation WHERE reservation_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(selectReservation)) {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
@@ -168,7 +168,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
     private List<Service> getServicesForReservation(int reservationId) throws SQLException {
         List<Service> services = new ArrayList<>();
-        String selectServices = "SELECT * FROM ReservationService WHERE reservation_id = ?";
+        String selectServices = "SELECT service_name FROM ReservationService WHERE reservation_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(selectServices)) {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
@@ -182,7 +182,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
     private List<Activity> getActivitiesForReservation(int reservationId) throws SQLException {
         List<Activity> activities = new ArrayList<>();
-        String selectActivities = "SELECT * FROM ReservationActivity WHERE reservation_id = ?";
+        String selectActivities = "SELECT activity_name FROM ReservationActivity WHERE reservation_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(selectActivities)) {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
@@ -196,7 +196,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
 
     private List<Client> getClientsForReservation(int reservationId) throws SQLException {
         List<Client> clients = new ArrayList<>();
-        String selectClients = "SELECT * FROM ReservationClient WHERE reservation_id = ?";
+        String selectClients = "SELECT client_email FROM ReservationClient WHERE reservation_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(selectClients)) {
             stmt.setInt(1, reservationId);
             ResultSet rs = stmt.executeQuery();
@@ -263,7 +263,7 @@ public class ReservationDaoDB implements GenericDao<Reservation> {
     @Override
     public List<Reservation> readAll() {
         List<Reservation> reservations = new ArrayList<>();
-        String selectAllReservations = "SELECT * FROM Reservation";
+        String selectAllReservations = "SELECT reservation_id, room_number, timetable_start_date, timetable_end_date, timetable_type, status, price FROM Reservation";
         try (PreparedStatement stmt = connection.prepareStatement(selectAllReservations)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
