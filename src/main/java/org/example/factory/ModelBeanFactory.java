@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
 
 // Classe centrale che mantiene i riferimenti a tutti gli adapter
 public class ModelBeanFactory {
+
+    private ModelBeanFactory(){
+        //nascosto costruttore pubblico implicito
+    }
+
     public static PaymentBean toPaymentBean(Reservation reservation) {
         if (reservation == null || reservation.getRoom() == null) {
             throw new IllegalArgumentException("La prenotazione e la stanza non possono essere null.");
@@ -64,7 +69,6 @@ public class ModelBeanFactory {
 
     public static BeanReservationDetails getBeanReservationDetails(Reservation reservation) {
         BeanReservationDetails beanReservationDetails = new BeanReservationDetails();
-        System.out.println(reservation.getReservationId());
         beanReservationDetails.setReservationId(reservation.getReservationId());
         beanReservationDetails.setTimetable(reservation.getTimetable());
         beanReservationDetails.setRoomNumber(reservation.getRoom().getRoomNumber());
@@ -72,15 +76,15 @@ public class ModelBeanFactory {
         beanReservationDetails.setStatus(reservation.getStatus().toString());
 
         beanReservationDetails.setFreeServices(
-                reservation.getFreeServices().stream().map(BaseModel::getName).collect(Collectors.toList())
+                reservation.getFreeServices().stream().map(BaseModel::getName).toList()
         );
 
         beanReservationDetails.setFreeActivities(
-                reservation.getFreeActivities().stream().map(BaseModel::getName).collect(Collectors.toList())
+                reservation.getFreeActivities().stream().map(BaseModel::getName).toList()
         );
 
         beanReservationDetails.setClientEmails(
-                reservation.getClients().stream().map(User::getEmail).collect(Collectors.toList())
+                reservation.getClients().stream().map(User::getEmail).toList()
         );
 
         return beanReservationDetails;

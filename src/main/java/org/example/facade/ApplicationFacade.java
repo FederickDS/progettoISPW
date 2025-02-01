@@ -19,7 +19,7 @@ public class ApplicationFacade implements ApplicationFacadeInterface {
     private static final String CLIENT = "client";
     private static final String RECEPTIONIST = "receptionist";
     private static final String ESSENTIAL_INFO = "essential_info";
-    public static Logger logger = Logger.getLogger(ApplicationFacade.class.getName());
+    private static final Logger logger = Logger.getLogger(ApplicationFacade.class.getName());
 
     /**
      * Esegue l'hashing della password usando SHA-256.
@@ -114,12 +114,12 @@ public class ApplicationFacade implements ApplicationFacadeInterface {
         EmailService.sendEmail(toEmail, subject, body);
     }
 
-    public static boolean processPayment(String cardNumber, String CVV, String amount){
+    public static boolean processPayment(String cardNumber, String cvv, String amount){
         char symbol = amount.charAt(0);
         if(symbol == '€'){
-            return PaymentService.processPayment(cardNumber, amount, "EUR",CVV);
+            return PaymentService.processPayment(cardNumber, amount, "EUR",cvv);
         }else if (symbol == '$'){
-            return PaymentService.processPayment(cardNumber, amount, "USD",CVV);
+            return PaymentService.processPayment(cardNumber, amount, "USD",cvv);
         }
         return false;
     }
