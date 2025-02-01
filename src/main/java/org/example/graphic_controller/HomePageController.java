@@ -6,8 +6,8 @@ import org.example.view.ClientHomePage;
 import org.example.view.HomePage;
 import org.example.view.ReceptionistHomePage;
 
-public class HomePageController<T> {
-    private T homePage;
+public class HomePageController {
+    private Object homePage;
     private final NavigationService navigationService;
     private static final String HOME_PAGE = "HomePage";
     private static final String CLIENT = "client";
@@ -21,12 +21,12 @@ public class HomePageController<T> {
 
     private void determineHomePage() {
         String loginStatus = ApplicationFacade.checkLoginStatus();
-        if (loginStatus == null || loginStatus.equalsIgnoreCase(ESSENTIAL_INFO)) { //credenziali errate o nulle
-            homePage = (T) new HomePage();
+        if (loginStatus == null || loginStatus.equalsIgnoreCase(ESSENTIAL_INFO)) { // credenziali errate o nulle
+            homePage = new HomePage();
         } else if (CLIENT.equalsIgnoreCase(loginStatus)) {
-            homePage = (T) new ClientHomePage();
+            homePage = new ClientHomePage();
         } else if (RECEPTIONIST.equalsIgnoreCase(loginStatus)) {
-            homePage = (T) new ReceptionistHomePage();
+            homePage = new ReceptionistHomePage();
         }
         addEventHandlers(homePage);
     }
@@ -39,12 +39,12 @@ public class HomePageController<T> {
             hp.getReceptionistAccessButton().setOnAction(e -> navigationService.navigateToLogin(navigationService, HOME_PAGE, HOME_PAGE, RECEPTIONIST));
         } else if (homePage instanceof ClientHomePage chp) {
             chp.getBookRoomButton().setOnAction(e -> navigationService.navigateToServiceSelection(navigationService));
-            chp.getBookActivityButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
+            chp.getBookActivityButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService, HOME_PAGE));
             chp.getUserInfoButton().setOnAction(e -> navigationService.navigateToCustomerView(navigationService));
             chp.getLogoutButton().setOnAction(e -> goToOriginalHomePage());
         } else if (homePage instanceof ReceptionistHomePage rhp) {
             rhp.getManageBookingsButton().setOnAction(e -> navigationService.navigateToReceptionistView(navigationService));
-            rhp.getManageActivitiesButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService,HOME_PAGE));
+            rhp.getManageActivitiesButton().setOnAction(e -> navigationService.navigateToNotImplemented(navigationService, HOME_PAGE));
             rhp.getLogoutButton().setOnAction(e -> goToOriginalHomePage());
         }
     }
@@ -54,12 +54,12 @@ public class HomePageController<T> {
         navigationService.navigateToHomePage(navigationService);
     }
 
-    public VBox getRoot(){
-        if(this.homePage instanceof HomePage hereHomePage){
+    public VBox getRoot() {
+        if (this.homePage instanceof HomePage hereHomePage) {
             return hereHomePage.getRoot();
-        }else if(this.homePage instanceof ClientHomePage hereCLientHomePage){
-            return hereCLientHomePage.getRoot();
-        }else if(this.homePage instanceof ReceptionistHomePage hereReceptionistHomePage){
+        } else if (this.homePage instanceof ClientHomePage hereClientHomePage) {
+            return hereClientHomePage.getRoot();
+        } else if (this.homePage instanceof ReceptionistHomePage hereReceptionistHomePage) {
             return hereReceptionistHomePage.getRoot();
         }
         return null;
