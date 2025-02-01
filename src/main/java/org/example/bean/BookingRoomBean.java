@@ -1,6 +1,6 @@
 package org.example.bean;
 
-import org.example.facade.ApplicationFacade;
+import org.example.facade.ApplicationFacadeInterface;
 import org.example.view.BookingRoom;
 
 import java.time.LocalDate;
@@ -17,8 +17,8 @@ public class BookingRoomBean {
         //vuoto per lui
     }
 
-    public void populateView(BookingRoom bookingRoom) {
-        if(!checkCompatibleData(bookingRoom)) {
+    public void populateView(BookingRoom bookingRoom, ApplicationFacadeInterface applicationFacade) {
+        if(!checkCompatibleData(bookingRoom, applicationFacade)) {
             return;
         }
         setCheckIn(bookingRoom.getCheckInDate());
@@ -26,9 +26,9 @@ public class BookingRoomBean {
         setParticipantsNumber(bookingRoom.getParticipants());
     }
 
-    public boolean checkCompatibleData(BookingRoom bookingRoom) {
+    public boolean checkCompatibleData(BookingRoom bookingRoom, ApplicationFacadeInterface applicationFacade) {
         boolean isCompatible = true;
-        int maxNumberOfParticipants = ApplicationFacade.getMaxNumberOfParticipants();
+        int maxNumberOfParticipants = applicationFacade.getMaxNumberOfParticipants();
         bookingRoom.hideAllErrors();
         // Recupera le date selezionate (fare in bookRoom)
         var checkInDate = bookingRoom.getCheckInDate();

@@ -3,6 +3,8 @@ package org.example.graphic_controller;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.BookRoom;
 import org.example.bean.BookingRoomBean;
+import org.example.facade.ApplicationFacade;
+import org.example.facade.ApplicationFacadeInterface;
 import org.example.factory.ModelBeanFactory;
 import org.example.view.BookingRoom;
 
@@ -32,10 +34,11 @@ public class BookingRoomController {
 
     private void handleConfirm() {
         logger.info("Prenotazione confermata.");
+        ApplicationFacade applicationFacade = new ApplicationFacade();
 
-        BookingRoomBean bookingRoomBean = ModelBeanFactory.setBookingRoomBean(bookingRoom);
+        BookingRoomBean bookingRoomBean = ModelBeanFactory.setBookingRoomBean(bookingRoom, applicationFacade);
 
-        if(!bookingRoomBean.checkCompatibleData(bookingRoom)) {
+        if(!bookingRoomBean.checkCompatibleData(bookingRoom, applicationFacade)) {
             return;
         }
 

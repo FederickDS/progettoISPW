@@ -1,5 +1,6 @@
 package org.example.facade;
 
+import javafx.application.Application;
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
 import org.example.entity.Reservation;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 
 import java.sql.SQLException;
 
-public class ApplicationFacade {
+public class ApplicationFacade implements ApplicationFacadeInterface {
     private static final String CLIENT = "client";
     private static final String RECEPTIONIST = "receptionist";
     private static final String ESSENTIAL_INFO = "essential_info";
@@ -76,7 +77,7 @@ public class ApplicationFacade {
         return validateLogin.validate(loginBean) != null;
     }
 
-    public static int getMaxNumberOfParticipants(){
+    public int getMaxNumberOfParticipants(){
         List<Room> rooms = DaoFactory.getRoomDao().readAll();
         int max = 0;
         for (Room room : rooms) {

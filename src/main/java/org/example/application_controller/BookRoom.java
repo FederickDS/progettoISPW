@@ -242,7 +242,6 @@ public class BookRoom {
         try {
             Reservation reservation = DaoFactory.getReservationDao().read(reservationId);
             if (reservation == null) {
-                logger.info("Prenotazione non trovata: " + reservationId);
                 return false;
             }
             reservation.setStatus(ReservationStatus.BOOKED);

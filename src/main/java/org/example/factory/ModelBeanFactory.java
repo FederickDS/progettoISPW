@@ -5,6 +5,7 @@ import org.example.entity.BaseModel;
 import org.example.entity.Client;
 import org.example.entity.Reservation;
 import org.example.entity.User;
+import org.example.facade.ApplicationFacadeInterface;
 import org.example.graphic_controller.SessionManager;
 import org.example.view.AbstractLoginView;
 import org.example.view.AbstractRegistrationView;
@@ -86,9 +87,9 @@ public class ModelBeanFactory {
         return beanReservationDetails;
     }
 
-    public static BookingRoomBean setBookingRoomBean(BookingRoom bookingRoom){
+    public static BookingRoomBean setBookingRoomBean(BookingRoom bookingRoom, ApplicationFacadeInterface applicationFacade){
         BookingRoomBean bookingRoomBean = new BookingRoomBean();
-        bookingRoomBean.populateView(bookingRoom);
+        bookingRoomBean.populateView(bookingRoom, applicationFacade);
         return bookingRoomBean;
     }
 
