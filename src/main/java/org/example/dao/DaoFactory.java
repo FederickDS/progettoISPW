@@ -26,15 +26,15 @@ public class DaoFactory implements DaoFactoryInterface{
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ClientDaoDB(connection);
         } else {
-            if (clientDaoMemoryInstance == null) {
-                clientDaoMemoryInstance = createClientMemoryInstance();
-            }
-            return clientDaoMemoryInstance;
+            return getClientMemoryInstance();
         }
     }
 
-    public static ClientDaoMemory createClientMemoryInstance(){
-        return new ClientDaoMemory();
+    public static ClientDaoMemory getClientMemoryInstance(){
+        if (clientDaoMemoryInstance == null) {
+            clientDaoMemoryInstance = new ClientDaoMemory();
+        }
+        return clientDaoMemoryInstance;
     }
 
     public static GenericDao<Receptionist> getReceptionistDao() {
@@ -54,15 +54,15 @@ public class DaoFactory implements DaoFactoryInterface{
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ActivityDaoDB(connection);
         } else {
-            if (activityDaoMemoryInstance == null) {
-                activityDaoMemoryInstance = createActivityMemoryInstance();
-            }
-            return activityDaoMemoryInstance;
+            return getActivityMemoryInstance();
         }
     }
 
-    public static ActivityDaoMemory createActivityMemoryInstance(){
-        return new ActivityDaoMemory();
+    public static ActivityDaoMemory getActivityMemoryInstance(){
+        if (activityDaoMemoryInstance == null) {
+            activityDaoMemoryInstance = new ActivityDaoMemory();
+        }
+        return (ActivityDaoMemory) activityDaoMemoryInstance;
     }
 
     public GenericDao<Service> getServiceDao() {
@@ -70,14 +70,14 @@ public class DaoFactory implements DaoFactoryInterface{
             Connection connection = DatabaseConnectionManager.getConnection();
             return new ServiceDaoDB(connection);
         } else {
-            if (serviceDaoMemoryInstance == null) {
-                serviceDaoMemoryInstance = createServiceMemoryInstance();
-            }
-            return serviceDaoMemoryInstance;
+            return getServiceMemoryInstance();
         }
     }
-    public static ServiceDaoMemory createServiceMemoryInstance(){
-        return new ServiceDaoMemory();
+    public static ServiceDaoMemory getServiceMemoryInstance(){
+        if (serviceDaoMemoryInstance == null) {
+            serviceDaoMemoryInstance = new ServiceDaoMemory();
+        }
+        return (ServiceDaoMemory) serviceDaoMemoryInstance;
     }
 
     public static GenericDao<DailyTimeInterval> getTimeIntervalDao() { // Metodo per TimeInterval
