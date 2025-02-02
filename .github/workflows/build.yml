@@ -24,6 +24,12 @@ jobs:
           distribution: 'zulu'
           cache: maven
 
+      - name: Verifica JAVA_HOME
+        run: echo "JAVA_HOME=$JAVA_HOME"
+
+      - name: Imposta manualmente JAVA_HOME
+        run: echo "JAVA_HOME=${{ env.JAVA_HOME }}" >> $GITHUB_ENV
+
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -41,19 +47,22 @@ jobs:
       - name: Download JavaFX
         run: |
           wget https://download2.gluonhq.com/openjfx/21.0.5/openjfx-21.0.5_linux-x64_bin-sdk.zip
-          unzip openjfx-21.0.5_linux-x64_bin-sdk.zip -d /home/runner/
-          echo "JAVA_HOME=/home/runner/javafx-sdk-21.0.5/" >> $GITHUB_ENV
-          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
-          echo "JAVAFX_SDK_PATH=/home/runner/javafx-sdk-21.0.5/lib" >> $GITHUB_ENV
+          unzip openjfx-21.0.5_linux-x64_bin-sdk.zip -d $HOME/javafx-sdk/
+          echo "JAVAFX_SDK_PATH=$HOME/javafx-sdk/javafx-sdk-21.0.5/lib" >> $GITHUB_ENV
 
       - name: Build the project
         run: mvn clean install -DskipTests -Djavafx.sdk.path=$JAVAFX_SDK_PATH
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: Run tests
         run: mvn test -Djavafx.sdk.path=$JAVAFX_SDK_PATH
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: SonarCloud Analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
         run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=FederickDS_progettoISPW
