@@ -47,7 +47,7 @@ public class UserRegistrationController {
         } catch (UserAlreadyInsertedException e) {
             throw new UserAlreadyInsertedException(e.getMessage());
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: \"{0}\"!", e.getMessage());
+            logger.log(Level.SEVERE, "Errore durante la registrazione dell''utente: \"{0}\"!", e.getMessage());
             return "error:database_error";
         }
     }

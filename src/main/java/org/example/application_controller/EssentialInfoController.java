@@ -76,7 +76,7 @@ public class EssentialInfoController {
             logger.warning("Registrazione fallita: " + e.getMessage());
             return "error:client_exists";
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + e.getMessage(), e);
+            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: {0}", e.getMessage());
             return "error:database_error";
         }
     }
