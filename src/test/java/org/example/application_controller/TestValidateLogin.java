@@ -1,11 +1,9 @@
 package org.example.application_controller;
 
 import org.example.bean.LoginBean;
-import org.example.dao.DaoFactory;
 import org.example.dao.GenericDao;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
-import org.example.entity.User;
 import org.example.exception.WrongLoginCredentialsException;
 import org.example.facade.ApplicationFacade;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
@@ -77,7 +74,7 @@ class TestValidateLogin {
     }
 
     @Test
-    void testValidCredentials() throws SQLException {
+    void testValidCredentials() {
         // Stampa le password per debug
         System.out.println("Password LoginBean: " + validClientLogin.getPassword());
         System.out.println("Password Client: " + mockClient.getPassword());
@@ -89,7 +86,7 @@ class TestValidateLogin {
     }
 
     @Test
-    void testInvalidCredentials() throws SQLException {
+    void testInvalidCredentials() {
         Exception exception = assertThrows(WrongLoginCredentialsException.class, () -> {
             validateLogin.validate(invalidLogin);
         });
