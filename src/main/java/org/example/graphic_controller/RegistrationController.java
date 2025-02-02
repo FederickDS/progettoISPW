@@ -1,6 +1,10 @@
 package org.example.graphic_controller;
 
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
+import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.HashingException;
+import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.bean.UserRegistrationBean;
 import org.example.view.AbstractRegistrationView;
@@ -8,6 +12,7 @@ import org.example.view.ClientRegistrationView;
 import org.example.view.ReceptionistRegistrationView;
 import org.example.application_controller.UserRegistrationController;
 
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class RegistrationController {
@@ -43,18 +48,27 @@ public class RegistrationController {
 
     private void handleRegistration() {
         UserRegistrationController appController = new UserRegistrationController();
-        //al posto di controllare le credenziali in questo modo, faccio fare il controllo con la classe bean
         UserRegistrationBean userRegistrationBean = ModelBeanFactory.getUserRegistrationBean(registrationView);
-        if(!userRegistrationBean.validateAllFields(registrationView)){
+
+        if (!userRegistrationBean.validateAllFields(registrationView)) {
             return;
         }
-        //controllo le credenziali siano uniche nel database
-        String result = appController.registerUser(userRegistrationBean);
+
+        try {
+            String result = appController.registerUser(userRegistrationBean);
+
             switch (result) {
                 case "success" -> navigateToNextPage();
                 case "error:phone_exists" -> registrationView.showPhoneNumberError("Il numero di telefono è già registrato.");
                 case "error:database_error" -> registrationView.showDatabaseError("Errore durante la registrazione. Riprova più tardi.");
                 default -> registrationView.showDatabaseError("Errore sconosciuto.");
+            }
+        } catch (HashingException e) {
+            logger.severe("Errore durante l'hashing della password: " + e.getMessage());
+            ApplicationFacade.showErrorMessage("Errore di registrazione","Errore durante la registrazione","Errore di sistema durante la registrazione. Riprova più tardi.");
+        } catch (DatabaseConfigurationException e){
+            logger.severe("Errore durante il salvataggio dell'utente: " + e.getMessage());
+            ApplicationFacade.showErrorMessage("Dati duplicati","Controlla i campi inseriti","E' segnato il campo duplicato");
         }
     }
 

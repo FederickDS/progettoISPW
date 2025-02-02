@@ -1,6 +1,8 @@
 package org.example.graphic_controller;
 
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
+import org.example.exception.HashingException;
 import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.bean.LoginBean;
@@ -50,7 +52,8 @@ public class LoginController {
         String typeOfLogin = loginBean.getUserType();
         try {
             logger.info(typeOfLogin);
-            loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
+            loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword())); // Potrebbe lanciare HashingException
+
             if (ApplicationFacade.isLoginValid(loginBean)) {
                 logger.info("Login riuscito!");
                 SessionManager.getInstance().setCredentials(loginBean);
@@ -60,9 +63,20 @@ public class LoginController {
                 loginView.getErrorMessage().setVisible(true);
                 loginView.getErrorMessage().setManaged(true);
             }
+        } catch (HashingException e) {
+            logger.severe("Errore durante l'hashing della password: " + e.getMessage());
+            showErrorMessage();
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
         }
+    }
+
+    private void showErrorMessage() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore di Accesso");
+        alert.setHeaderText("Errore durante il login");
+        alert.setContentText("Si è verificato un errore di sistema. Riprova più tardi.");
+        alert.showAndWait();
     }
 
     private void navigateToNextPage() {

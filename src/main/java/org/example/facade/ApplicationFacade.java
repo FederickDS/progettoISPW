@@ -1,5 +1,6 @@
 package org.example.facade;
 
+import javafx.scene.control.Alert;
 import org.example.application_controller.ValidateLogin;
 import org.example.bean.LoginBean;
 import org.example.entity.Reservation;
@@ -122,4 +123,13 @@ public class ApplicationFacade implements ApplicationFacadeInterface {
         }
         return false;
     }
+
+    public static void showErrorMessage(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }

@@ -17,7 +17,7 @@ public class ClientDaoDB implements GenericDao<Client> {
     @Override
     public void create(Client client) throws SQLException {
         if (phoneNumberExists(client.getPhoneNumber())) {
-            throw new SQLException("Il numero di telefono è già registrato");
+            throw new DatabaseConfigurationException("Il numero di telefono è già registrato");
         }
 
         String sql = "INSERT INTO Client (first_name, last_name, email, phone_number, password, birth_date, tax_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
