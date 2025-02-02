@@ -30,19 +30,23 @@ public class UserRegistrationController {
     public String registerUser(UserRegistrationBean userRegistrationBean) {
         User user = createUserFromBean(userRegistrationBean);
         try {
-            if (user instanceof Client client) {
-                clientDao.create(client);
-                SessionManager.getInstance().setCredentials(client.getEmail(), client.getPassword(), client.getUserType());
-                logger.info("Client registrato con successo: " + client.getEmail());
-                return "success";
-            } else if (user instanceof Receptionist receptionist) {
-                receptionistDao.create(receptionist);
-                SessionManager.getInstance().setCredentials(receptionist.getEmail(), receptionist.getPassword(), receptionist.getUserType());
-                logger.info("Receptionist registrato con successo: " + receptionist.getEmail());
-                return "success";
-            } else {
-                logger.warning("Tipo di utente non riconosciuto: " + user.getClass().getName());
-                return "error:unknown_user_type";
+            switch (user) {
+                case Client client -> {
+                    clientDao.create(client);
+                    SessionManager.getInstance().setCredentials(client.getEmail(), client.getPassword(), client.getUserType());
+                    logger.info("Client registrato con successo: " + client.getEmail());
+                    return "success";
+                }
+                case Receptionist receptionist -> {
+                    receptionistDao.create(receptionist);
+                    SessionManager.getInstance().setCredentials(receptionist.getEmail(), receptionist.getPassword(), receptionist.getUserType());
+                    logger.info("Receptionist registrato con successo: " + receptionist.getEmail());
+                    return "success";
+                }
+                default -> {
+                    logger.warning("Tipo di utente non riconosciuto: " + user.getClass().getName());
+                    return "error:unknown_user_type";
+                }
             }
         } catch (UserAlreadyInsertedException e) {
             throw new UserAlreadyInsertedException(e.getMessage());
