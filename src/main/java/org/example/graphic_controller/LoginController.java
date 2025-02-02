@@ -1,6 +1,5 @@
 package org.example.graphic_controller;
 
-import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import org.example.exception.HashingException;
 import org.example.facade.ApplicationFacade;
@@ -65,18 +64,10 @@ public class LoginController {
             }
         } catch (HashingException e) {
             logger.severe("Errore durante l'hashing della password: " + e.getMessage());
-            showErrorMessage();
+            ApplicationFacade.showErrorMessage("Errore di Accesso","Errore durante il login","Si è verificato un errore di sistema. Riprova più tardi.");
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
         }
-    }
-
-    private void showErrorMessage() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore di Accesso");
-        alert.setHeaderText("Errore durante il login");
-        alert.setContentText("Si è verificato un errore di sistema. Riprova più tardi.");
-        alert.showAndWait();
     }
 
     private void navigateToNextPage() {
