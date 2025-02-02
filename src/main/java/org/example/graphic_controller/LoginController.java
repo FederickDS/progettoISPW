@@ -2,6 +2,7 @@ package org.example.graphic_controller;
 
 import javafx.scene.layout.VBox;
 import org.example.exception.HashingException;
+import org.example.exception.WrongLoginCredentialsException;
 import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.bean.LoginBean;
@@ -58,13 +59,16 @@ public class LoginController {
                 SessionManager.getInstance().setCredentials(loginBean);
                 navigateToNextPage();
             } else {
-                logger.warning("Login fallito. Credenziali non valide.");
-                loginView.getErrorMessage().setVisible(true);
-                loginView.getErrorMessage().setManaged(true);
+                throw new WrongLoginCredentialsException("Email o password non validi");
             }
+        } catch (WrongLoginCredentialsException e) {
+            loginView.getErrorMessage().setVisible(true);
+            loginView.getErrorMessage().setManaged(true);
+            logger.warning("Errore di login: " + e.getMessage());
+            ApplicationFacade.showErrorMessage("Accesso negato", "Credenziali errate", e.getMessage());
         } catch (HashingException e) {
             logger.severe("Errore durante l'hashing della password: " + e.getMessage());
-            ApplicationFacade.showErrorMessage("Errore di Accesso","Errore durante il login","Si è verificato un errore di sistema. Riprova più tardi.");
+            ApplicationFacade.showErrorMessage("Errore di Accesso", "Errore durante il login", "Si è verificato un errore di sistema. Riprova più tardi.");
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
         }

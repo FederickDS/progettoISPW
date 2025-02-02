@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.entity.Receptionist;
 import org.example.exception.UserAlreadyInsertedException;
+import org.example.exception.WrongLoginCredentialsException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
             ps.setString(4, receptionist.getPhoneNumber());
             ps.setString(5, receptionist.getPassword());
             ps.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new UserAlreadyInsertedException("Esiste già un receptionist con questa email");
         }
     }
 
@@ -46,10 +49,11 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
                             rs.getString("phone_number"),
                             rs.getString("password")
                     );
+                } else {
+                    throw new WrongLoginCredentialsException("Credenziali non corrette");
                 }
             }
         }
-        return null;
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.example.entity.Client;
 import org.example.exception.UserAlreadyInsertedException;
+import org.example.exception.WrongLoginCredentialsException;
 
 public class ClientDaoDB implements GenericDao<Client> {
     private final Connection connection;
@@ -30,6 +31,8 @@ public class ClientDaoDB implements GenericDao<Client> {
             ps.setDate(6, java.sql.Date.valueOf(client.getBirthDate()));
             ps.setString(7, client.getTaxCode());
             ps.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new UserAlreadyInsertedException("Esiste già il cliente con questa email");
         }
     }
 
@@ -64,10 +67,11 @@ public class ClientDaoDB implements GenericDao<Client> {
                             rs.getDate("birth_date").toLocalDate(),
                             rs.getString("tax_code")
                     );
+                } else {
+                    throw new WrongLoginCredentialsException("Credenziali non corrette");
                 }
             }
         }
-        return null;
     }
 
     @Override

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.entity.Client;
 import org.example.exception.UserAlreadyInsertedException;
+import org.example.exception.WrongLoginCredentialsException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ClientDaoMemory implements GenericDao<Client> {
     }
 
     @Override
-    public Client read(Object... keys) throws SQLException {
+    public Client read(Object... keys) {
         if (keys.length != 1 || !(keys[0] instanceof String)) {
             throw new IllegalArgumentException("Chiave non valida per la ricerca del Client");
         }
@@ -40,7 +41,7 @@ public class ClientDaoMemory implements GenericDao<Client> {
         return storage.stream()
                 .filter(client -> client.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new SQLException(CLIENT_NOT_FOUND));
+                .orElseThrow(() -> new WrongLoginCredentialsException("Credenziali non corrette"));
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.example.dao.DaoFactory;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
+import org.example.exception.WrongLoginCredentialsException;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ public class ValidateLogin {
 
     public User validate(LoginBean loginBean) {
         try {
-            if(loginBean==null){
+            if (loginBean == null) {
                 return null;
             }
             String email = loginBean.getEmail();
@@ -33,23 +34,26 @@ public class ValidateLogin {
 
             if (userType.equalsIgnoreCase("client")) {
                 Client client = clientDao.read(email);
-                if (client != null && client.getPassword().equals(password)) {
+                if (client.getPassword().equals(password)) {
                     return client;
                 }
             } else if (userType.equalsIgnoreCase("receptionist")) {
                 Receptionist receptionist = receptionistDao.read(email);
-                if (receptionist != null && receptionist.getPassword().equals(password)) {
+                if (receptionist.getPassword().equals(password)) {
                     return receptionist;
                 }
             } else if (userType.equalsIgnoreCase("essentialInfo")) {
-                Client client = clientDao.read(email);
-                if (client != null) {
-                    return client;
-                }
+                return clientDao.read(email);
             }
+
+            throw new WrongLoginCredentialsException("Email o password non corretti");
+
+        } catch (WrongLoginCredentialsException e) {
+            logger.warning("Tentativo di accesso fallito: " + e.getMessage());
+            throw e;
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Errore durante la validazione dell'utente: ", e);
+            return null;
         }
-        return null; // Login fallito
     }
 }

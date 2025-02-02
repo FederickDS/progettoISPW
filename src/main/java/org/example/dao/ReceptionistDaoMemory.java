@@ -2,6 +2,8 @@ package org.example.dao;
 
 import org.example.entity.Receptionist;
 import org.example.entity.User;
+import org.example.exception.UserAlreadyInsertedException;
+import org.example.exception.WrongLoginCredentialsException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,16 +21,16 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     }
 
     @Override
-    public void create(Receptionist receptionist) throws SQLException {
-        if (receptionist == null) throw new SQLException("Receptionist cannot be null");
+    public void create(Receptionist receptionist) {
+        if (receptionist == null) throw new IllegalArgumentException("Receptionist non può essere null");
         if (!isEmailUnique(receptionist.getEmail())) {
-            throw new SQLException("Receptionist with this email already exists");
+            throw new UserAlreadyInsertedException("Esiste già un receptionist con questa email");
         }
         storage.add(receptionist);
     }
 
     @Override
-    public Receptionist read(Object... keys) throws SQLException {
+    public Receptionist read(Object... keys) {
         if (keys.length != 1 || !(keys[0] instanceof String)) {
             throw new IllegalArgumentException("Devi fornire un solo parametro di tipo String (email).");
         }
@@ -37,7 +39,7 @@ public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
         return storage.stream()
                 .filter(receptionist -> receptionist.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new SQLException(MESSAGE));
+                .orElseThrow(() -> new WrongLoginCredentialsException("Credenziali non corrette"));
     }
 
     @Override
