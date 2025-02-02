@@ -3,6 +3,7 @@ package org.example.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.entity.Client;
+import org.example.exception.UserAlreadyInsertedException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class ClientDaoMemory implements GenericDao<Client> {
         if (client == null) throw new SQLException(CLIENT_CANNOT_BE_NULL);
         if (!isEmailUnique(client.getEmail())) {
             throw new SQLException("Client with this email already exists");
+        }
+        if (!isPhoneNumberUnique(client.getPhoneNumber())) {
+            throw new UserAlreadyInsertedException("Client with this phone number already exists");
         }
         storage.add(client);
     }
@@ -60,6 +64,10 @@ public class ClientDaoMemory implements GenericDao<Client> {
 
     private boolean isEmailUnique(String email) {
         return storage.stream().noneMatch(client -> client.getEmail().equals(email));
+    }
+
+    private boolean isPhoneNumberUnique(String phoneNumber) {
+        return storage.stream().noneMatch(client -> client.getPhoneNumber().equals(phoneNumber));
     }
 
     @Override
