@@ -22,7 +22,7 @@ public class ClientDaoMemory implements GenericDao<Client> {
     public void create(Client client) throws SQLException {
         if (client == null) throw new SQLException(CLIENT_CANNOT_BE_NULL);
         if (!isEmailUnique(client.getEmail())) {
-            throw new SQLException("Client with this email already exists");
+            throw new UserAlreadyInsertedException("Esiste già il cliente con questa email");
         }
         if (!isPhoneNumberUnique(client.getPhoneNumber())) {
             throw new UserAlreadyInsertedException("Esiste già il cliente con questo numero di telefono");

@@ -6,6 +6,7 @@ import org.example.dao.GenericDao;
 import org.example.entity.Client;
 import org.example.entity.Receptionist;
 import org.example.entity.User;
+import org.example.exception.UserAlreadyInsertedException;
 import org.example.graphic_controller.SessionManager;
 import org.example.facade.ApplicationFacade;
 
@@ -31,28 +32,27 @@ public class UserRegistrationController {
         try {
             if (user instanceof Client client) {
                 clientDao.create(client);
-                SessionManager.getInstance().setCredentials(client.getEmail(),client.getPassword(),client.getUserType());
+                SessionManager.getInstance().setCredentials(client.getEmail(), client.getPassword(), client.getUserType());
                 logger.info("Client registrato con successo: " + client.getEmail());
                 return "success";
             } else if (user instanceof Receptionist receptionist) {
                 receptionistDao.create(receptionist);
-                SessionManager.getInstance().setCredentials(receptionist.getEmail(),receptionist.getPassword(),receptionist.getUserType());
+                SessionManager.getInstance().setCredentials(receptionist.getEmail(), receptionist.getPassword(), receptionist.getUserType());
                 logger.info("Receptionist registrato con successo: " + receptionist.getEmail());
                 return "success";
             } else {
                 logger.warning("Tipo di utente non riconosciuto: " + user.getClass().getName());
                 return "error:unknown_user_type";
             }
+        } catch (UserAlreadyInsertedException e) {
+            logger.log(Level.WARNING, "Registrazione fallita: " + e.getMessage(), e);
+            throw new UserAlreadyInsertedException(e.getMessage());
         } catch (SQLException e) {
-            if (e.getMessage().contains("Il numero di telefono è già registrato")) {
-                logger.log(Level.WARNING, "Registrazione fallita: ", e);
-                return "error:phone_exists";
-            } else {
-                logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: ", e);
-                return "error:database_error";
-            }
+            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + e.getMessage(), e);
+            return "error:database_error";
         }
     }
+
 
     public User createUserFromBean(UserRegistrationBean userRegistrationBean) {
         if ("client".equalsIgnoreCase(userRegistrationBean.getUserType())) {
