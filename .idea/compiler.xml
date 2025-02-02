@@ -16,7 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="module-info.java" options="--module-path $USER_HOME$/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml" />
-      <module name="progettoISPW" options="--module-path $PROJECT_DIR$/../../../runner/javafx-sdk-21.0.5/lib --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics" />
+      <module name="progettoISPW" options="" />
     </option>
   </component>
 </project>

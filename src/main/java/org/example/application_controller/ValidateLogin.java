@@ -25,7 +25,7 @@ public class ValidateLogin {
 
     public User validate(LoginBean loginBean) {
         try {
-            if (loginBean == null) {
+            if (loginBean == null || loginBean.getEmail() == null || loginBean.getEmail().isBlank()) {
                 return null;
             }
             String email = loginBean.getEmail();
