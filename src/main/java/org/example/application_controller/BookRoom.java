@@ -85,46 +85,6 @@ public class BookRoom {
     }
 
 
-    public boolean checkCompatibleData(BookingRoom bookingRoom) {
-        boolean isCompatible = true;
-        bookingRoom.hideAllErrors();
-        // Recupera le date selezionate (fare in bookRoom)
-        var checkInDate = bookingRoom.getCheckInDate();
-        var checkOutDate = bookingRoom.getCheckOutDate();
-        var numberOfParticipants = bookingRoom.getParticipants();
-
-        if(checkInDate == null){
-            bookingRoom.setCheckInError("Scegli una data per il check in");
-            isCompatible = false;
-            return isCompatible;
-        }
-
-        if (checkOutDate == null) {
-            bookingRoom.setCheckOutError("Scegli una data per il check out");
-            isCompatible = false;
-        }
-
-        if(numberOfParticipants <= 0){
-            bookingRoom.setParticipantsError("Non puoi mettere un numero negativo di partecipanti");
-            isCompatible = false;
-        }
-
-        if(numberOfParticipants>= MAX_NUMBER_OF_PARTICIPANTS){
-            bookingRoom.setParticipantsError("Il massimo numero di partecipanti e' " + MAX_NUMBER_OF_PARTICIPANTS);
-            isCompatible = false;
-        }
-
-        try {
-            if (checkInDate.isAfter(checkOutDate)) {
-                bookingRoom.setCheckInError("Metti una data precedente al check out");
-                isCompatible = false;
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return isCompatible;
-    }
-
     public void saveReservation(BookingRoomBean bookingRoomBean) {
         LocalDate checkIn = bookingRoomBean.getCheckIn();
         LocalDate checkOut = bookingRoomBean.getCheckOut();
