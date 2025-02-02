@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.UserAlreadyInsertedException;
 import org.example.exception.DatabaseConnectionException;
 
 import java.io.FileInputStream;
@@ -33,7 +33,7 @@ public class DatabaseConnectionManager {
             user = properties.getProperty("db.user");
             password = properties.getProperty("db.password");
         } catch (IOException e) {
-            throw new DatabaseConfigurationException("Impossibile caricare la configurazione del database", e);
+            throw new UserAlreadyInsertedException("Impossibile caricare la configurazione del database", e);
         }
     }
 

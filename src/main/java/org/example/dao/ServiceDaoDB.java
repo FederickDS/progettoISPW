@@ -1,7 +1,7 @@
 package org.example.dao;
 
 import org.example.entity.Service;
-import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.UserAlreadyInsertedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,7 +90,7 @@ public class ServiceDaoDB implements GenericDao<Service> {
                 ));
             }
         } catch (SQLException e) {
-            throw new DatabaseConfigurationException("Lista non recuperabile", e);
+            throw new UserAlreadyInsertedException("Lista non recuperabile", e);
         }
         return services;
     }

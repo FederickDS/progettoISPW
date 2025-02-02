@@ -1,7 +1,7 @@
 package org.example.dao;
 
 import org.example.entity.Receptionist;
-import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.UserAlreadyInsertedException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class ReceptionistDaoDB implements GenericDao<Receptionist> {
                 ));
             }
         } catch (SQLException e) {
-            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+            throw new UserAlreadyInsertedException("Lista non recuperabile, ", e);
         }
         return receptionists;
     }

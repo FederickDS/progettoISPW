@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.entity.Client;
-import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.UserAlreadyInsertedException;
 
 public class ClientDaoDB implements GenericDao<Client> {
     private final Connection connection;
@@ -17,7 +17,7 @@ public class ClientDaoDB implements GenericDao<Client> {
     @Override
     public void create(Client client) throws SQLException {
         if (phoneNumberExists(client.getPhoneNumber())) {
-            throw new DatabaseConfigurationException("Il numero di telefono è già registrato");
+            throw new UserAlreadyInsertedException("Il numero di telefono è già registrato");
         }
 
         String sql = "INSERT INTO Client (first_name, last_name, email, phone_number, password, birth_date, tax_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -117,7 +117,7 @@ public class ClientDaoDB implements GenericDao<Client> {
                 ));
             }
         } catch (SQLException e) {
-            throw new DatabaseConfigurationException("Lista non recuperabile, ", e);
+            throw new UserAlreadyInsertedException("Lista non recuperabile, ", e);
         }
         return clients;
     }

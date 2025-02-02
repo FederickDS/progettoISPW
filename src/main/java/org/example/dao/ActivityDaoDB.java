@@ -1,7 +1,7 @@
 package org.example.dao;
 
 import org.example.entity.Activity;
-import org.example.exception.DatabaseConfigurationException;
+import org.example.exception.UserAlreadyInsertedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,7 +90,7 @@ public class ActivityDaoDB implements GenericDao<Activity> {
                 ));
             }
         } catch (SQLException e) {
-            throw new DatabaseConfigurationException("Unable to retrieve activities list.", e);
+            throw new UserAlreadyInsertedException("Unable to retrieve activities list.", e);
         }
         return activities;
     }
