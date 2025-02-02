@@ -11,13 +11,14 @@ public class ReservationPaymentController {
     private final ReservationPaymentView reservationPaymentView;
     private final NavigationService navigationService; // Servizio di navigazione
     private boolean payment = false;
+    private final BookRoom bookRoom;
     private final PaymentBean bean;
 
     public ReservationPaymentController(NavigationService navigationService, BookRoom bookRoom) {
         this.navigationService = navigationService;
         this.reservationPaymentView = new ReservationPaymentView();
-
         this.bean = bookRoom.getReservationBean();
+        this.bookRoom = bookRoom;
         reservationPaymentView.setReservationData(bean);
 
         addEventHandlers();
@@ -44,6 +45,7 @@ public class ReservationPaymentController {
 
         boolean success = ApplicationFacade.processPayment(cardNumber, cvv, bean.getPrice()); // Simulazione pagamento
         if (success) {
+            bookRoom.confirmReservation(bean.getReservationID());
             reservationPaymentView.setErrorMessage("Pagamento avvenuto con successo!");
             ApplicationFacade.sendGenericEmail("cliente@email.com", "Ricevuta Pagamento",
                     "Grazie per il pagamento! La transazione è stata completata.");
