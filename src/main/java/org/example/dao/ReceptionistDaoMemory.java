@@ -11,7 +11,6 @@ import java.util.List;
 
 public class ReceptionistDaoMemory implements GenericDao<Receptionist> {
     private final List<Receptionist> storage = new ArrayList<>();
-    private static final String MESSAGE = "Receptionist not found";
 
     public ReceptionistDaoMemory() {
         // Aggiunta di receptionist predefiniti

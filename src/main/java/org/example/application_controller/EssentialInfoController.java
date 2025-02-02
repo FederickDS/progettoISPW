@@ -3,8 +3,10 @@ package org.example.application_controller;
 import org.example.dao.DaoFactory;
 import org.example.dao.GenericDao;
 import org.example.entity.Client;
+import org.example.exception.UserAlreadyInsertedException;
 import org.example.view.EssentialInfoView;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -70,9 +72,12 @@ public class EssentialInfoController {
             clientDao.create(client);
             logger.info("Cliente registrato con successo: " + client.getEmail());
             return "success";
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Errore durante la registrazione del cliente: ", e);
-            return "error";
+        } catch (UserAlreadyInsertedException e) {
+            logger.warning("Registrazione fallita: " + e.getMessage());
+            return "error:client_exists";
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + e.getMessage(), e);
+            return "error:database_error";
         }
     }
 }

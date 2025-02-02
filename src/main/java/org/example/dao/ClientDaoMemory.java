@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ClientDaoMemory implements GenericDao<Client> {
     private final ObservableList<Client> storage;
-    private static final String CLIENT_NOT_FOUND = "Client not found";
     private static final String CLIENT_CANNOT_BE_NULL = "Client cannot be null";
 
     public ClientDaoMemory() {

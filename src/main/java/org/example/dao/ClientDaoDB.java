@@ -28,7 +28,13 @@ public class ClientDaoDB implements GenericDao<Client> {
             ps.setString(3, client.getEmail());
             ps.setString(4, client.getPhoneNumber());
             ps.setString(5, client.getPassword());
-            ps.setDate(6, java.sql.Date.valueOf(client.getBirthDate()));
+
+            // Verifica se birthDate è null e usa un valore predefinito se necessario
+            if (client.getBirthDate() != null) {
+                ps.setDate(6, Date.valueOf(client.getBirthDate()));
+            } else {
+                ps.setNull(6, Types.DATE);
+            }
             ps.setString(7, client.getTaxCode());
             ps.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException e) {

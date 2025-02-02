@@ -3,6 +3,7 @@ package org.example.graphic_controller;
 import javafx.scene.layout.VBox;
 import org.example.application_controller.EssentialInfoController;
 import org.example.entity.Client;
+import org.example.facade.ApplicationFacade;
 import org.example.view.EssentialInfoView;
 
 public class EssentialInfoGraphicController {
@@ -34,14 +35,28 @@ public class EssentialInfoGraphicController {
         }
 
         Client client = appController.createClientFromInput(essentialInfoView);
-
         String result = appController.registerClient(client);
-        if ("success".equals(result)) {
-            //salvo le credenziali (sicuramente corrette dopo register user)
-            SessionManager.getInstance().setCredentials(essentialInfoView.getEmailField().getText(),essentialInfoView.getPasswordField().getText(),essentialInfoView.getType());
-            navigateToNextPage();
-        } else {
-            essentialInfoView.showDatabaseError("Errore durante la registrazione. Riprova.");
+
+        switch (result) {
+            case "success":
+                // Salvo le credenziali nella sessione
+                SessionManager.getInstance().setCredentials(
+                        essentialInfoView.getEmailField().getText(),
+                        essentialInfoView.getPasswordField().getText(),
+                        essentialInfoView.getType()
+                );
+                navigateToNextPage();
+                break;
+
+            case "error:client_exists":
+                essentialInfoView.showDatabaseError("Questo indirizzo email è già registrato.");
+                ApplicationFacade.showErrorMessage("Errore","Errore nei campi inseriti","L'indirizzo email è già stato registrato");
+                break;
+
+            case "error:database_error":
+            default:
+                essentialInfoView.showDatabaseError("Errore durante la registrazione. Riprova più tardi.");
+                break;
         }
     }
 

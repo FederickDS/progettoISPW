@@ -49,7 +49,6 @@ public class ValidateLogin {
             throw new WrongLoginCredentialsException("Email o password non corretti");
 
         } catch (WrongLoginCredentialsException e) {
-            logger.warning("Tentativo di accesso fallito: " + e.getMessage());
             throw e;
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Errore durante la validazione dell'utente: ", e);
