@@ -6,7 +6,6 @@ import org.example.factory.ModelBeanFactory;
 import org.example.dao.DaoFactory;
 import org.example.entity.*;
 import org.example.graphic_controller.SessionManager;
-import org.example.view.BookingRoom;
 import org.example.entity.ReservationStatus;
 
 import java.sql.SQLException;
@@ -22,7 +21,6 @@ public class BookRoom {
     private List<Activity> selectedActivities = new ArrayList<>();
     private List<Service> selectedServices = new ArrayList<>();
     private static final String CHECK_INTERVALS = "opening";
-    private static final int MAX_NUMBER_OF_PARTICIPANTS = 5;
     private final Logger logger = Logger.getLogger(getClass().getName());
     private Reservation reservation;
 
