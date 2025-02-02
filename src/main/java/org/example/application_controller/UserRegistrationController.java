@@ -45,10 +45,9 @@ public class UserRegistrationController {
                 return "error:unknown_user_type";
             }
         } catch (UserAlreadyInsertedException e) {
-            logger.log(Level.WARNING, "Registrazione fallita: " + e.getMessage(), e);
             throw new UserAlreadyInsertedException(e.getMessage());
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: " + e.getMessage(), e);
+            logger.log(Level.SEVERE, "Errore durante la registrazione dell'utente: {0}", e.getMessage());
             return "error:database_error";
         }
     }
