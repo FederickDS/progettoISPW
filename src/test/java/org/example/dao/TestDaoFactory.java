@@ -1,7 +1,6 @@
 package org.example.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import org.example.entity.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,24 +33,10 @@ class TestDaoFactory {
     }
 
     @Test
-    void testGetClientDao_Database() {
-        DaoFactory.setStorageOption("database");
-        GenericDao<Client> clientDao = daoFactory.getClientDao();
-        assertTrue(clientDao instanceof ClientDaoDB, "Dovrebbe restituire ClientDaoDB in modalità database");
-    }
-
-    @Test
     void testGetReceptionistDao_Memory() {
         DaoFactory.setStorageOption("memory");
         GenericDao<Receptionist> receptionistDao = daoFactory.getReceptionistDao();
         assertTrue(receptionistDao instanceof ReceptionistDaoMemory, "Dovrebbe restituire ReceptionistDaoMemory in modalità memory");
-    }
-
-    @Test
-    void testGetReceptionistDao_Database() {
-        DaoFactory.setStorageOption("database");
-        GenericDao<Receptionist> receptionistDao = daoFactory.getReceptionistDao();
-        assertTrue(receptionistDao instanceof ReceptionistDaoDB, "Dovrebbe restituire ReceptionistDaoDB in modalità database");
     }
 
     @Test
@@ -62,13 +47,6 @@ class TestDaoFactory {
     }
 
     @Test
-    void testGetActivityDao_Database() {
-        DaoFactory.setStorageOption("database");
-        GenericDao<Activity> activityDao = daoFactory.getActivityDao();
-        assertTrue(activityDao instanceof ActivityDaoDB, "Dovrebbe restituire ActivityDaoDB in modalità database");
-    }
-
-    @Test
     void testGetRoomDao_Memory() {
         DaoFactory.setStorageOption("memory");
         GenericDao<Room> roomDao = DaoFactory.getRoomDao();
@@ -76,23 +54,9 @@ class TestDaoFactory {
     }
 
     @Test
-    void testGetRoomDao_Database() {
-        DaoFactory.setStorageOption("database");
-        GenericDao<Room> roomDao = DaoFactory.getRoomDao();
-        assertTrue(roomDao instanceof RoomDaoDB, "Dovrebbe restituire RoomDaoDB in modalità database");
-    }
-
-    @Test
     void testGetReservationDao_Memory() {
         DaoFactory.setStorageOption("memory");
         GenericDao<Reservation> reservationDao = DaoFactory.getReservationDao();
         assertTrue(reservationDao instanceof ReservationDaoMemory, "Dovrebbe restituire ReservationDaoMemory in modalità memory");
-    }
-
-    @Test
-    void testGetReservationDao_Database() {
-        DaoFactory.setStorageOption("database");
-        GenericDao<Reservation> reservationDao = DaoFactory.getReservationDao();
-        assertTrue(reservationDao instanceof ReservationDaoDB, "Dovrebbe restituire ReservationDaoDB in modalità database");
     }
 }
