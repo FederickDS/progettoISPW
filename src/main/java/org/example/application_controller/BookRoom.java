@@ -24,13 +24,6 @@ public class BookRoom {
     private static final String CHECK_INTERVALS = "opening";
     private final Logger logger = Logger.getLogger(getClass().getName());
     Reservation reservation;
-    protected static GenericDao<Room> roomDao;
-    protected static GenericDao<Reservation> reservationDao;
-
-    public BookRoom(GenericDao<Room> roomDao, GenericDao<Reservation> reservationDao) {
-        this.roomDao = roomDao;
-        this.reservationDao = reservationDao;
-    }
 
     public BookRoom() {
         //il costruttore non deve definire attributi

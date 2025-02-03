@@ -8,7 +8,6 @@ import org.example.entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -39,7 +38,7 @@ class BookRoomTest {
      * ✅ Verifica che una prenotazione valida venga confermata correttamente
      */
     @Test
-    void testSuccessfulBooking() throws SQLException {
+    void testSuccessfulBooking() {
         BookingRoomBean bookingRoomBean = new BookingRoomBean();
         bookingRoomBean.setCheckIn(LocalDate.of(2026, 3, 10));
         bookingRoomBean.setCheckOut(LocalDate.of(2026, 3, 15));
@@ -62,7 +61,7 @@ class BookRoomTest {
      * ❌ Verifica che non sia possibile prenotare una stanza già occupata
      */
     @Test
-    void testOverbooking() throws SQLException {
+    void testOverbooking() {
         // Creiamo una prenotazione iniziale per occupare una stanza
         BookingRoomBean bookingRoomBean1 = new BookingRoomBean();
         bookingRoomBean1.setCheckIn(LocalDate.of(2026, 3, 10));

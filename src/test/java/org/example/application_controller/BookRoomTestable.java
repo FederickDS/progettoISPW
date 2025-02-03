@@ -13,9 +13,12 @@ import java.util.logging.Logger;
 
 public class BookRoomTestable extends BookRoom {
     private final Logger logger = Logger.getLogger(getClass().getName());
+    GenericDao<Room> roomDao;
+    GenericDao<Reservation> reservationDao;
 
     public BookRoomTestable(GenericDao<Room> roomDao, GenericDao<Reservation> reservationDao) {
-        super(roomDao, reservationDao);
+        this.roomDao = roomDao;
+        this.reservationDao = reservationDao;
     }
 
     @Override
