@@ -1,6 +1,7 @@
 package org.example.application_controller;
 
 import org.example.bean.*;
+import org.example.dao.GenericDao;
 import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.dao.DaoFactory;
@@ -17,12 +18,19 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class BookRoom {
-    private List<Client> clientList = new ArrayList<>();
+    List<Client> clientList = new ArrayList<>();
     private List<Activity> selectedActivities = new ArrayList<>();
     private List<Service> selectedServices = new ArrayList<>();
     private static final String CHECK_INTERVALS = "opening";
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private Reservation reservation;
+    Reservation reservation;
+    protected static GenericDao<Room> roomDao;
+    protected static GenericDao<Reservation> reservationDao;
+
+    public BookRoom(GenericDao<Room> roomDao, GenericDao<Reservation> reservationDao) {
+        this.roomDao = roomDao;
+        this.reservationDao = reservationDao;
+    }
 
     public BookRoom() {
         //il costruttore non deve definire attributi
