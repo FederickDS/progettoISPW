@@ -35,7 +35,7 @@ class BookRoomTest {
     }
 
     /**
-     * ✅ Verifica che una prenotazione valida venga confermata correttamente
+     * Verifica che una prenotazione valida venga confermata correttamente
      */
     @Test
     void testSuccessfulBooking() {
@@ -45,7 +45,7 @@ class BookRoomTest {
         bookingRoomBean.setParticipantsNumber(2);
 
         int selectedRoom = bookRoom.selectRoom(bookingRoomBean);
-        assertNotEquals(-1, selectedRoom, "❌ ERRORE: Nessuna stanza disponibile per una prenotazione valida!");
+        assertNotEquals(-1, selectedRoom, "ERRORE: Nessuna stanza disponibile per una prenotazione valida!");
 
         bookingRoomBean.setRoomNumber(selectedRoom);
         bookRoom.saveReservation(bookingRoomBean);
@@ -54,11 +54,11 @@ class BookRoomTest {
         List<Reservation> allReservations = reservationDao.readAll();
         assertTrue(allReservations.stream()
                         .anyMatch(res -> res.getRoom().getRoomNumber() == selectedRoom),
-                "❌ ERRORE: La stanza " + selectedRoom + " non è stata prenotata!");
+                "ERRORE: La stanza " + selectedRoom + " non è stata prenotata!");
     }
 
     /**
-     * ❌ Verifica che non sia possibile prenotare una stanza già occupata
+     * Verifica che non sia possibile prenotare una stanza già occupata
      */
     @Test
     void testOverbooking() {
@@ -69,7 +69,7 @@ class BookRoomTest {
         bookingRoomBean1.setParticipantsNumber(2);
 
         int firstRoom = bookRoom.selectRoom(bookingRoomBean1);
-        assertNotEquals(-1, firstRoom, "❌ ERRORE: Nessuna stanza disponibile al primo tentativo!");
+        assertNotEquals(-1, firstRoom, "ERRORE: Nessuna stanza disponibile al primo tentativo!");
 
         bookingRoomBean1.setRoomNumber(firstRoom);
         bookRoom.saveReservation(bookingRoomBean1);
@@ -81,11 +81,11 @@ class BookRoomTest {
         bookingRoomBean2.setParticipantsNumber(2);
 
         int secondRoom = bookRoom.selectRoom(bookingRoomBean2);
-        assertNotEquals(firstRoom, secondRoom, "❌ ERRORE: La stessa stanza è stata prenotata due volte!");
+        assertNotEquals(firstRoom, secondRoom, "ERRORE: La stessa stanza è stata prenotata due volte!");
     }
 
     /**
-     * 🚫 Verifica che non sia possibile prenotare con date non valide (check-out prima del check-in)
+     * Verifica che non sia possibile prenotare con date non valide (check-out prima del check-in)
      */
     @Test
     void testInvalidDates() {
@@ -94,14 +94,14 @@ class BookRoomTest {
         bookingRoomBean.setCheckOut(LocalDate.of(2026, 3, 10)); // ❌ Data non valida!
 
         boolean result = bookRoom.checkHours(bookingRoomBean);
-        assertFalse(result, "❌ ERRORE: Il sistema ha accettato date non valide!");
+        assertFalse(result, "ERRORE: Il sistema ha accettato date non valide!");
     }
 
     /**
-     * 🔄 Test di stress: riempie tutte le stanze e verifica che alla fine non ci siano più stanze disponibili
+     *Test di stress: riempie tutte le stanze e verifica che alla fine non ci siano più stanze disponibili
      */
     @Test
-    void testOverbookingLoop() throws SQLException {
+    void testOverbookingLoop() {
         boolean foundNoAvailability = false;
 
         for (int i = 1; i <= 10; i++) {
@@ -115,7 +115,7 @@ class BookRoomTest {
 
             if (selectedRoom == -1) {
                 foundNoAvailability = true;
-                System.out.println("❌ Nessuna stanza disponibile al tentativo " + i);
+                System.out.println("Nessuna stanza disponibile al tentativo " + i);
                 break;
             }
 
@@ -125,10 +125,10 @@ class BookRoomTest {
             List<Reservation> allReservations = reservationDao.readAll();
             assertTrue(allReservations.stream()
                             .anyMatch(res -> res.getRoom().getRoomNumber() == selectedRoom),
-                    "❌ ERRORE: La stanza " + selectedRoom + " non risulta occupata dopo la prenotazione!");
+                    "ERRORE: La stanza " + selectedRoom + " non risulta occupata dopo la prenotazione!");
         }
 
-        System.out.println("📌 Numero totale di prenotazioni salvate: " + reservationDao.readAll().size());
-        assertTrue(foundNoAvailability, "❌ ERRORE: Il test deve confermare che almeno una volta non c'è disponibilità.");
+        System.out.println("Numero totale di prenotazioni salvate: " + reservationDao.readAll().size());
+        assertTrue(foundNoAvailability, "ERRORE: Il test deve confermare che almeno una volta non c'è disponibilità.");
     }
 }

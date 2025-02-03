@@ -1,7 +1,6 @@
 package org.example.application_controller;
 
 import org.example.bean.*;
-import org.example.dao.GenericDao;
 import org.example.facade.ApplicationFacade;
 import org.example.factory.ModelBeanFactory;
 import org.example.dao.DaoFactory;
