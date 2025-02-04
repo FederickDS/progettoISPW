@@ -91,7 +91,7 @@ class BookRoomTest {
     void testInvalidDates() {
         BookingRoomBean bookingRoomBean = new BookingRoomBean();
         bookingRoomBean.setCheckIn(LocalDate.of(2026, 3, 15));
-        bookingRoomBean.setCheckOut(LocalDate.of(2026, 3, 10)); // ❌ Data non valida!
+        bookingRoomBean.setCheckOut(LocalDate.of(2026, 3, 10)); // Data non valida!
 
         boolean result = bookRoom.checkHours(bookingRoomBean);
         assertFalse(result, "ERRORE: Il sistema ha accettato date non valide!");
@@ -111,7 +111,7 @@ class BookRoomTest {
             bookingRoomBean.setParticipantsNumber(2);
 
             int selectedRoom = bookRoom.selectRoom(bookingRoomBean);
-            System.out.println("🔍 Tentativo " + i + " → Stanza selezionata: " + selectedRoom);
+            System.out.println("Tentativo " + i + " → Stanza selezionata: " + selectedRoom);
 
             if (selectedRoom == -1) {
                 foundNoAvailability = true;
