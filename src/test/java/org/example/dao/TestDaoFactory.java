@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 class TestDaoFactory {
     private DaoFactory daoFactory;
-    private static final Logger logger = Logger.getLogger(TestDaoFactory.class.getName());
 
     @Mock
     private DatabaseConnectionManager mockConnectionManager;
