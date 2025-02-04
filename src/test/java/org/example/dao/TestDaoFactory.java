@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.Connection;
-import java.util.logging.Logger;
 
 class TestDaoFactory {
     private DaoFactory daoFactory;
