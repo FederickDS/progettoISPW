@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class ReservationDaoFile implements GenericDao<Reservation> {
     private static final String FILE_PATH = "reservations.json";
@@ -50,11 +51,71 @@ public class ReservationDaoFile implements GenericDao<Reservation> {
 
     @Override
     public void create(Reservation reservation) {
-        if (read(reservation.getReservationId()) != null) {
-            throw new IllegalArgumentException("Reservation already exists: " + reservation.getReservationId());
-        }
+        int newId = generateUniqueId();
+        reservation.setReservationId(newId);
+
         reservations.add(reservation);
         saveToFile();
+
+        saveClientsForReservation(newId, reservation.getClients());
+        saveServicesForReservation(newId, reservation.getFreeServices());
+        saveRoomsForReservation(newId, reservation.getRoom());
+        saveIntervalsForReservation(newId, reservation.getTimetable());
+    }
+
+    // Metodi per salvare le relazioni nei file
+    private void saveClientsForReservation(int reservationId, List<Client> clients) {
+        saveRelationToFile("reservation_clients.json", reservationId, clients, Client::getEmail);
+    }
+
+    private void saveServicesForReservation(int reservationId, List<Service> services) {
+        saveRelationToFile("reservation_services.json", reservationId, services, Service::getName);
+    }
+
+    private void saveRoomsForReservation(int reservationId, Room room) {
+        saveRelationToFile("reservation_rooms.json", reservationId, List.of(room), Room::getRoomNumber);
+    }
+
+    private void saveIntervalsForReservation(int reservationId, DailyTimeInterval interval) {
+        saveRelationToFile("reservation_intervals.json", reservationId, List.of(interval), i -> i.getStartDate().toString());
+    }
+
+    // Metodo generico per salvare le relazioni
+    private <T> void saveRelationToFile(String fileName, int reservationId, List<T> entities, Function<T, Object> keyExtractor) {
+        File file = new File(fileName);
+        List<String> relations = new ArrayList<>();
+
+        // Carica i dati esistenti
+        if (file.exists()) {
+            try (Reader reader = new FileReader(file)) {
+                Type listType = new TypeToken<List<String>>() {}.getType();
+                List<String> existingRelations = gson.fromJson(reader, listType);
+                if (existingRelations != null) {
+                    relations.addAll(existingRelations);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Aggiungi nuove relazioni
+        for (T entity : entities) {
+            relations.add(reservationId + ";" + keyExtractor.apply(entity));
+        }
+
+        // Salva il file
+        try (Writer writer = new FileWriter(file)) {
+            gson.toJson(relations, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int generateUniqueId() {
+        return reservations.stream()
+                .mapToInt(Reservation::getReservationId)
+                .max()
+                .orElse(0) + 1;  // Trova il massimo ID e lo incrementa
     }
 
     @Override

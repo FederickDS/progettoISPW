@@ -50,11 +50,10 @@ public class DailyTimeIntervalDaoFile implements GenericDao<DailyTimeInterval> {
 
     @Override
     public void create(DailyTimeInterval entity) {
-        if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) != null) {
-            throw new IllegalArgumentException("DailyTimeInterval already exists: " + entity);
+        if (read(entity.getStartDate(), entity.getEndDate(), entity.getType()) == null) {
+            intervals.add(entity);
+            saveToFile();
         }
-        intervals.add(entity);
-        saveToFile();
     }
 
     @Override
