@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,13 +65,17 @@ public class ClientDaoDB implements GenericDao<Client> {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+                    // Controllo se birth_date è NULL prima di chiamare toLocalDate()
+                    Date birthDateSql = rs.getDate("birth_date");
+                    LocalDate birthDate = (birthDateSql != null) ? birthDateSql.toLocalDate() : null;
+
                     return new Client(
                             rs.getString("first_name"),
                             rs.getString("last_name"),
                             rs.getString("email"),
                             rs.getString("phone_number"),
                             rs.getString("password"),
-                            rs.getDate("birth_date").toLocalDate(),
+                            birthDate, // Valore che può essere null
                             rs.getString("tax_code")
                     );
                 } else {
