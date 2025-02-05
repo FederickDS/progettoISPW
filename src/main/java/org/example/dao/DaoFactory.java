@@ -2,7 +2,6 @@ package org.example.dao;
 
 import org.example.entity.*;
 
-import java.awt.image.DataBufferShort;
 import java.sql.Connection;
 import java.util.List;
 
