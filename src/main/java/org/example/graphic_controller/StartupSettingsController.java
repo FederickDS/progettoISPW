@@ -27,6 +27,8 @@ public class StartupSettingsController {
             storageOption = "stateless";
         } else if (view.getDatabaseOption().isSelected()) {
             storageOption = "database";
+        } else if (view.getFileOption().isSelected()) { // Nuova opzione per i file
+            storageOption = "file";
         } else {
             view.showOptionUnselected();
             return;
@@ -44,7 +46,7 @@ public class StartupSettingsController {
 
         // Salvataggio interfaccia
         navigationService.setInterfaceOption(interfaceOption);
-        //Salvataggio opzione
+        //Salvataggio opzione di persistenza
         DaoFactory.setStorageOption(storageOption);
         // Passaggio del controllo a HomePageController
         navigationService.navigateToHomePage(this.navigationService);

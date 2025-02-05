@@ -9,6 +9,7 @@ public class StartupSettingsView{
 
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
+    private RadioButton fileOption;  // Nuova opzione per la persistenza su file
     private RadioButton colorInterfaceOption;
     private RadioButton bwInterfaceOption;
     private Button confirmButton;
@@ -27,9 +28,12 @@ public class StartupSettingsView{
         Label storageLabel = new Label("Seleziona la modalità di memorizzazione:");
         this.internalMemoryOption = new RadioButton("Memoria Interna");
         this.databaseOption = new RadioButton("Database");
+        this.fileOption = new RadioButton("File Locale"); // Nuova opzione
+
         ToggleGroup storageGroup = new ToggleGroup();
         this.internalMemoryOption.setToggleGroup(storageGroup);
         this.databaseOption.setToggleGroup(storageGroup);
+        this.fileOption.setToggleGroup(storageGroup); // Aggiunta alla selezione
 
         this.optionUnselected = new Text("Seleziona dove salvare i dati");
         this.optionUnselected.setVisible(false);
@@ -55,6 +59,7 @@ public class StartupSettingsView{
                 storageLabel,
                 this.internalMemoryOption,
                 this.databaseOption,
+                this.fileOption, // Aggiunta della nuova opzione
                 this.optionUnselected,
                 interfaceLabel,
                 this.colorInterfaceOption,
@@ -70,6 +75,10 @@ public class StartupSettingsView{
 
     public RadioButton getDatabaseOption() {
         return databaseOption;
+    }
+
+    public RadioButton getFileOption() { // Getter per la nuova opzione
+        return fileOption;
     }
 
     public RadioButton getColorInterfaceOption() {
