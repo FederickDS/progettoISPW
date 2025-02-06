@@ -52,9 +52,9 @@ public class HomePageAlternativeController {
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLoginOption().isSelected()) {
-            navigationService.navigateToLogin(navigationService, HOME_PAGE, HOME_PAGE, CLIENT);
+            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE);
         } else if (page.getReceptionistAccessOption().isSelected()) {
-            navigationService.navigateToLogin(navigationService, HOME_PAGE, HOME_PAGE, RECEPTIONIST);
+            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE);
         }
     }
 

@@ -61,6 +61,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Login");
     }
 
+    public void navigateToLoginAlternative(NavigationService navigationService, String previousPage, String nextPage){
+        LoginAlternativeController controller = new LoginAlternativeController(navigationService, previousPage, nextPage);
+        this.display(controller.getRoot(), "Login Alternativo");
+    }
+
     public void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType) {
         RegistrationController controller = new RegistrationController(navigationService, previousPage, nextPage, userType);
         this.display(controller.getRoot(), "Registrazione");

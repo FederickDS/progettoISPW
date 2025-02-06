@@ -8,16 +8,43 @@ import org.example.entity.User;
 import org.example.facade.ApplicationFacadeInterface;
 import org.example.graphic_controller.SessionManager;
 import org.example.view.AbstractLoginView;
+import org.example.view.AbstractLoginAlternativeView;
 import org.example.view.AbstractRegistrationView;
 import org.example.view.BookingRoom;
 
 import java.math.RoundingMode;
 
-// Classe centrale che mantiene i riferimenti a tutti gli adapter
 public class ModelBeanFactory {
 
-    private ModelBeanFactory(){
-        //nascosto costruttore pubblico implicito
+    private ModelBeanFactory() {
+        // Costruttore privato per nascondere il costruttore pubblico implicito
+    }
+
+    public static LoginBean getLoginBean(AbstractLoginView loginView) {
+        LoginBean loginBean = new LoginBean();
+        loginBean.populateFromView(loginView);
+        return loginBean;
+    }
+
+    public static LoginBean getLoginBean(AbstractLoginAlternativeView loginView) {
+        LoginBean loginBean = new LoginBean();
+        loginBean.populateFromAlternativeView(loginView);
+        return loginBean;
+    }
+
+    public static LoginBean loadLoginBean() {
+        if (SessionManager.getInstance().getEmail() == null) {
+            return null;
+        }
+        LoginBean loginBean = new LoginBean();
+        loginBean.setEmail(SessionManager.getInstance().getEmail());
+        loginBean.setPassword(SessionManager.getInstance().getPassword());
+        loginBean.setUserType(SessionManager.getInstance().getType());
+        return loginBean;
+    }
+
+    public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
+        return new UserRegistrationBean(registrationView);
     }
 
     public static PaymentBean toPaymentBean(Reservation reservation) {
@@ -28,30 +55,9 @@ public class ModelBeanFactory {
         int roomNumber = reservation.getRoom().getRoomNumber();
         String price = reservation.getPrice() != null ? "€" + reservation.getPrice().setScale(2, RoundingMode.HALF_UP) : "Non calcolato";
         String paymentDeadline = reservation.getPaymentDeadline();
-        int reservatonID = reservation.getReservationId();
+        int reservationID = reservation.getReservationId();
 
-        return new PaymentBean(roomNumber, price, paymentDeadline, reservatonID);
-    }
-
-    public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
-        return new UserRegistrationBean(registrationView);
-    }
-
-    public static LoginBean getLoginBean(AbstractLoginView loginView) {
-        LoginBean loginBean = new LoginBean();
-        loginBean.populateFromView(loginView);
-        return loginBean;
-    }
-
-    public static LoginBean loadLoginBean(){
-        if (SessionManager.getInstance().getEmail() == null) {
-            return null;
-        }
-        LoginBean loginBean = new LoginBean();
-        loginBean.setEmail(SessionManager.getInstance().getEmail());
-        loginBean.setPassword(SessionManager.getInstance().getPassword());
-        loginBean.setUserType(SessionManager.getInstance().getType());
-        return loginBean;
+        return new PaymentBean(roomNumber, price, paymentDeadline, reservationID);
     }
 
     public static BeanClientDetails getBeanClientDetails(Client client) {
@@ -89,10 +95,9 @@ public class ModelBeanFactory {
         return beanReservationDetails;
     }
 
-    public static BookingRoomBean setBookingRoomBean(BookingRoom bookingRoom, ApplicationFacadeInterface applicationFacade){
+    public static BookingRoomBean setBookingRoomBean(BookingRoom bookingRoom, ApplicationFacadeInterface applicationFacade) {
         BookingRoomBean bookingRoomBean = new BookingRoomBean();
         bookingRoomBean.populateView(bookingRoom, applicationFacade);
         return bookingRoomBean;
     }
-
 }
