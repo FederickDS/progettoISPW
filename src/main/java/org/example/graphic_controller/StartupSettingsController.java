@@ -21,13 +21,14 @@ public class StartupSettingsController {
     private void handleConfirmButton() {
         String storageOption;
         String interfaceOption;
+        String interfaceType;
 
         // Verifica della selezione della modalità di memorizzazione
         if (view.getInternalMemoryOption().isSelected()) {
             storageOption = "stateless";
         } else if (view.getDatabaseOption().isSelected()) {
             storageOption = "database";
-        } else if (view.getFileOption().isSelected()) { // Nuova opzione per i file
+        } else if (view.getFileOption().isSelected()) {
             storageOption = "file";
         } else {
             view.showOptionUnselected();
@@ -44,11 +45,26 @@ public class StartupSettingsController {
             return;
         }
 
+        // Verifica della selezione del tipo di interfaccia
+        if (view.getMainInterfaceOption().isSelected()) {
+            interfaceType = "main";
+        } else if (view.getSecondaryInterfaceOption().isSelected()) {
+            interfaceType = "secondary";
+        } else {
+            view.showInterfaceTypeUnselected();
+            return;
+        }
+
         // Salvataggio interfaccia
         navigationService.setInterfaceOption(interfaceOption);
-        //Salvataggio opzione di persistenza
+        // Salvataggio opzione di persistenza
         DaoFactory.setStorageOption(storageOption);
-        // Passaggio del controllo a HomePageController
-        navigationService.navigateToHomePage(this.navigationService);
+
+        // Navigazione in base all'interfaccia scelta
+        if ("main".equals(interfaceType)) {
+            navigationService.navigateToHomePage(this.navigationService);
+        } else {
+            navigationService.navigateToHomePageAlternative(this.navigationService);
+        }
     }
 }

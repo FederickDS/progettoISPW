@@ -9,16 +9,18 @@ public class StartupSettingsView{
 
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
-    private RadioButton fileOption;  // Nuova opzione per la persistenza su file
+    private RadioButton fileOption;
     private RadioButton colorInterfaceOption;
     private RadioButton bwInterfaceOption;
+    private RadioButton mainInterfaceOption;    // Opzione per interfaccia principale
+    private RadioButton secondaryInterfaceOption;  // Opzione per interfaccia secondaria
     private Button confirmButton;
     private Text optionUnselected;
     private Text interfaceUnselected;
+    private Text interfaceTypeUnselected;
     private VBox root;
 
     public StartupSettingsView() {
-        // Layout principale centrato
         this.root = new VBox(15);
         root.setPrefSize(1280, 720);
         root.setStyle("-fx-padding: 20; -fx-alignment: center;");
@@ -28,12 +30,12 @@ public class StartupSettingsView{
         Label storageLabel = new Label("Seleziona la modalità di memorizzazione:");
         this.internalMemoryOption = new RadioButton("Memoria Interna");
         this.databaseOption = new RadioButton("Database");
-        this.fileOption = new RadioButton("File Locale"); // Nuova opzione
+        this.fileOption = new RadioButton("File Locale");
 
         ToggleGroup storageGroup = new ToggleGroup();
         this.internalMemoryOption.setToggleGroup(storageGroup);
         this.databaseOption.setToggleGroup(storageGroup);
-        this.fileOption.setToggleGroup(storageGroup); // Aggiunta alla selezione
+        this.fileOption.setToggleGroup(storageGroup);
 
         this.optionUnselected = new Text("Seleziona dove salvare i dati");
         this.optionUnselected.setVisible(false);
@@ -51,6 +53,18 @@ public class StartupSettingsView{
         this.interfaceUnselected.setVisible(false);
         this.interfaceUnselected.setManaged(false);
 
+        // Nuova selezione: Tipo di interfaccia
+        Label interfaceTypeLabel = new Label("Seleziona l'interfaccia:");
+        mainInterfaceOption = new RadioButton("Principale");
+        secondaryInterfaceOption = new RadioButton("Secondaria");
+        ToggleGroup interfaceTypeGroup = new ToggleGroup();
+        mainInterfaceOption.setToggleGroup(interfaceTypeGroup);
+        secondaryInterfaceOption.setToggleGroup(interfaceTypeGroup);
+
+        this.interfaceTypeUnselected = new Text("Seleziona l'interfaccia da utilizzare");
+        this.interfaceTypeUnselected.setVisible(false);
+        this.interfaceTypeUnselected.setManaged(false);
+
         // Bottone di conferma
         confirmButton = new Button("Conferma");
 
@@ -59,12 +73,16 @@ public class StartupSettingsView{
                 storageLabel,
                 this.internalMemoryOption,
                 this.databaseOption,
-                this.fileOption, // Aggiunta della nuova opzione
+                this.fileOption,
                 this.optionUnselected,
                 interfaceLabel,
                 this.colorInterfaceOption,
                 this.bwInterfaceOption,
                 this.interfaceUnselected,
+                interfaceTypeLabel,
+                this.mainInterfaceOption,
+                this.secondaryInterfaceOption,
+                this.interfaceTypeUnselected,
                 this.confirmButton
         );
     }
@@ -77,7 +95,7 @@ public class StartupSettingsView{
         return databaseOption;
     }
 
-    public RadioButton getFileOption() { // Getter per la nuova opzione
+    public RadioButton getFileOption() {
         return fileOption;
     }
 
@@ -87,6 +105,14 @@ public class StartupSettingsView{
 
     public RadioButton getBwInterfaceOption() {
         return bwInterfaceOption;
+    }
+
+    public RadioButton getMainInterfaceOption() {
+        return mainInterfaceOption;
+    }
+
+    public RadioButton getSecondaryInterfaceOption() {
+        return secondaryInterfaceOption;
     }
 
     public Button getConfirmButton() {
@@ -103,5 +129,12 @@ public class StartupSettingsView{
         this.interfaceUnselected.setManaged(true);
     }
 
-    public VBox getRoot() {return root;}
+    public void showInterfaceTypeUnselected() {
+        this.interfaceTypeUnselected.setVisible(true);
+        this.interfaceTypeUnselected.setManaged(true);
+    }
+
+    public VBox getRoot() {
+        return root;
+    }
 }

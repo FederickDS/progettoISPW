@@ -5,6 +5,7 @@ import org.example.application_controller.BookRoom;
 
 public interface NavigationService {
     void navigateToHomePage(NavigationService navigationService);
+    void navigateToHomePageAlternative(NavigationService navigationService);
     void navigateToServiceSelection(NavigationService navigationService);
     void navigateToStartupSettings(NavigationService navigationService);
     void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom);

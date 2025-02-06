@@ -30,6 +30,12 @@ public class NavigationManager implements NavigationService {
     }
 
     @Override
+    public void navigateToHomePageAlternative(NavigationService navigationService) {
+        HomePageAlternativeController controller = new HomePageAlternativeController(navigationService);
+        this.display(controller.getRoot(), "Home Page (Alternativa)");
+    }
+
+    @Override
     public void navigateToServiceSelection(NavigationService navigationService) {
         ServiceSelectionController controller = new ServiceSelectionController(navigationService);
         this.display(controller.getRoot(), "Selezione Servizi");
@@ -104,6 +110,7 @@ public class NavigationManager implements NavigationService {
         switch (previousPage) {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(navigationService);
+            case "HomePageAlternative" -> navigationService.navigateToHomePageAlternative(navigationService);
             case "NotImplemented" -> navigationService.navigateToNotImplemented(navigationService,previousPage);
             case "BookingRoomController" -> navigationService.navigateToBookingRoom(navigationService,null);
             default -> logger.warning("Pagina precedente sconosciuta");
