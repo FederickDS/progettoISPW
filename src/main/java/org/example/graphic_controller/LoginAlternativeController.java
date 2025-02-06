@@ -45,7 +45,13 @@ public class LoginAlternativeController {
             return;
         }
 
-        String typeOfLogin = userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist");
+        String typeOfLogin;
+        if (userType == null) {
+            typeOfLogin = loginView.getClientLoginOption().isSelected() ? "client" : "receptionist";
+        } else {
+            typeOfLogin = userType;
+        }
+
         LoginBean loginBean = ModelBeanFactory.getLoginBean(loginView);
         loginBean.setUserType(typeOfLogin);
 

@@ -90,7 +90,7 @@ public class HomePageAlternativeController {
 
     public void goToOriginalHomePage() {
         SessionManager.getInstance().clearSession();
-        navigationService.navigateToHomePage(navigationService);
+        navigationService.navigateToHomePageAlternative(navigationService);
     }
 
     public VBox getRoot() {
