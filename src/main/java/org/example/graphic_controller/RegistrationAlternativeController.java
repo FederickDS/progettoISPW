@@ -28,7 +28,7 @@ public class RegistrationAlternativeController {
         this.registrationView = new RegistrationViewAlternative() {
             @Override
             protected String getTitleText() {
-                return "Registrazione " + (userType.equals("client") ? "Cliente" : "Receptionist");
+                return "Registrazione " + (userType == null ? "" : userType.equals("client") ? "Cliente" : "Receptionist");
             }
 
             @Override
@@ -36,6 +36,10 @@ public class RegistrationAlternativeController {
                 // Implementazione specifica per nascondere errori
             }
         };
+
+        if (userType != null) {
+            registrationView.hideUserTypeToggle(); // Nasconde il ToggleButton in caso di scelta predefinita
+        }
 
         addEventHandlers();
     }
@@ -49,7 +53,12 @@ public class RegistrationAlternativeController {
     private void handleRegistration() {
         UserRegistrationController appController = new UserRegistrationController();
         UserRegistrationBean userRegistrationBean = ModelBeanFactory.getUserRegistrationBean(registrationView);
-        userRegistrationBean.setUserType(userType);
+
+        if (userType == null) {
+            userRegistrationBean.setUserType(registrationView.getSelectedUserType());
+        } else {
+            userRegistrationBean.setUserType(userType);
+        }
 
         if (!userRegistrationBean.validateAllFields(registrationView)) {
             return;

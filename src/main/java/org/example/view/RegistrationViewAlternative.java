@@ -27,6 +27,7 @@ public abstract class RegistrationViewAlternative {
     protected ToggleGroup userTypeGroup;
     protected RadioButton clientOption;
     protected RadioButton receptionistOption;
+    protected VBox userTypeBox;
 
     protected RegistrationViewAlternative() {
         root = new VBox(15);
@@ -90,7 +91,7 @@ public abstract class RegistrationViewAlternative {
         receptionistOption.setToggleGroup(userTypeGroup);
         clientOption.setSelected(true);
 
-        VBox userTypeBox = new VBox(10, new Label("Seleziona il tipo di utente:"), clientOption, receptionistOption);
+        userTypeBox = new VBox(10, new Label("Seleziona il tipo di utente:"), clientOption, receptionistOption);
 
         confirmButton = new Button("Conferma");
         confirmButton.getStyleClass().add("button");
@@ -134,4 +135,7 @@ public abstract class RegistrationViewAlternative {
     public Text getRepeatPasswordError() { return repeatPasswordError; }
     public Button getBackButton() { return backButton; }
     public Button getLoginButton() { return loginButton; }
+    public void hideUserTypeToggle() {
+        root.getChildren().remove(userTypeBox);
+    }
 }

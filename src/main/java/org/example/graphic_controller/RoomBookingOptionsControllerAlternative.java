@@ -10,7 +10,7 @@ public class RoomBookingOptionsControllerAlternative {
     private final NavigationService navigationService;
     private final String previousPage;
     private final String nextPage;
-    private static final String CLIENT = "Client";
+    private static final String CLIENT = "client";
 
     public RoomBookingOptionsControllerAlternative(NavigationService navigationService, String previousPage, String nextPage) {
         this.navigationService = navigationService;
