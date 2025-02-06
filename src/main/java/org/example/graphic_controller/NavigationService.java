@@ -12,8 +12,11 @@ public interface NavigationService {
     void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String type);
     void navigateToLoginAlternative(NavigationService navigationService, String previousPage, String nextPage);
     void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType);
+    void navigateToRegistrationAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType);
     void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage);
+    void navigateToRoomBookingOptionsAlternative(NavigationService navigationService, String previousPage, String nextPage);
     void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage);
+    void navigateToEssentialInfoAlternative(NavigationService navigationService, String previousPage, String nextPage);
     void navigateToNotImplemented(NavigationService navigationService, String previousPage);
     void navigateBack(String previousPage, NavigationService navigationService);
     void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom);

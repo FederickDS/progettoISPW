@@ -4,29 +4,28 @@ import javafx.scene.layout.VBox;
 import org.example.application_controller.EssentialInfoController;
 import org.example.entity.Client;
 import org.example.facade.ApplicationFacade;
-import org.example.view.EssentialInfoView;
+import org.example.view.EssentialInfoViewAlternative;
 
 import java.util.regex.Pattern;
 
-public class EssentialInfoGraphicController {
-    private final EssentialInfoView essentialInfoView;
+public class EssentialInfoGraphicControllerAlternative {
+    private final EssentialInfoViewAlternative essentialInfoView;
     private final String previousPage;
     private final String nextPage;
     private final NavigationService navigationService;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
-    public EssentialInfoGraphicController(NavigationService navigationService, String previousPage, String nextPage) {
+    public EssentialInfoGraphicControllerAlternative(NavigationService navigationService, String previousPage, String nextPage) {
         this.navigationService = navigationService;
         this.previousPage = previousPage;
         this.nextPage = nextPage;
-        this.essentialInfoView = new EssentialInfoView();
-        essentialInfoView.hideBasicFields();
+        this.essentialInfoView = new EssentialInfoViewAlternative();
         addEventHandlers();
     }
 
     private void addEventHandlers() {
-        essentialInfoView.getRegisterButton().setOnAction(e -> handleRegistration());
-        essentialInfoView.getCancelButton().setOnAction(e -> this.navigationService.navigateBack(previousPage,this.navigationService));
+        essentialInfoView.getConfirmButton().setOnAction(e -> handleRegistration());
+        essentialInfoView.getBackButton().setOnAction(e -> this.navigationService.navigateBack(previousPage, this.navigationService));
     }
 
     private void handleRegistration() {
@@ -47,52 +46,63 @@ public class EssentialInfoGraphicController {
 
         switch (result) {
             case "success":
-                // Salvo le credenziali nella sessione
                 SessionManager.getInstance().setCredentials(
                         essentialInfoView.getEmailField().getText(),
-                        essentialInfoView.getPasswordField().getText(),
-                        essentialInfoView.getType()
+                        null,
+                        essentialInfoView.getSelectedInfoType()
                 );
                 navigateToNextPage();
                 break;
 
             case "error:client_exists":
-                essentialInfoView.showDatabaseError("Questo indirizzo email è già registrato.");
-                ApplicationFacade.showErrorMessage("Errore","Errore nei campi inseriti","L'indirizzo email è già stato registrato");
+                essentialInfoView.getEmailError().setText("Questo indirizzo email è già registrato.");
+                essentialInfoView.getEmailError().setVisible(true);
+                ApplicationFacade.showErrorMessage("Errore", "Errore nei campi inseriti", "L'indirizzo email è già stato registrato");
                 break;
 
             case "error:database_error":
             default:
-                essentialInfoView.showDatabaseError("Errore durante la registrazione. Riprova più tardi.");
+                essentialInfoView.getEmailError().setText("Errore durante la registrazione. Riprova più tardi.");
+                essentialInfoView.getEmailError().setVisible(true);
                 break;
         }
     }
 
-    public boolean checkFields(EssentialInfoView view) {
+    public boolean checkFields(EssentialInfoViewAlternative view) {
         boolean result = true;
-        view.hideAllErrors();
 
+        // Nascondi tutti gli errori prima di eseguire i controlli
+        view.getFirstNameError().setVisible(false);
+        view.getLastNameError().setVisible(false);
+        view.getEmailError().setVisible(false);
+        view.getPhoneNumberError().setVisible(false);
+
+        // Controllo Nome
         String firstName = view.getFirstNameField().getText();
         if (firstName.isBlank()) {
-            view.showFirstNameError();
+            view.getFirstNameError().setVisible(true);
             result = false;
         }
 
+        // Controllo Cognome
         String lastName = view.getLastNameField().getText();
         if (lastName.isBlank()) {
-            view.showLastNameError();
+            view.getLastNameError().setVisible(true);
             result = false;
         }
 
+        // Controllo Email
         String email = view.getEmailField().getText();
         if (email.isBlank() || !Pattern.matches(EMAIL_REGEX, email)) {
-            view.showEmailError();
+            view.getEmailError().setVisible(true);
             result = false;
         }
 
+        // Controllo Numero di Telefono
         String phoneNumber = view.getPhoneNumberField().getText();
-        if (phoneNumber.length() != 10) {
-            view.showPhoneNumberError("Il numero di telefono deve essere di 10 cifre, senza prefisso, italiano.");
+        if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d{10}")) {
+            view.getPhoneNumberError().setText("Il numero di telefono deve essere di 10 cifre, senza prefisso, italiano.");
+            view.getPhoneNumberError().setVisible(true);
             result = false;
         }
 
@@ -101,7 +111,6 @@ public class EssentialInfoGraphicController {
 
 
     private void navigateToNextPage() {
-        // Passa l'utente autenticato alla pagina successiva o memorizzalo in una sessione
         if (nextPage.equalsIgnoreCase("HomePage")) {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {

@@ -84,11 +84,13 @@ public class LoginAlternativeController {
             navigationService.navigateToHomePage(this.navigationService);
         } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
             navigationService.navigateToServiceSelection(this.navigationService);
+        } else if(nextPage.equalsIgnoreCase("HomePageAlternative")){
+            navigationService.navigateToHomePageAlternative(this.navigationService);
         }
     }
 
     private void goToRegistration() {
-        navigationService.navigateToRegistration(this.navigationService, previousPage, nextPage, loginView.getClientLoginOption().isSelected() ? "client" : "receptionist");
+        navigationService.navigateToRegistrationAlternative(this.navigationService, previousPage, nextPage, loginView.getClientLoginOption().isSelected() ? "client" : "receptionist");
     }
 
     public VBox getRoot() {

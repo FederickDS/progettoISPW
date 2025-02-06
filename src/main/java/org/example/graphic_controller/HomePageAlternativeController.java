@@ -48,12 +48,10 @@ public class HomePageAlternativeController {
         }
 
         if (page.getBookRoomOption().isSelected()) {
-            navigationService.navigateToRoomBookingOptions(navigationService, HOME_PAGE, "ServiceSelection");
+            navigationService.navigateToRoomBookingOptionsAlternative(navigationService, HOME_PAGE, "ServiceSelection");
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLoginOption().isSelected()) {
-            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE);
-        } else if (page.getReceptionistAccessOption().isSelected()) {
             navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE);
         }
     }

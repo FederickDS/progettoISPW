@@ -52,12 +52,7 @@ public class EssentialInfoController {
         return result;
     }
 
-    public Client createClientFromInput(EssentialInfoView view) {
-        String firstName = view.getFirstNameField().getText();
-        String lastName = view.getLastNameField().getText();
-        String phoneNumber = view.getPhoneNumberField().getText();
-        String email = view.getEmailField().getText();
-
+    public Client createClientFromInput(String firstName, String lastName, String email, String phoneNumber) throws UserAlreadyInsertedException {
         Client client = new Client();
         client.setFirstName(firstName);
         client.setLastName(lastName);

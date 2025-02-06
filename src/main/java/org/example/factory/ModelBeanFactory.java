@@ -7,10 +7,7 @@ import org.example.entity.Reservation;
 import org.example.entity.User;
 import org.example.facade.ApplicationFacadeInterface;
 import org.example.graphic_controller.SessionManager;
-import org.example.view.AbstractLoginView;
-import org.example.view.AbstractLoginAlternativeView;
-import org.example.view.AbstractRegistrationView;
-import org.example.view.BookingRoom;
+import org.example.view.*;
 
 import java.math.RoundingMode;
 
@@ -44,6 +41,10 @@ public class ModelBeanFactory {
     }
 
     public static UserRegistrationBean getUserRegistrationBean(AbstractRegistrationView registrationView) {
+        return new UserRegistrationBean(registrationView);
+    }
+
+    public static UserRegistrationBean getUserRegistrationBean(RegistrationViewAlternative registrationView) {
         return new UserRegistrationBean(registrationView);
     }
 

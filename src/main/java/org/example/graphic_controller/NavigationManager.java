@@ -46,6 +46,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
     }
 
+    public void navigateToRoomBookingOptionsAlternative(NavigationService navigationService, String previousPage, String nextPage) {
+        RoomBookingOptionsControllerAlternative controller = new RoomBookingOptionsControllerAlternative(navigationService, previousPage, nextPage);
+        this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
+    }
+
     public void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom) {
         BookingRoomController controller = new BookingRoomController(navigationService, bookRoom);
         this.display(controller.getRoot(), "Prenotazione Camera");
@@ -71,8 +76,18 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Registrazione");
     }
 
+    public void navigateToRegistrationAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType) {
+        RegistrationAlternativeController controller = new RegistrationAlternativeController(navigationService, previousPage, nextPage, userType);
+        this.display(controller.getRoot(), "Registrazione (secondaria)");
+    }
+
     public void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage){
         EssentialInfoGraphicController controller = new EssentialInfoGraphicController(navigationService, previousPage, nextPage);
+        this.display(controller.getRoot(), "Inserisci Informazioni Essenziali");
+    }
+
+    public void navigateToEssentialInfoAlternative(NavigationService navigationService, String previousPage, String nextPage){
+        EssentialInfoGraphicControllerAlternative controller = new EssentialInfoGraphicControllerAlternative(navigationService, previousPage, nextPage);
         this.display(controller.getRoot(), "Inserisci Informazioni Essenziali");
     }
 

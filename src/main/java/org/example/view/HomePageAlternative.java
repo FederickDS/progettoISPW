@@ -9,7 +9,6 @@ public class HomePageAlternative {
     private final RadioButton bookRoomOption;
     private final RadioButton bookActivityOption;
     private final RadioButton loginOption;
-    private final RadioButton receptionistAccessOption;
     private final Button confirmButton;
     private final ToggleGroup selectionGroup;
     private final Label selectionError;
@@ -31,12 +30,10 @@ public class HomePageAlternative {
         bookRoomOption = new RadioButton("Prenota Stanza");
         bookActivityOption = new RadioButton("Prenota Attività");
         loginOption = new RadioButton("Accedi");
-        receptionistAccessOption = new RadioButton("Accesso per Receptionist");
 
         bookRoomOption.setToggleGroup(selectionGroup);
         bookActivityOption.setToggleGroup(selectionGroup);
         loginOption.setToggleGroup(selectionGroup);
-        receptionistAccessOption.setToggleGroup(selectionGroup);
 
         // Messaggio di errore nascosto inizialmente
         selectionError = new Label("Seleziona un'opzione prima di confermare.");
@@ -46,14 +43,13 @@ public class HomePageAlternative {
         // Bottone di conferma
         confirmButton = new Button("Conferma Scelta");
 
-        // Aggiungi alla root
+        // Aggiunta degli elementi alla root
         root.getChildren().addAll(
                 title,
                 description,
                 bookRoomOption,
                 bookActivityOption,
                 loginOption,
-                receptionistAccessOption,
                 selectionError,
                 confirmButton
         );
@@ -69,10 +65,6 @@ public class HomePageAlternative {
 
     public RadioButton getLoginOption() {
         return loginOption;
-    }
-
-    public RadioButton getReceptionistAccessOption() {
-        return receptionistAccessOption;
     }
 
     public Button getConfirmButton() {
