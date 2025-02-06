@@ -52,7 +52,7 @@ public class HomePageAlternativeController {
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLoginOption().isSelected()) {
-            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE);
+            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE, null);
         }
     }
 

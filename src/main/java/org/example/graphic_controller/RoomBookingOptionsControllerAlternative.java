@@ -45,7 +45,7 @@ public class RoomBookingOptionsControllerAlternative {
     }
 
     private void navigateToLogin() {
-        navigationService.navigateToLoginAlternative(navigationService, previousPage, nextPage);
+        navigationService.navigateToLoginAlternative(navigationService, previousPage, nextPage, CLIENT);
     }
 
     private void navigateToRegistration() {

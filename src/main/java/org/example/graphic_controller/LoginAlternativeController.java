@@ -17,37 +17,35 @@ public class LoginAlternativeController {
     private final String previousPage;
     private final String nextPage;
     private final NavigationService navigationService;
+    private final String userType;
 
-    public LoginAlternativeController(NavigationService navigationService, String previousPage, String nextPage) {
+    public LoginAlternativeController(NavigationService navigationService, String previousPage, String nextPage, String userType) {
         this.navigationService = navigationService;
         this.previousPage = previousPage;
         this.nextPage = nextPage;
+        this.userType = userType;
         this.loginView = new LoginAlternativeView();
+
+        if (userType != null) {
+            loginView.hideUserTypeToggle(); // Nasconde il ToggleButton in caso di scelta predefinita
+        }
 
         addEventHandlers();
     }
 
     private void addEventHandlers() {
-        // Bottone di Login
         loginView.getConfirmButton().setOnAction(e -> handleLogin());
-
-        // Gestione navigazione indietro
         loginView.getCancelButton().setOnAction(e -> this.navigationService.navigateBack(previousPage, this.navigationService));
-
         loginView.getRegisterButton().setOnAction(e -> goToRegistration());
     }
 
     private void handleLogin() {
-        // Verifica se è stato selezionato un tipo di login
-        if (loginView.getLoginTypeGroup().getSelectedToggle() == null) {
+        if (userType == null && loginView.getLoginTypeGroup().getSelectedToggle() == null) {
             ApplicationFacade.showErrorMessage("Errore", "Tipo di login non selezionato", "Seleziona Cliente o Receptionist prima di procedere.");
             return;
         }
 
-        // Determina il tipo di login selezionato
-        String typeOfLogin = loginView.getClientLoginOption().isSelected() ? "client" : "receptionist";
-
-        // Creazione e popolamento del bean di login
+        String typeOfLogin = userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist");
         LoginBean loginBean = ModelBeanFactory.getLoginBean(loginView);
         loginBean.setUserType(typeOfLogin);
 
@@ -80,17 +78,16 @@ public class LoginAlternativeController {
     }
 
     private void navigateToNextPage() {
-        if (nextPage.equalsIgnoreCase("HomePage")) {
-            navigationService.navigateToHomePage(this.navigationService);
-        } else if (nextPage.equalsIgnoreCase("ServiceSelection")) {
-            navigationService.navigateToServiceSelection(this.navigationService);
-        } else if(nextPage.equalsIgnoreCase("HomePageAlternative")){
-            navigationService.navigateToHomePageAlternative(this.navigationService);
+        switch (nextPage) {
+            case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
+            case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
+            case "HomePageAlternative" -> navigationService.navigateToHomePageAlternative(this.navigationService);
+            default -> logger.warning("Pagina successiva non definita");
         }
     }
 
     private void goToRegistration() {
-        navigationService.navigateToRegistrationAlternative(this.navigationService, previousPage, nextPage, loginView.getClientLoginOption().isSelected() ? "client" : "receptionist");
+        navigationService.navigateToRegistrationAlternative(this.navigationService, previousPage, nextPage, userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist"));
     }
 
     public VBox getRoot() {

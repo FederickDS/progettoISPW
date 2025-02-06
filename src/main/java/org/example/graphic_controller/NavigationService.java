@@ -10,7 +10,7 @@ public interface NavigationService {
     void navigateToStartupSettings(NavigationService navigationService);
     void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom);
     void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String type);
-    void navigateToLoginAlternative(NavigationService navigationService, String previousPage, String nextPage);
+    void navigateToLoginAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType);
     void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType);
     void navigateToRegistrationAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType);
     void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage);

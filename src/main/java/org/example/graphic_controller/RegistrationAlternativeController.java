@@ -47,7 +47,7 @@ public class RegistrationAlternativeController {
     private void addEventHandlers() {
         registrationView.getConfirmButton().setOnAction(e -> handleRegistration());
         registrationView.getBackButton().setOnAction(e -> navigationService.navigateBack(previousPage, navigationService));
-        registrationView.getLoginButton().setOnAction(e -> navigationService.navigateToLoginAlternative(navigationService, previousPage, nextPage));
+        registrationView.getLoginButton().setOnAction(e -> navigationService.navigateToLoginAlternative(navigationService, previousPage, nextPage, userType));
     }
 
     private void handleRegistration() {

@@ -121,4 +121,8 @@ public abstract class AbstractLoginAlternativeView {
     public Button getRegisterButton() {
         return registerButton;
     }
+    public void hideUserTypeToggle() {
+        root.getChildren().remove(clientLoginOption);
+        root.getChildren().remove(receptionistLoginOption);
+    }
 }
