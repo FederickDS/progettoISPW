@@ -31,7 +31,6 @@ public class EssentialInfoGraphicControllerAlternative {
     private void handleRegistration() {
         EssentialInfoController appController = new EssentialInfoController();
 
-        // Controllo dei campi prima di procedere
         if (!checkFields(essentialInfoView)) {
             return;
         }
@@ -39,7 +38,6 @@ public class EssentialInfoGraphicControllerAlternative {
         String lastName = essentialInfoView.getLastNameField().getText();
         String phoneNumber = essentialInfoView.getPhoneNumberField().getText();
         String email = essentialInfoView.getEmailField().getText();
-
 
         Client client = appController.createClientFromInput(firstName, lastName, phoneNumber, email);
         String result = appController.registerClient(client);
@@ -49,7 +47,7 @@ public class EssentialInfoGraphicControllerAlternative {
                 SessionManager.getInstance().setCredentials(
                         essentialInfoView.getEmailField().getText(),
                         null,
-                        essentialInfoView.getSelectedInfoType()
+                        "client"
                 );
                 navigateToNextPage();
                 break;
@@ -70,35 +68,29 @@ public class EssentialInfoGraphicControllerAlternative {
 
     public boolean checkFields(EssentialInfoViewAlternative view) {
         boolean result = true;
-
-        // Nascondi tutti gli errori prima di eseguire i controlli
         view.getFirstNameError().setVisible(false);
         view.getLastNameError().setVisible(false);
         view.getEmailError().setVisible(false);
         view.getPhoneNumberError().setVisible(false);
 
-        // Controllo Nome
         String firstName = view.getFirstNameField().getText();
         if (firstName.isBlank()) {
             view.getFirstNameError().setVisible(true);
             result = false;
         }
 
-        // Controllo Cognome
         String lastName = view.getLastNameField().getText();
         if (lastName.isBlank()) {
             view.getLastNameError().setVisible(true);
             result = false;
         }
 
-        // Controllo Email
         String email = view.getEmailField().getText();
         if (email.isBlank() || !Pattern.matches(EMAIL_REGEX, email)) {
             view.getEmailError().setVisible(true);
             result = false;
         }
 
-        // Controllo Numero di Telefono
         String phoneNumber = view.getPhoneNumberField().getText();
         if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d{10}")) {
             view.getPhoneNumberError().setText("Il numero di telefono deve essere di 10 cifre, senza prefisso, italiano.");
@@ -108,7 +100,6 @@ public class EssentialInfoGraphicControllerAlternative {
 
         return result;
     }
-
 
     private void navigateToNextPage() {
         if (nextPage.equalsIgnoreCase("HomePage")) {

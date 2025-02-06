@@ -6,7 +6,6 @@ import javafx.scene.text.Text;
 
 public class EssentialInfoViewAlternative {
     protected VBox root;
-
     protected Label titleLabel;
     protected TextField firstNameField;
     protected Text firstNameError;
@@ -16,9 +15,6 @@ public class EssentialInfoViewAlternative {
     protected Text emailError;
     protected TextField phoneNumberField;
     protected Text phoneNumberError;
-    protected ToggleGroup infoTypeGroup;
-    protected RadioButton clientOption;
-    protected RadioButton receptionistOption;
     protected Button confirmButton;
     protected Button backButton;
 
@@ -55,30 +51,17 @@ public class EssentialInfoViewAlternative {
         phoneNumberError.getStyleClass().add(error);
         phoneNumberError.setVisible(false);
 
-        infoTypeGroup = new ToggleGroup();
-        clientOption = new RadioButton("Cliente");
-        clientOption.setToggleGroup(infoTypeGroup);
-        receptionistOption = new RadioButton("Receptionist");
-        receptionistOption.setToggleGroup(infoTypeGroup);
-        clientOption.setSelected(true);
-
-        VBox userTypeBox = new VBox(10, new Label("Seleziona il tipo di informazione:"), clientOption, receptionistOption);
-
         confirmButton = new Button("Conferma");
         confirmButton.getStyleClass().add("button");
 
         backButton = new Button("Indietro");
         backButton.getStyleClass().add("button");
 
-        root.getChildren().addAll(titleLabel, firstNameField, firstNameError, lastNameField, lastNameError, emailField, emailError, phoneNumberField, phoneNumberError, userTypeBox, confirmButton, backButton);
+        root.getChildren().addAll(titleLabel, firstNameField, firstNameError, lastNameField, lastNameError, emailField, emailError, phoneNumberField, phoneNumberError, confirmButton, backButton);
     }
 
     public VBox getRoot() {
         return root;
-    }
-
-    public String getSelectedInfoType() {
-        return clientOption.isSelected() ? "client" : "receptionist";
     }
 
     public TextField getFirstNameField() { return firstNameField; }
@@ -89,9 +72,6 @@ public class EssentialInfoViewAlternative {
     public Text getEmailError() { return emailError; }
     public TextField getPhoneNumberField() { return phoneNumberField; }
     public Text getPhoneNumberError() { return phoneNumberError; }
-    public ToggleGroup getInfoTypeGroup() { return infoTypeGroup; }
-    public RadioButton getClientOption() { return clientOption; }
-    public RadioButton getReceptionistOption() { return receptionistOption; }
     public Button getConfirmButton() { return confirmButton; }
     public Button getBackButton() { return backButton; }
 }
