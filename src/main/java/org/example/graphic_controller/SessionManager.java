@@ -8,7 +8,7 @@ public class SessionManager {
     private String password;
     private String type;
 
-    private SessionManager() {}
+    protected SessionManager() {}
 
     public static SessionManager getInstance() {
         if (instance == null) {
