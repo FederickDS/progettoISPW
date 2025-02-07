@@ -13,6 +13,7 @@ public class BookingRoomBean {
     private int participantsNumber;
     private int roomNumber;
     private static final Logger logger = Logger.getLogger(BookingRoomBean.class.getName());
+    private static final String ERROR_TEXT = "Formato data non valido (YYYY-MM-DD)";
 
     public BookingRoomBean() {
         //vuoto per lui
@@ -79,14 +80,14 @@ public class BookingRoomBean {
         try {
             checkInDate = LocalDate.parse(bookingRoom.getCheckInDate());
         } catch (Exception e) {
-            bookingRoom.setCheckInError("Formato data non valido (YYYY-MM-DD)");
+            bookingRoom.setCheckInError(ERROR_TEXT);
             return;
         }
 
         try {
             checkOutDate = LocalDate.parse(bookingRoom.getCheckOutDate());
         } catch (Exception e) {
-            bookingRoom.setCheckOutError("Formato data non valido (YYYY-MM-DD)");
+            bookingRoom.setCheckOutError(ERROR_TEXT);
             return;
         }
         setCheckIn(checkInDate);
@@ -110,14 +111,14 @@ public class BookingRoomBean {
         try {
             checkInDate = LocalDate.parse(checkInDateStr);
         } catch (Exception e) {
-            bookingRoom.setCheckInError("Formato data non valido (YYYY-MM-DD)");
+            bookingRoom.setCheckInError(ERROR_TEXT);
             isCompatible = false;
         }
 
         try {
             checkOutDate = LocalDate.parse(checkOutDateStr);
         } catch (Exception e) {
-            bookingRoom.setCheckOutError("Formato data non valido (YYYY-MM-DD)");
+            bookingRoom.setCheckOutError(ERROR_TEXT);
             isCompatible = false;
         }
 
@@ -142,11 +143,9 @@ public class BookingRoomBean {
             isCompatible = false;
         }
 
-        if (checkOutDate != null) {
-            if (checkInDate.isAfter(checkOutDate)) {
-                bookingRoom.setCheckInError("La data di check-in deve essere precedente al check-out");
-                isCompatible = false;
-            }
+        if (checkOutDate != null && checkInDate.isAfter(checkOutDate)) {
+            bookingRoom.setCheckInError("La data di check-in deve essere precedente al check-out");
+            isCompatible = false;
         }
 
         return isCompatible;
