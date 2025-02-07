@@ -45,15 +45,15 @@ public class RoomBookingOptionsControllerAlternative {
     }
 
     private void navigateToLogin() {
-        navigationService.navigateToLoginAlternative(navigationService, previousPage, nextPage, CLIENT);
+        navigationService.navigateToLogin(navigationService, previousPage, nextPage, CLIENT);
     }
 
     private void navigateToRegistration() {
-        navigationService.navigateToRegistrationAlternative(navigationService, previousPage, nextPage, CLIENT);
+        navigationService.navigateToRegistration(navigationService, previousPage, nextPage, CLIENT);
     }
 
     private void navigateToEssentialInfo() {
-        navigationService.navigateToEssentialInfoAlternative(navigationService, previousPage, nextPage);
+        navigationService.navigateToEssentialInfo(navigationService, previousPage, nextPage);
     }
 
     private void navigateBack() {

@@ -29,11 +29,6 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Home Page");
     }
 
-    @Override
-    public void navigateToHomePageAlternative(NavigationService navigationService) {
-        HomePageAlternativeController controller = new HomePageAlternativeController(navigationService);
-        this.display(controller.getRoot(), "Home Page (Alternativa)");
-    }
 
     @Override
     public void navigateToServiceSelection(NavigationService navigationService) {
@@ -41,20 +36,8 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Selezione Servizi");
     }
 
-    @Override
-    public void navigateToServiceSelectionAlternative(NavigationService navigationService) {
-        ServiceSelectionControllerAlternative controller = new ServiceSelectionControllerAlternative(navigationService);
-        this.display(controller.getRoot(), "Selezione Servizi");
-    }
-
-
     public void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage) {
         RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService, previousPage, nextPage);
-        this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
-    }
-
-    public void navigateToRoomBookingOptionsAlternative(NavigationService navigationService, String previousPage, String nextPage) {
-        RoomBookingOptionsControllerAlternative controller = new RoomBookingOptionsControllerAlternative(navigationService, previousPage, nextPage);
         this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
     }
 
@@ -63,18 +46,8 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
-    public void navigateToBookingRoomAlternative(NavigationService navigationService, BookRoom bookRoom) {
-        BookingRoomControllerAlternative controller = new BookingRoomControllerAlternative(navigationService, bookRoom);
-        this.display(controller.getRoot(), "Prenotazione Camera (Alternativa)");
-    }
-
     public void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom) {
         ReservationPaymentController controller = new ReservationPaymentController(navigationService, bookRoom);
-        this.display(controller.getRoot(), "Pagamento prenotazione");
-    }
-
-    public void navigateToReservationPaymentAlternative(NavigationService navigationService, BookRoom bookRoom) {
-        ReservationPaymentControllerAlternative controller = new ReservationPaymentControllerAlternative(navigationService, bookRoom);
         this.display(controller.getRoot(), "Pagamento prenotazione");
     }
 
@@ -84,28 +57,13 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Login");
     }
 
-    public void navigateToLoginAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType){
-        LoginAlternativeController controller = new LoginAlternativeController(navigationService, previousPage, nextPage, userType);
-        this.display(controller.getRoot(), "Login Alternativo");
-    }
-
     public void navigateToRegistration(NavigationService navigationService, String previousPage, String nextPage, String userType) {
         RegistrationController controller = new RegistrationController(navigationService, previousPage, nextPage, userType);
         this.display(controller.getRoot(), "Registrazione");
     }
 
-    public void navigateToRegistrationAlternative(NavigationService navigationService, String previousPage, String nextPage, String userType) {
-        RegistrationAlternativeController controller = new RegistrationAlternativeController(navigationService, previousPage, nextPage, userType);
-        this.display(controller.getRoot(), "Registrazione (secondaria)");
-    }
-
     public void navigateToEssentialInfo(NavigationService navigationService, String previousPage, String nextPage){
         EssentialInfoGraphicController controller = new EssentialInfoGraphicController(navigationService, previousPage, nextPage);
-        this.display(controller.getRoot(), "Inserisci Informazioni Essenziali");
-    }
-
-    public void navigateToEssentialInfoAlternative(NavigationService navigationService, String previousPage, String nextPage){
-        EssentialInfoGraphicControllerAlternative controller = new EssentialInfoGraphicControllerAlternative(navigationService, previousPage, nextPage);
         this.display(controller.getRoot(), "Inserisci Informazioni Essenziali");
     }
 
@@ -120,19 +78,8 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
     }
 
-    public void navigateToCustomerViewAlternative(NavigationService navigationService){
-        CustomerViewControllerAlternative controller = new CustomerViewControllerAlternative(navigationService);
-        this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
-    }
-
-
     public void navigateToReceptionistView(NavigationService navigationService){
         ReceptionistViewController controller = new ReceptionistViewController(navigationService);
-        this.display(controller.getRoot(), "Dati di tutte le prenotazioni");
-    }
-
-    public void navigateToReceptionistViewAlternative(NavigationService navigationService){
-        ReceptionistViewControllerAlternative controller = new ReceptionistViewControllerAlternative(navigationService);
         this.display(controller.getRoot(), "Dati di tutte le prenotazioni");
     }
 
@@ -159,7 +106,6 @@ public class NavigationManager implements NavigationService {
         switch (previousPage) {
             case "StartupSettings" -> navigationService.navigateToStartupSettings(navigationService);
             case "HomePage" -> navigationService.navigateToHomePage(navigationService);
-            case "HomePageAlternative" -> navigationService.navigateToHomePageAlternative(navigationService);
             case "NotImplemented" -> navigationService.navigateToNotImplemented(navigationService,previousPage);
             case "BookingRoomController" -> navigationService.navigateToBookingRoom(navigationService,null);
             default -> logger.warning("Pagina precedente sconosciuta");
@@ -182,5 +128,9 @@ public class NavigationManager implements NavigationService {
             cssFile = "/style/bw-mode.css";
         }
         return cssFile;
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 }

@@ -62,7 +62,7 @@ public class CustomerViewControllerAlternative {
     }
 
     private void navigateBack(){
-        navigationService.navigateToHomePageAlternative(navigationService);
+        navigationService.navigateToHomePage(navigationService);
     }
 
     private void loadClientAndReservations() {

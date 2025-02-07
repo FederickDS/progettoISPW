@@ -87,14 +87,12 @@ public class LoginAlternativeController {
         switch (nextPage) {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
             case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
-            case "HomePageAlternative" -> navigationService.navigateToHomePageAlternative(this.navigationService);
-            case "ServiceSelectionAlternative" -> navigationService.navigateToServiceSelectionAlternative(this.navigationService);
             default -> logger.warning("Pagina successiva non definita");
         }
     }
 
     private void goToRegistration() {
-        navigationService.navigateToRegistrationAlternative(this.navigationService, previousPage, nextPage, userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist"));
+        navigationService.navigateToRegistration(this.navigationService, previousPage, nextPage, userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist"));
     }
 
     public VBox getRoot() {

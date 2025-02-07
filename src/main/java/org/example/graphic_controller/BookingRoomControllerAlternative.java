@@ -56,11 +56,11 @@ public class BookingRoomControllerAlternative {
 
     private void handleCancel() {
         logger.info("Prenotazione annullata. Torna alla Home Page.");
-        navigationService.navigateToServiceSelectionAlternative(this.navigationService);
+        navigationService.navigateToServiceSelection(this.navigationService);
     }
 
     private void navigateToNextPage() {
-        navigationService.navigateToReservationPaymentAlternative(this.navigationService, this.bookRoom);
+        navigationService.navigateToReservationPayment(this.navigationService, this.bookRoom);
     }
 
     public VBox getRoot() {

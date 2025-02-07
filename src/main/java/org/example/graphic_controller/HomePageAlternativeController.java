@@ -9,7 +9,7 @@ import org.example.view.ReceptionistHomePageAlternative;
 public class HomePageAlternativeController {
     private Object homePageAlternative;
     private final NavigationService navigationService;
-    private static final String HOME_PAGE = "HomePageAlternative";
+    private static final String HOME_PAGE = "HomePage";
     private static final String CLIENT = "client";
     private static final String RECEPTIONIST = "receptionist";
     private static final String ESSENTIAL_INFO = "essentialInfo";
@@ -48,11 +48,11 @@ public class HomePageAlternativeController {
         }
 
         if (page.getBookRoomOption().isSelected()) {
-            navigationService.navigateToRoomBookingOptionsAlternative(navigationService, HOME_PAGE, "ServiceSelectionAlternative");
+            navigationService.navigateToRoomBookingOptions(navigationService, HOME_PAGE, "ServiceSelection");
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLoginOption().isSelected()) {
-            navigationService.navigateToLoginAlternative(navigationService, HOME_PAGE, HOME_PAGE, null);
+            navigationService.navigateToLogin(navigationService, HOME_PAGE, HOME_PAGE, null);
         }
     }
 
@@ -67,7 +67,7 @@ public class HomePageAlternativeController {
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getUserInfoOption().isSelected()) {
-            navigationService.navigateToCustomerViewAlternative(navigationService);
+            navigationService.navigateToCustomerView(navigationService);
         } else if (page.getLogoutOption().isSelected()) {
             goToOriginalHomePage();
         }
@@ -80,7 +80,7 @@ public class HomePageAlternativeController {
         }
 
         if (page.getManageBookingsOption().isSelected()) {
-            navigationService.navigateToReceptionistViewAlternative(navigationService);
+            navigationService.navigateToReceptionistView(navigationService);
         } else if (page.getManageActivitiesOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLogoutOption().isSelected()) {
@@ -90,7 +90,7 @@ public class HomePageAlternativeController {
 
     public void goToOriginalHomePage() {
         SessionManager.getInstance().clearSession();
-        navigationService.navigateToHomePageAlternative(navigationService);
+        navigationService.navigateToHomePage(navigationService);
     }
 
     public VBox getRoot() {

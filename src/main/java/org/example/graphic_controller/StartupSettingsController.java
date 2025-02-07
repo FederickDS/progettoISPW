@@ -55,16 +55,15 @@ public class StartupSettingsController {
             return;
         }
 
+        if ("secondary".equals(interfaceType)) {
+            navigationService = new NavigationManagerAlternative(navigationService.getStage());
+        }
+
         // Salvataggio interfaccia
         navigationService.setInterfaceOption(interfaceOption);
         // Salvataggio opzione di persistenza
         DaoFactory.setStorageOption(storageOption);
 
-        // Navigazione in base all'interfaccia scelta
-        if ("main".equals(interfaceType)) {
-            navigationService.navigateToHomePage(this.navigationService);
-        } else {
-            navigationService.navigateToHomePageAlternative(this.navigationService);
-        }
+        navigationService.navigateToHomePage(this.navigationService);
     }
 }

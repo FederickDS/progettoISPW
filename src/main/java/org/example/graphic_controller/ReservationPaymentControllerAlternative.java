@@ -70,7 +70,7 @@ public class ReservationPaymentControllerAlternative {
     }
 
     private void navigateToHome() {
-        navigationService.navigateToHomePageAlternative(navigationService);
+        navigationService.navigateToHomePage(navigationService);
     }
 
     public VBox getRoot() {

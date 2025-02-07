@@ -46,7 +46,7 @@ public class ServiceSelectionControllerAlternative {
     public void handleConfirm() {
         confirmSelection();
         logger.info("Scelte confermate. Procedi con le azioni successive.");
-        navigationService.navigateToBookingRoomAlternative(navigationService, bookRoom);
+        navigationService.navigateToBookingRoom(navigationService, bookRoom);
     }
 
     public void handleCancel() {
