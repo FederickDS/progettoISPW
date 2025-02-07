@@ -11,6 +11,7 @@ public class ServiceSelectionAlternative {
     private final Button addActivityButton;
     private final Button confirmButton;
     private final Button cancelButton;
+    private static final String FX_ALIGNMENT = "-fx-alignment: center-left;";
 
     public ServiceSelectionAlternative() {
         root = new VBox(20);
@@ -20,20 +21,20 @@ public class ServiceSelectionAlternative {
         // Sezione per i servizi
         Label serviceLabel = new Label("Servizi Inclusi:");
         this.serviceSection = new VBox(10);
-        this.serviceSection.setStyle("-fx-alignment: center-left;");
+        this.serviceSection.setStyle(FX_ALIGNMENT);
         this.serviceSection.getChildren().add(serviceLabel);
 
         // Sezione per le attività
         Label activityLabel = new Label("Attività Disponibili:");
         this.activitySection = new VBox(10);
-        this.activitySection.setStyle("-fx-alignment: center-left;");
+        this.activitySection.setStyle(FX_ALIGNMENT);
 
         // ComboBox per la selezione dell'attività
         activityDropdown = new ComboBox<>();
         addActivityButton = new Button("Aggiungi Attività");
 
         VBox activityControls = new VBox(10, activityDropdown, addActivityButton);
-        activityControls.setStyle("-fx-alignment: center-left;");
+        activityControls.setStyle(FX_ALIGNMENT);
 
         this.activitySection.getChildren().addAll(activityLabel, activityControls);
 

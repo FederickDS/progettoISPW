@@ -28,6 +28,7 @@ public abstract class RegistrationViewAlternative {
     protected RadioButton clientOption;
     protected RadioButton receptionistOption;
     protected VBox userTypeBox;
+    protected static final String BUTTON = "button";
 
     protected RegistrationViewAlternative() {
         root = new VBox(15);
@@ -94,13 +95,13 @@ public abstract class RegistrationViewAlternative {
         userTypeBox = new VBox(10, new Label("Seleziona il tipo di utente:"), clientOption, receptionistOption);
 
         confirmButton = new Button("Conferma");
-        confirmButton.getStyleClass().add("button");
+        confirmButton.getStyleClass().add(BUTTON);
 
         backButton = new Button("Indietro");
-        backButton.getStyleClass().add("button");
+        backButton.getStyleClass().add(BUTTON);
 
         loginButton = new Button("Accedi");
-        loginButton.getStyleClass().add("button");
+        loginButton.getStyleClass().add(BUTTON);
 
         root.getChildren().addAll(titleLabel, firstNameField, firstNameError, lastNameField, lastNameError, emailField, emailError, phoneNumberField, phoneNumberError, passwordField, passwordError, repeatPasswordField, repeatPasswordError, userTypeBox, confirmButton, backButton, loginButton);
     }
