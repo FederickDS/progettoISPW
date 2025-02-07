@@ -48,7 +48,7 @@ public class HomePageAlternativeController {
         }
 
         if (page.getBookRoomOption().isSelected()) {
-            navigationService.navigateToRoomBookingOptionsAlternative(navigationService, HOME_PAGE, "ServiceSelection");
+            navigationService.navigateToRoomBookingOptionsAlternative(navigationService, HOME_PAGE, "ServiceSelectionAlternative");
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLoginOption().isSelected()) {

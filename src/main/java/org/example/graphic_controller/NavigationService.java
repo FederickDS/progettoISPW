@@ -7,6 +7,7 @@ public interface NavigationService {
     void navigateToHomePage(NavigationService navigationService);
     void navigateToHomePageAlternative(NavigationService navigationService);
     void navigateToServiceSelection(NavigationService navigationService);
+    void navigateToServiceSelectionAlternative(NavigationService navigationService);
     void navigateToStartupSettings(NavigationService navigationService);
     void navigateToBookingRoom(NavigationService navigationService, BookRoom bookRoom);
     void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String type);

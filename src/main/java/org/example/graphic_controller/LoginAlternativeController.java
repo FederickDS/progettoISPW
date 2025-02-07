@@ -88,6 +88,7 @@ public class LoginAlternativeController {
             case "HomePage" -> navigationService.navigateToHomePage(this.navigationService);
             case "ServiceSelection" -> navigationService.navigateToServiceSelection(this.navigationService);
             case "HomePageAlternative" -> navigationService.navigateToHomePageAlternative(this.navigationService);
+            case "ServiceSelectionAlternative" -> navigationService.navigateToServiceSelectionAlternative(this.navigationService);
             default -> logger.warning("Pagina successiva non definita");
         }
     }

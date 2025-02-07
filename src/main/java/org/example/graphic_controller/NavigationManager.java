@@ -41,6 +41,13 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Selezione Servizi");
     }
 
+    @Override
+    public void navigateToServiceSelectionAlternative(NavigationService navigationService) {
+        ServiceSelectionControllerAlternative controller = new ServiceSelectionControllerAlternative(navigationService);
+        this.display(controller.getRoot(), "Selezione Servizi");
+    }
+
+
     public void navigateToRoomBookingOptions(NavigationService navigationService, String previousPage, String nextPage) {
         RoomBookingOptionsController controller = new RoomBookingOptionsController(navigationService, previousPage, nextPage);
         this.display(controller.getRoot(), "Opzioni Prenotazione Stanza");
