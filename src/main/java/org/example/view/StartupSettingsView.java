@@ -5,19 +5,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-public class StartupSettingsView{
+public class StartupSettingsView {
 
     private RadioButton internalMemoryOption;
     private RadioButton databaseOption;
     private RadioButton fileOption;
     private RadioButton colorInterfaceOption;
     private RadioButton bwInterfaceOption;
-    private RadioButton mainInterfaceOption;    // Opzione per interfaccia principale
-    private RadioButton secondaryInterfaceOption;  // Opzione per interfaccia secondaria
     private Button confirmButton;
     private Text optionUnselected;
     private Text interfaceUnselected;
-    private Text interfaceTypeUnselected;
     private VBox root;
 
     public StartupSettingsView() {
@@ -53,18 +50,6 @@ public class StartupSettingsView{
         this.interfaceUnselected.setVisible(false);
         this.interfaceUnselected.setManaged(false);
 
-        // Nuova selezione: Tipo di interfaccia
-        Label interfaceTypeLabel = new Label("Seleziona l'interfaccia:");
-        mainInterfaceOption = new RadioButton("Principale");
-        secondaryInterfaceOption = new RadioButton("Secondaria");
-        ToggleGroup interfaceTypeGroup = new ToggleGroup();
-        mainInterfaceOption.setToggleGroup(interfaceTypeGroup);
-        secondaryInterfaceOption.setToggleGroup(interfaceTypeGroup);
-
-        this.interfaceTypeUnselected = new Text("Seleziona l'interfaccia da utilizzare");
-        this.interfaceTypeUnselected.setVisible(false);
-        this.interfaceTypeUnselected.setManaged(false);
-
         // Bottone di conferma
         confirmButton = new Button("Conferma");
 
@@ -79,10 +64,6 @@ public class StartupSettingsView{
                 this.colorInterfaceOption,
                 this.bwInterfaceOption,
                 this.interfaceUnselected,
-                interfaceTypeLabel,
-                this.mainInterfaceOption,
-                this.secondaryInterfaceOption,
-                this.interfaceTypeUnselected,
                 this.confirmButton
         );
     }
@@ -107,14 +88,6 @@ public class StartupSettingsView{
         return bwInterfaceOption;
     }
 
-    public RadioButton getMainInterfaceOption() {
-        return mainInterfaceOption;
-    }
-
-    public RadioButton getSecondaryInterfaceOption() {
-        return secondaryInterfaceOption;
-    }
-
     public Button getConfirmButton() {
         return confirmButton;
     }
@@ -127,11 +100,6 @@ public class StartupSettingsView{
     public void showInterfaceUnselected() {
         this.interfaceUnselected.setVisible(true);
         this.interfaceUnselected.setManaged(true);
-    }
-
-    public void showInterfaceTypeUnselected() {
-        this.interfaceTypeUnselected.setVisible(true);
-        this.interfaceTypeUnselected.setManaged(true);
     }
 
     public VBox getRoot() {

@@ -21,7 +21,6 @@ public class StartupSettingsController {
     private void handleConfirmButton() {
         String storageOption;
         String interfaceOption;
-        String interfaceType;
 
         // Verifica della selezione della modalità di memorizzazione
         if (view.getInternalMemoryOption().isSelected()) {
@@ -43,20 +42,6 @@ public class StartupSettingsController {
         } else {
             view.showInterfaceUnselected();
             return;
-        }
-
-        // Verifica della selezione del tipo di interfaccia
-        if (view.getMainInterfaceOption().isSelected()) {
-            interfaceType = "main";
-        } else if (view.getSecondaryInterfaceOption().isSelected()) {
-            interfaceType = "secondary";
-        } else {
-            view.showInterfaceTypeUnselected();
-            return;
-        }
-
-        if ("secondary".equals(interfaceType)) {
-            navigationService = new NavigationManagerAlternative(navigationService.getStage());
         }
 
         // Salvataggio interfaccia
