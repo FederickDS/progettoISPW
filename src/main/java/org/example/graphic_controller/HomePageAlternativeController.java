@@ -67,7 +67,7 @@ public class HomePageAlternativeController {
         } else if (page.getBookActivityOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getUserInfoOption().isSelected()) {
-            navigationService.navigateToCustomerView(navigationService);
+            navigationService.navigateToCustomerViewAlternative(navigationService);
         } else if (page.getLogoutOption().isSelected()) {
             goToOriginalHomePage();
         }
@@ -80,7 +80,7 @@ public class HomePageAlternativeController {
         }
 
         if (page.getManageBookingsOption().isSelected()) {
-            navigationService.navigateToReceptionistView(navigationService);
+            navigationService.navigateToReceptionistViewAlternative(navigationService);
         } else if (page.getManageActivitiesOption().isSelected()) {
             navigationService.navigateToNotImplemented(navigationService, HOME_PAGE);
         } else if (page.getLogoutOption().isSelected()) {

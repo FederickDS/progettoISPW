@@ -120,8 +120,19 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
     }
 
+    public void navigateToCustomerViewAlternative(NavigationService navigationService){
+        CustomerViewControllerAlternative controller = new CustomerViewControllerAlternative(navigationService);
+        this.display(controller.getRoot(), "Tutte le prenotazioni associate a te");
+    }
+
+
     public void navigateToReceptionistView(NavigationService navigationService){
         ReceptionistViewController controller = new ReceptionistViewController(navigationService);
+        this.display(controller.getRoot(), "Dati di tutte le prenotazioni");
+    }
+
+    public void navigateToReceptionistViewAlternative(NavigationService navigationService){
+        ReceptionistViewControllerAlternative controller = new ReceptionistViewControllerAlternative(navigationService);
         this.display(controller.getRoot(), "Dati di tutte le prenotazioni");
     }
 

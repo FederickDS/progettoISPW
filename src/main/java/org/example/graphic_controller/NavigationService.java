@@ -24,7 +24,9 @@ public interface NavigationService {
     void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom);
     void navigateToReservationPaymentAlternative(NavigationService navigationService, BookRoom bookRoom);
     void navigateToCustomerView(NavigationService navigationService);
+    void navigateToCustomerViewAlternative(NavigationService navigationService);
     void navigateToReceptionistView(NavigationService navigationService);
+    void navigateToReceptionistViewAlternative(NavigationService navigationService);
     void display(VBox root, String title);
     void setInterfaceOption(String interfaceOption);
     }
