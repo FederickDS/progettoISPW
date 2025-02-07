@@ -9,6 +9,7 @@ import org.example.bean.LoginBean;
 import org.example.view.LoginAlternativeView;
 import org.example.view.AbstractLoginAlternativeView;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginAlternativeController {
@@ -60,11 +61,11 @@ public class LoginAlternativeController {
         }
 
         try {
-            logger.info("Tentativo di login per utente: " + typeOfLogin);
+            logger.log(Level.INFO,"Tentativo di login per utente: {0}", typeOfLogin);
             loginBean.setPassword(ApplicationFacade.encrypt(loginBean.getPassword()));
 
             if (ApplicationFacade.isLoginValid(loginBean)) {
-                logger.info("Login riuscito per " + typeOfLogin);
+                logger.log(Level.INFO,"Login riuscito per {0}", typeOfLogin);
                 SessionManager.getInstance().setCredentials(loginBean);
                 navigateToNextPage();
             } else {
@@ -92,7 +93,7 @@ public class LoginAlternativeController {
     }
 
     private void goToRegistration() {
-        navigationService.navigateToRegistration(this.navigationService, previousPage, nextPage, userType != null ? userType : (loginView.getClientLoginOption().isSelected() ? "client" : "receptionist"));
+        navigationService.navigateToRegistration(this.navigationService, previousPage, nextPage, userType);
     }
 
     public VBox getRoot() {

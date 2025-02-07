@@ -28,7 +28,13 @@ public class RegistrationAlternativeController {
         this.registrationView = new RegistrationViewAlternative() {
             @Override
             protected String getTitleText() {
-                return "Registrazione " + (userType == null ? "" : userType.equals("client") ? "Cliente" : "Receptionist");
+                String userTypeLabel = "";
+
+                if (userType != null) {
+                    userTypeLabel = userType.equals("client") ? "Cliente" : "Receptionist";
+                }
+
+                return "Registrazione " + userTypeLabel;
             }
 
             @Override
