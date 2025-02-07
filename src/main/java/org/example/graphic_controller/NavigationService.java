@@ -22,6 +22,7 @@ public interface NavigationService {
     void navigateToNotImplemented(NavigationService navigationService, String previousPage);
     void navigateBack(String previousPage, NavigationService navigationService);
     void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom);
+    void navigateToReservationPaymentAlternative(NavigationService navigationService, BookRoom bookRoom);
     void navigateToCustomerView(NavigationService navigationService);
     void navigateToReceptionistView(NavigationService navigationService);
     void display(VBox root, String title);

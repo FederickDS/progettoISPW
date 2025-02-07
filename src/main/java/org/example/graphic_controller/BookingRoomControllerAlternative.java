@@ -60,7 +60,7 @@ public class BookingRoomControllerAlternative {
     }
 
     private void navigateToNextPage() {
-        navigationService.navigateToReservationPayment(this.navigationService, this.bookRoom);
+        navigationService.navigateToReservationPaymentAlternative(this.navigationService, this.bookRoom);
     }
 
     public VBox getRoot() {

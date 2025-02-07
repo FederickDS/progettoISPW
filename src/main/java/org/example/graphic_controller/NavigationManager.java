@@ -73,6 +73,12 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Pagamento prenotazione");
     }
 
+    public void navigateToReservationPaymentAlternative(NavigationService navigationService, BookRoom bookRoom) {
+        ReservationPaymentControllerAlternative controller = new ReservationPaymentControllerAlternative(navigationService, bookRoom);
+        this.display(controller.getRoot(), "Pagamento prenotazione");
+    }
+
+
     public void navigateToLogin(NavigationService navigationService, String previousPage, String nextPage, String typeOfLogin) {
         LoginController controller = new LoginController(navigationService, previousPage, nextPage, typeOfLogin);
         this.display(controller.getRoot(), "Login");
