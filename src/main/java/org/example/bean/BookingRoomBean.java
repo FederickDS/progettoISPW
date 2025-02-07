@@ -2,6 +2,7 @@ package org.example.bean;
 
 import org.example.facade.ApplicationFacadeInterface;
 import org.example.view.BookingRoom;
+import org.example.view.BookingRoomAlternative;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
@@ -66,6 +67,91 @@ public class BookingRoomBean {
         }
         return isCompatible;
     }
+
+    public void populateView(BookingRoomAlternative bookingRoom, ApplicationFacadeInterface applicationFacade) {
+        if (!checkCompatibleData(bookingRoom, applicationFacade)) {
+            return;
+        }
+
+        LocalDate checkInDate = null;
+        LocalDate checkOutDate = null;
+
+        try {
+            checkInDate = LocalDate.parse(bookingRoom.getCheckInDate());
+        } catch (Exception e) {
+            bookingRoom.setCheckInError("Formato data non valido (YYYY-MM-DD)");
+            return;
+        }
+
+        try {
+            checkOutDate = LocalDate.parse(bookingRoom.getCheckOutDate());
+        } catch (Exception e) {
+            bookingRoom.setCheckOutError("Formato data non valido (YYYY-MM-DD)");
+            return;
+        }
+        setCheckIn(checkInDate);
+        setCheckOut(checkOutDate);
+        setParticipantsNumber(bookingRoom.getParticipants());
+    }
+
+    public boolean checkCompatibleData(BookingRoomAlternative bookingRoom, ApplicationFacadeInterface applicationFacade) {
+        boolean isCompatible = true;
+        int maxNumberOfParticipants = applicationFacade.getMaxNumberOfParticipants();
+
+        bookingRoom.hideAllErrors();
+
+        String checkInDateStr = bookingRoom.getCheckInDate();
+        String checkOutDateStr = bookingRoom.getCheckOutDate();
+        Integer numberOfParticipants = bookingRoom.getParticipants();
+
+        LocalDate checkInDate = null;
+        LocalDate checkOutDate = null;
+
+        try {
+            checkInDate = LocalDate.parse(checkInDateStr);
+        } catch (Exception e) {
+            bookingRoom.setCheckInError("Formato data non valido (YYYY-MM-DD)");
+            isCompatible = false;
+        }
+
+        try {
+            checkOutDate = LocalDate.parse(checkOutDateStr);
+        } catch (Exception e) {
+            bookingRoom.setCheckOutError("Formato data non valido (YYYY-MM-DD)");
+            isCompatible = false;
+        }
+
+        if (checkInDate == null) {
+            bookingRoom.setCheckInError("Scegli una data per il check-in");
+            isCompatible = false;
+            return isCompatible;
+        }
+
+        if (checkOutDate == null) {
+            bookingRoom.setCheckOutError("Scegli una data per il check-out");
+            isCompatible = false;
+        }
+
+        if (numberOfParticipants == null || numberOfParticipants <= 0) {
+            bookingRoom.setParticipantsError("Numero di partecipanti non valido");
+            isCompatible = false;
+        }
+
+        if (numberOfParticipants != null && numberOfParticipants > maxNumberOfParticipants) {
+            bookingRoom.setParticipantsError("Il massimo numero di partecipanti è " + maxNumberOfParticipants);
+            isCompatible = false;
+        }
+
+        if (checkOutDate != null) {
+            if (checkInDate.isAfter(checkOutDate)) {
+                bookingRoom.setCheckInError("La data di check-in deve essere precedente al check-out");
+                isCompatible = false;
+            }
+        }
+
+        return isCompatible;
+    }
+
 
 
     public int getParticipantsNumber() {

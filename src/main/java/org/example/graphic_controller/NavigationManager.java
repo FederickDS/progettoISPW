@@ -63,6 +63,11 @@ public class NavigationManager implements NavigationService {
         this.display(controller.getRoot(), "Prenotazione Camera");
     }
 
+    public void navigateToBookingRoomAlternative(NavigationService navigationService, BookRoom bookRoom) {
+        BookingRoomControllerAlternative controller = new BookingRoomControllerAlternative(navigationService, bookRoom);
+        this.display(controller.getRoot(), "Prenotazione Camera (Alternativa)");
+    }
+
     public void navigateToReservationPayment(NavigationService navigationService, BookRoom bookRoom) {
         ReservationPaymentController controller = new ReservationPaymentController(navigationService, bookRoom);
         this.display(controller.getRoot(), "Pagamento prenotazione");

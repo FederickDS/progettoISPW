@@ -101,4 +101,11 @@ public class ModelBeanFactory {
         bookingRoomBean.populateView(bookingRoom, applicationFacade);
         return bookingRoomBean;
     }
+
+    public static BookingRoomBean setBookingRoomBean(BookingRoomAlternative bookingRoom, ApplicationFacadeInterface applicationFacade) {
+        BookingRoomBean bookingRoomBean = new BookingRoomBean();
+        bookingRoomBean.populateView(bookingRoom, applicationFacade);
+        return bookingRoomBean;
+    }
+
 }
