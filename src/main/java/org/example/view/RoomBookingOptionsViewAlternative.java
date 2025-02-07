@@ -2,6 +2,7 @@ package org.example.view;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class RoomBookingOptionsViewAlternative {
     private final VBox root;
@@ -9,6 +10,7 @@ public class RoomBookingOptionsViewAlternative {
     private final RadioButton loginOption;
     private final RadioButton registerOption;
     private final RadioButton essentialInfoOption;
+    private final Text selectionError;
     private final Button confirmButton;
     private final Button backButton;
 
@@ -32,12 +34,15 @@ public class RoomBookingOptionsViewAlternative {
         registerOption.setToggleGroup(toggleGroup);
         essentialInfoOption.setToggleGroup(toggleGroup);
 
+        selectionError = new Text("Seleziona un'opzione per prenotare la stanza");
+        selectionError.setVisible(false);
+
         // Bottone di conferma
         confirmButton = new Button("Conferma");
         backButton = new Button("Indietro");
 
         // Aggiungi elementi alla root
-        root.getChildren().addAll(title, description, loginOption, registerOption, essentialInfoOption, confirmButton, backButton);
+        root.getChildren().addAll(title, description, loginOption, registerOption, essentialInfoOption, selectionError, confirmButton, backButton);
     }
 
     public VBox getRoot() {
@@ -54,5 +59,9 @@ public class RoomBookingOptionsViewAlternative {
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    public void showSelectionError() {
+        selectionError.setVisible(true);
     }
 }

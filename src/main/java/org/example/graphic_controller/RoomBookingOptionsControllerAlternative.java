@@ -40,7 +40,10 @@ public class RoomBookingOptionsControllerAlternative {
                 case "Prenota senza registrarti":
                     navigateToEssentialInfo();
                     break;
+                default:
             }
+        } else {
+            view.showSelectionError();
         }
     }
 
