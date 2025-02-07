@@ -118,6 +118,13 @@ public class BookRoom {
             logger.info("prenotazione non riuscita");
         }
     }
+    public int getLastReservationIdForClient(String clientEmail) {
+        List<BeanReservationDetails> reservations = getReservationForClient(clientEmail);
+        return reservations.stream()
+                .mapToInt(BeanReservationDetails::getReservationId)
+                .max()
+                .orElse(-1);
+    }
 
     public BeanClientDetails getClientDetails() {
         try {
@@ -244,6 +251,15 @@ public class BookRoom {
     }
 
     public PaymentBean getReservationBean() {
-        return ModelBeanFactory.toPaymentBean(this.reservation);
+        int lastReservationId = getLastReservationIdForClient(SessionManager.getInstance().getEmail());
+        if (lastReservationId == -1) {
+            return null;
+        }
+        try {
+            Reservation lastReservation = DaoFactory.getReservationDao().read(lastReservationId);
+            return ModelBeanFactory.toPaymentBean(lastReservation);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }
